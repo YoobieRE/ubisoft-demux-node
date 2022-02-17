@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeMojoEventInfo {
+    optional string watcher_notify_interface_tag = 1;
+    optional uint32 ipc_hash = 2;
+    optional string mojo_interface_tag = 3;
+}

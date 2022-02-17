@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+import "protos/perfetto/common/sys_stats_counters.proto";
+
+message SysStatsConfig {
+    optional uint32 meminfo_period_ms = 1;
+    repeated MeminfoCounters meminfo_counters = 2;
+    optional uint32 vmstat_period_ms = 3;
+    repeated VmstatCounters vmstat_counters = 4;
+    optional uint32 stat_period_ms = 5;
+    
+    repeated StatCounters stat_counters = 6;
+    enum StatCounters {
+        STAT_UNSPECIFIED = 0;
+        STAT_CPU_TIMES = 1;
+        STAT_IRQ_COUNTS = 2;
+        STAT_SOFTIRQ_COUNTS = 3;
+        STAT_FORK_COUNT = 4;
+    }
+}

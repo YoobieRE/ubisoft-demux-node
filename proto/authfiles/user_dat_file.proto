@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package mg.protocol.user_dat_file;
+
+message UserInfo {
+    oneof _username {
+        string username = 1;
+    }
+    
+    oneof _ubi_account_id {
+        string ubi_account_id = 3;
+    }
+    
+    oneof _email {
+        string email = 5;
+    }
+    
+    oneof _name {
+        string name = 6;
+    }
+    
+    oneof _password_salt {
+        bytes password_salt = 8;
+    }
+    
+    oneof _password_hash {
+        bytes password_hash = 7;
+    }
+    
+    oneof _migration_email_hash {
+        string migration_email_hash = 9;
+    }
+    
+    oneof _remember_me_ticket {
+        string remember_me_ticket = 10;
+    }
+    
+    oneof _hash_iterations_offset {
+        uint32 hash_iterations_offset = 11;
+    }
+}
+
+message LegacyVulnerableUnversionedCache {
+    repeated UserInfo users = 1;
+}
+
+message StartupEntry {
+    oneof _is_remember_me {
+        bool is_remember_me = 1;
+    }
+    
+    oneof _is_restart_credentials {
+        bool is_restart_credentials = 2;
+    }
+    
+    oneof _user_index {
+        uint32 user_index = 3;
+    }
+}
+
+message EnvironmentCache {
+    repeated UserInfo users = 1;
+    
+    oneof _startup_entry {
+        StartupEntry startup_entry = 2;
+    }
+}
+
+message Cache {
+    oneof _prod {
+        EnvironmentCache prod = 1;
+    }
+    
+    oneof _uat {
+        EnvironmentCache uat = 2;
+    }
+    
+    oneof _dev {
+        EnvironmentCache dev = 3;
+    }
+}

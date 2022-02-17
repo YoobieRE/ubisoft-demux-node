@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ProcessStatsConfig {
+    repeated Quirks quirks = 1;
+    enum Quirks {
+        QUIRKS_UNSPECIFIED = 0;
+        DISABLE_INITIAL_DUMP = 1 [deprecated = true];
+        DISABLE_ON_DEMAND = 2;
+    }
+    
+    optional bool scan_all_processes_on_start = 2;
+    optional bool record_thread_names = 3;
+    optional uint32 proc_stats_poll_ms = 4;
+    optional uint32 proc_stats_cache_ttl_ms = 6;
+    optional bool record_thread_time_in_state = 7;
+    optional uint32 thread_time_in_state_cache_size = 8;
+}

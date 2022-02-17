@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+import "protos/perfetto/config/interceptors/console_config.proto";
+
+message InterceptorConfig {
+    optional string name = 1;
+    optional ConsoleConfig console_config = 100 [lazy = true];
+}

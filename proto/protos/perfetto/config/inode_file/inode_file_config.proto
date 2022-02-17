@@ -1,0 +1,17 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message InodeFileConfig {
+    optional uint32 scan_interval_ms = 1;
+    optional uint32 scan_delay_ms = 2;
+    optional uint32 scan_batch_size = 3;
+    optional bool do_not_scan = 4;
+    repeated string scan_mount_points = 5;
+    
+    repeated MountPointMappingEntry mount_point_mapping = 6;
+    message MountPointMappingEntry {
+        optional string mountpoint = 1;
+        repeated string scan_roots = 2;
+    }
+}

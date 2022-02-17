@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeMessagePump {
+    optional bool sent_messages_in_queue = 1;
+    optional uint64 io_handler_location_iid = 2;
+}

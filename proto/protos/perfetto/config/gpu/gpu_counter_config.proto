@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message GpuCounterConfig {
+    optional uint64 counter_period_ns = 1;
+    repeated uint32 counter_ids = 2;
+    optional bool instrumented_sampling = 3;
+    optional bool fix_gpu_clock = 4;
+}

@@ -1,0 +1,37 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message HeapprofdConfig {
+    optional uint64 sampling_interval_bytes = 1;
+    optional uint64 adaptive_sampling_shmem_threshold = 24;
+    optional uint64 adaptive_sampling_max_sampling_interval_bytes = 25;
+    repeated string process_cmdline = 2;
+    repeated uint64 pid = 4;
+    repeated string heaps = 20;
+    optional bool stream_allocations = 23;
+    repeated uint64 heap_sampling_intervals = 22;
+    optional bool all_heaps = 21;
+    optional bool all = 5;
+    optional uint32 min_anonymous_memory_kb = 15;
+    optional uint32 max_heapprofd_memory_kb = 16;
+    optional uint64 max_heapprofd_cpu_secs = 17;
+    repeated string skip_symbol_prefix = 7;
+    
+    optional ContinuousDumpConfig continuous_dump_config = 6;
+    message ContinuousDumpConfig {
+        optional uint32 dump_phase_ms = 5;
+        optional uint32 dump_interval_ms = 6;
+    }
+    
+    optional uint64 shmem_size_bytes = 8;
+    optional bool block_client = 9;
+    optional uint32 block_client_timeout_us = 14;
+    optional bool no_startup = 10;
+    optional bool no_running = 11;
+    optional bool dump_at_max = 13;
+    optional bool disable_fork_teardown = 18;
+    optional bool disable_vfork_detection = 19;
+    
+    reserved 12;
+}

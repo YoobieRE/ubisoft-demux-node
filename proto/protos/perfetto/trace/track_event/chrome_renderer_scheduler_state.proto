@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeRendererSchedulerState {
+    optional ChromeRAILMode rail_mode = 1;
+}
+
+enum ChromeRAILMode {
+    RAIL_MODE_NONE = 0;
+    RAIL_MODE_RESPONSE = 1;
+    RAIL_MODE_ANIMATION = 2;
+    RAIL_MODE_IDLE = 3;
+    RAIL_MODE_LOAD = 4;
+}

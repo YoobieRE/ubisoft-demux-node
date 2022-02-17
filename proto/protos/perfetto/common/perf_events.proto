@@ -1,0 +1,30 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message PerfEvents {
+    message Timebase {
+        oneof interval {
+            uint64 frequency = 2;
+            uint64 period = 1;
+        }
+        
+        oneof event {
+            Counter counter = 4;
+            Tracepoint tracepoint = 3;
+        }
+    }
+    
+    message Tracepoint {
+        optional string name = 1;
+        optional string filter = 2;
+    }
+    
+    enum Counter {
+        UNKNOWN_COUNTER = 0;
+        SW_CPU_CLOCK = 1;
+        SW_PAGE_FAULTS = 2;
+        HW_CPU_CYCLES = 10;
+        HW_INSTRUCTIONS = 11;
+    }
+}

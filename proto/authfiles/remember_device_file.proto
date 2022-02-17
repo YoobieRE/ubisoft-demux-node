@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package mg.protocol.remember_device_file;
+
+message User {
+    oneof _account_id {
+        string account_id = 1;
+    }
+    
+    oneof _email_hash {
+        string email_hash = 2;
+    }
+    
+    oneof _rd_ticket {
+        string rd_ticket = 3;
+    }
+}
+
+message UserLoginCache {
+    repeated User users = 2;
+    
+    oneof _version {
+        uint32 version = 1;
+    }
+}

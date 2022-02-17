@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message HistogramName {
+    optional uint64 iid = 1;
+    optional string name = 2;
+}
+
+message ChromeHistogramSample {
+    optional uint64 name_hash = 1;
+    optional string name = 2;
+    optional int64 sample = 3;
+    optional uint64 name_iid = 4;
+}
