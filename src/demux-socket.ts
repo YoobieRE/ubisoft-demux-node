@@ -1,7 +1,7 @@
 import { Debugger } from 'debug';
 import { once } from 'events';
 import tls from 'tls';
-import * as demux from './generated/proto/proto_demux/demux';
+import * as demux from './generated/proto_demux/demux';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
 import { addLengthPrefix, promiseTimeout } from './util';
 

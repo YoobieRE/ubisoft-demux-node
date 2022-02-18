@@ -1,7 +1,0 @@
-syntax = "proto2";
-
-package perfetto.protos;
-
-message AndroidPolledStateConfig {
-    optional uint32 poll_ms = 1;
-}

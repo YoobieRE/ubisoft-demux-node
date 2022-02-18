@@ -1,7 +1,0 @@
-syntax = "proto2";
-
-package perfetto.protos;
-
-message ChromeKeyedService {
-    optional string name = 1;
-}

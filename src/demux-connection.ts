@@ -2,7 +2,7 @@ import { Debugger } from 'debug';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
 import { addLengthPrefix, stripLengthPrefix } from './util';
-import * as demux from './generated/proto/proto_demux/demux';
+import * as demux from './generated/proto_demux/demux';
 
 export interface DemuxConnectionProps {
   serviceName: DemuxServiceName;

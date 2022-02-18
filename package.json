@@ -7,11 +7,15 @@
     "test": "DEBUG=ubisoft-demux* jest --coverage",
     "build": "rimraf dist && tsc",
     "lint": "tsc --noEmit && eslint .",
-    "gen-demux": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=oneof=unions --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages ./proto/proto_demux/demux.proto"
+    "gen-demux": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=oneof=unions --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
   },
   "author": {
     "name": "Charlie Laabs",
     "url": "https://github.com/claabs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claabs/ubisoft-demux-node.git"
   },
   "keywords": [
     "ubisoft",

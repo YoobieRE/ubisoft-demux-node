@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import protobuf from 'protobufjs';
 import debug from 'debug';
-import * as demux from './generated/proto/proto_demux/demux';
+import * as demux from './generated/proto_demux/demux';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
 import { DemuxConnection } from './demux-connection';
