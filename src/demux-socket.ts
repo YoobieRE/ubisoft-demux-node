@@ -3,6 +3,7 @@ import { once } from 'events';
 import tls from 'tls';
 import * as demux from './generated/proto/proto_demux/demux';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
+import { addLengthPrefix, promiseTimeout } from './util';
 
 export interface DemuxSocketProps {
   host: string;
@@ -12,12 +13,6 @@ export interface DemuxSocketProps {
 }
 
 type RespFn = (resp: demux.Downstream & protobuf.Message) => void;
-
-const addLengthPrefix = (data: Uint8Array): Buffer => {
-  const lengthPrefix = Buffer.alloc(4);
-  lengthPrefix.writeUint32BE(data.length);
-  return Buffer.concat([lengthPrefix, data]);
-};
 
 export class DemuxSocket {
   private host: string;
@@ -90,15 +85,27 @@ export class DemuxSocket {
     const connectionId = decodedDownstream.push?.data?.connectionId;
     if (requestId !== undefined) {
       const cb = this.pendingRequestResponses.get(requestId);
-      if (cb) cb(decodedDownstream);
+      if (cb) {
+        this.pendingRequestResponses.delete(requestId);
+        cb(decodedDownstream);
+      }
     }
     if (connectionId !== undefined) {
       const cb = this.pendingConnectionResponses.get(connectionId);
-      if (cb) cb(decodedDownstream);
+      if (cb) {
+        this.pendingRequestResponses.delete(connectionId);
+        cb(decodedDownstream);
+      }
     }
   }
 
-  public async makeRequest(payload: Omit<demux.Req, 'requestId'>): Promise<demux.Rsp> {
+  // public async request(
+  //   payload: Omit<Pick<demux.Req, 'serviceRequest'>, 'requestId'>
+  // ): Promise<Required<Pick<demux.Rsp, 'serviceRsp'>>>;
+
+  public async request(
+    payload: Omit<demux.Req, 'requestId'>
+  ): Promise<demux.Rsp & protobuf.Message> {
     const requestId = this.currentRequestId;
     this.currentRequestId += 1;
     const fullPayload: demux.Upstream = {
@@ -113,20 +120,22 @@ export class DemuxSocket {
     await this.write(prefixedPayload);
     this.debug('Sent requestId: %d', requestId);
 
-    const decodedResp = await new Promise<demux.Downstream & protobuf.Message<object>>(
-      (resolve, reject) => {
+    const decodedResp = await promiseTimeout(
+      this.timeout,
+      new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
         this.pendingRequestResponses.set(requestId, resolve);
-        setTimeout(reject, this.timeout);
-      }
+      })
     );
-    return decodedResp.response as demux.Rsp;
+    return decodedResp.response as demux.Rsp & protobuf.Message;
   }
 
-  public async makePush(payload: Pick<demux.Push, 'data'>): Promise<demux.Push>;
+  public async push(
+    payload: Required<Pick<demux.Push, 'data'>>
+  ): Promise<Required<Pick<demux.Push, 'data'>>>;
 
-  public async makePush(payload: Omit<demux.Push, 'data'>): Promise<undefined>;
+  public async push(payload: Omit<demux.Push, 'data'>): Promise<undefined>;
 
-  public async makePush(payload: demux.Push): Promise<demux.Push | undefined> {
+  public async push(payload: demux.Push): Promise<demux.Push | undefined> {
     const connectionId = payload.data?.connectionId;
     const fullPayload: demux.Upstream = { push: payload };
     this.debug('Sending push: %O', fullPayload);
@@ -139,16 +148,20 @@ export class DemuxSocket {
     if (!connectionId) return undefined;
 
     this.debug('Sent connectionId: %d', connectionId);
-    const decodedResp = await new Promise<demux.Downstream & protobuf.Message<object>>(
-      (resolve, reject) => {
+    const decodedResp = await promiseTimeout(
+      this.timeout,
+      new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
         this.pendingConnectionResponses.set(connectionId, resolve);
-        setTimeout(reject, this.timeout);
-      }
+      })
     );
     return decodedResp.push as demux.Push;
   }
 
-  public destroy(error?: Error | undefined): void {
-    this.socket?.destroy(error);
+  public async destroy(error?: Error | undefined): Promise<void> {
+    if (this.socket) {
+      this.debug('Destroying socket');
+      this.socket.destroy(error);
+      this.debug('Socket destroyed');
+    }
   }
 }

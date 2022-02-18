@@ -5,18 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Jest Tests",
             "type": "node",
             "request": "launch",
-            "name": "Debug Main",
             "runtimeArgs": [
-                "-r",
-                "ts-node/register"
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "--runInBand"
             ],
-            "args": [
-                "${workspaceFolder}/src/index.ts"
-            ],
-            "outputCapture": "std",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "env": {
+                "DEBUG": "*"
+            }
         }
     ]
 }
