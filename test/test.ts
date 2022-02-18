@@ -30,4 +30,22 @@ describe('Demux package', () => {
       },
     });
   });
+
+  it('should send a service request', async () => {
+    ubi = new UbisoftDemux();
+    const resp = await ubi.serviceRequest('utility_service', {
+      request: {
+        geoipReq: {},
+      },
+    });
+
+    expect(resp.toJSON()).toMatchObject({
+      response: {
+        geoipRsp: {
+          countryCode: 'US',
+          continentCode: 'NA',
+        },
+      },
+    });
+  });
 });

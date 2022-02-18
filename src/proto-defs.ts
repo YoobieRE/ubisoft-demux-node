@@ -11,28 +11,28 @@ export const demuxUpstream = demuxNs.lookupType('Upstream');
 export const demuxDownstream = demuxNs.lookupType('Downstream');
 
 export type DemuxServiceName =
-  | 'utility_service'
-  | 'ownership_service'
+  | 'client_configuration_service'
   | 'denuvo_service'
-  | 'store_service'
-  | 'friends_service'
-  | 'playtime_service'
-  | 'party_service'
   | 'download_service'
-  | 'client_configuration_service';
+  | 'friends_service'
+  | 'ownership_service'
+  | 'party_service'
+  | 'playtime_service'
+  | 'store_service'
+  | 'utility_service';
 
 const serviceMap: Record<DemuxServiceName, protobuf.Namespace> = {
-  utility_service: packageDefinition.lookup('mg.protocol.utility') as protobuf.Namespace,
-  ownership_service: packageDefinition.lookup('mg.protocol.ownership') as protobuf.Namespace,
-  denuvo_service: packageDefinition.lookup('mg.protocol.denuvo_service') as protobuf.Namespace,
-  store_service: packageDefinition.lookup('mg.protocol.store') as protobuf.Namespace,
-  friends_service: packageDefinition.lookup('mg.protocol.friends') as protobuf.Namespace,
-  playtime_service: packageDefinition.lookup('mg.playtime') as protobuf.Namespace,
-  party_service: packageDefinition.lookup('mg.protocol.party') as protobuf.Namespace,
-  download_service: packageDefinition.lookup('mg.protocol.download_service') as protobuf.Namespace,
   client_configuration_service: packageDefinition.lookup(
     'mg.protocol.client_configuration'
   ) as protobuf.Namespace,
+  denuvo_service: packageDefinition.lookup('mg.protocol.denuvo_service') as protobuf.Namespace,
+  download_service: packageDefinition.lookup('mg.protocol.download_service') as protobuf.Namespace,
+  friends_service: packageDefinition.lookup('mg.protocol.friends') as protobuf.Namespace,
+  ownership_service: packageDefinition.lookup('mg.protocol.ownership') as protobuf.Namespace,
+  party_service: packageDefinition.lookup('mg.protocol.party') as protobuf.Namespace,
+  playtime_service: packageDefinition.lookup('mg.playtime') as protobuf.Namespace,
+  store_service: packageDefinition.lookup('mg.protocol.store') as protobuf.Namespace,
+  utility_service: packageDefinition.lookup('mg.protocol.utility') as protobuf.Namespace,
 };
 
 export const getServiceType = (
