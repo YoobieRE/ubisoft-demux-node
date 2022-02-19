@@ -3,7 +3,7 @@ import { once } from 'events';
 import tls from 'tls';
 import * as demux from './generated/proto_demux/demux';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
-import { addLengthPrefix, promiseTimeout } from './util';
+import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
 
 export interface DemuxSocketProps {
   host: string;
@@ -28,6 +28,10 @@ export class DemuxSocket {
   private pendingRequestResponses = new Map<number, RespFn>();
 
   private pendingConnectionResponses = new Map<number, RespFn>();
+
+  private incomingPayloadBuffer: Buffer | null = null;
+
+  private incomingPayloadLength = 0;
 
   constructor(props: DemuxSocketProps) {
     this.host = props.host;
@@ -78,23 +82,37 @@ export class DemuxSocket {
   }
 
   private handleDownstreamData(data: Buffer) {
-    this.debug('Decoding response data');
-    const decodedDownstream = demuxDownstream.decode(data) as demux.Downstream & protobuf.Message;
-    this.debug('Received response: %O', decodedDownstream);
-    const requestId = decodedDownstream.response?.requestId;
-    const connectionId = decodedDownstream.push?.data?.connectionId;
-    if (requestId !== undefined) {
-      const cb = this.pendingRequestResponses.get(requestId);
-      if (cb) {
-        this.pendingRequestResponses.delete(requestId);
-        cb(decodedDownstream);
-      }
+    this.debug('Received incoming data: %s', data.toString('hex'));
+    if (this.incomingPayloadBuffer === null) {
+      this.incomingPayloadLength = data.readUInt32BE();
+      this.debug('Expecting incoming payload with length of %d bytes', this.incomingPayloadLength);
+      this.incomingPayloadBuffer = stripLengthPrefix(data);
+    } else {
+      this.incomingPayloadBuffer = Buffer.concat([this.incomingPayloadBuffer, data]);
     }
-    if (connectionId !== undefined) {
-      const cb = this.pendingConnectionResponses.get(connectionId);
-      if (cb) {
-        this.pendingRequestResponses.delete(connectionId);
-        cb(decodedDownstream);
+    if (this.incomingPayloadBuffer.length === this.incomingPayloadLength) {
+      const fullBuffer = this.incomingPayloadBuffer;
+      this.incomingPayloadBuffer = null; // Reset the buffer
+
+      this.debug('Decoding response data: %s');
+      const decodedDownstream = demuxDownstream.decode(fullBuffer) as demux.Downstream &
+        protobuf.Message;
+      this.debug('Received response: %O', decodedDownstream);
+      const requestId = decodedDownstream.response?.requestId;
+      const connectionId = decodedDownstream.push?.data?.connectionId;
+      if (requestId !== undefined) {
+        const cb = this.pendingRequestResponses.get(requestId);
+        if (cb) {
+          this.pendingRequestResponses.delete(requestId);
+          cb(decodedDownstream);
+        }
+      }
+      if (connectionId !== undefined) {
+        const cb = this.pendingConnectionResponses.get(connectionId);
+        if (cb) {
+          this.pendingRequestResponses.delete(connectionId);
+          cb(decodedDownstream);
+        }
       }
     }
   }

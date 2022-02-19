@@ -128,14 +128,14 @@ export interface OwnedGames {
 }
 
 export interface InitializeReq {
-  deprecatedTestConfig: boolean;
+  deprecatedTestConfig?: boolean;
   getAssociations: boolean;
   protoVersion: number;
-  branches: InitializeReq_ProductBranchData[];
+  branches?: InitializeReq_ProductBranchData[];
   useStaging: boolean;
-  claims: string[];
+  claims?: string[];
   /** @deprecated */
-  clientIpOverride: number;
+  clientIpOverride?: number;
 }
 
 export interface InitializeReq_ProductBranchData {

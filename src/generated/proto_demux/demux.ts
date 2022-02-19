@@ -2,16 +2,16 @@
 export const protobufPackage = 'mg.protocol.demux';
 
 export interface Token {
-  ubiTicket: string;
-  orbitToken: string;
-  ubiToken: Buffer;
+  ubiTicket?: string;
+  orbitToken?: string;
+  ubiToken?: Buffer;
 }
 
 export interface AuthenticateReq {
   token?: Token;
   sendKeepAlive: boolean;
   clientId: string;
-  logoutPushGroupId: string;
+  logoutPushGroupId?: string;
 }
 
 export interface AuthenticateRsp {

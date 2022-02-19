@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import protobuf from 'protobufjs';
 import debug from 'debug';
+import phin from 'phin';
 import * as demux from './generated/proto_demux/demux';
 import * as client_configuration_service from './generated/proto_client_configuration/client_configuration';
 import * as denuvo_service from './generated/proto_denuvo_service/denuvo_service';
@@ -21,8 +22,28 @@ export interface UbisoftDemuxProps {
   timeout?: number;
 }
 
+export interface CreateSessionResponse {
+  platformType: string;
+  ticket: string;
+  twoFactorAuthenticationTicket: string | null;
+  profileId: string;
+  userId: string;
+  nameOnPlatform: string;
+  environment: string;
+  expiration: Date;
+  spaceId: string;
+  clientIp: string;
+  clientIpCountry: string;
+  serverTime: Date;
+  sessionId: string;
+  sessionKey: string;
+  rememberMeTicket: string | null;
+}
+
 export class UbisoftDemux {
   private host = 'dmx.upc.ubisoft.com';
+
+  private appId = 'f68a4bb5-608a-4ff2-8123-be8ef797e0a6';
 
   private debug = debug('ubisoft-demux');
 
@@ -52,8 +73,7 @@ export class UbisoftDemux {
   }
 
   public async openConnection(
-    serviceName: 'client_configuration_service',
-    payload: client_configuration_service.Upstream
+    serviceName: 'client_configuration_service'
   ): Promise<
     DemuxConnection<
       client_configuration_service.Upstream,
@@ -62,53 +82,45 @@ export class UbisoftDemux {
   >;
 
   public async openConnection(
-    serviceName: 'denuvo_service',
-    payload: denuvo_service.Upstream
+    serviceName: 'denuvo_service'
   ): Promise<
     DemuxConnection<denuvo_service.Upstream, denuvo_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
-    serviceName: 'download_service',
-    payload: download_service.Upstream
+    serviceName: 'download_service'
   ): Promise<
     DemuxConnection<download_service.Upstream, download_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
-    serviceName: 'friends_service',
-    payload: friends_service.Upstream
+    serviceName: 'friends_service'
   ): Promise<
     DemuxConnection<friends_service.Upstream, friends_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
-    serviceName: 'ownership_service',
-    payload: ownership_service.Upstream
+    serviceName: 'ownership_service'
   ): Promise<
     DemuxConnection<ownership_service.Upstream, ownership_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
-    serviceName: 'party_service',
-    payload: party_service.Upstream
+    serviceName: 'party_service'
   ): Promise<DemuxConnection<party_service.Upstream, party_service.Downstream & protobuf.Message>>;
 
   public async openConnection(
-    serviceName: 'playtime_service',
-    payload: playtime_service.Upstream
+    serviceName: 'playtime_service'
   ): Promise<
     DemuxConnection<playtime_service.Upstream, playtime_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
-    serviceName: 'store_service',
-    payload: store_service.Upstream
+    serviceName: 'store_service'
   ): Promise<DemuxConnection<store_service.Upstream, store_service.Downstream & protobuf.Message>>;
 
   public async openConnection(
-    serviceName: 'utility_service',
-    payload: utility_service.Upstream
+    serviceName: 'utility_service'
   ): Promise<
     DemuxConnection<utility_service.Upstream, utility_service.Downstream & protobuf.Message>
   >;
@@ -197,5 +209,26 @@ export class UbisoftDemux {
       protobuf.Message;
     this.debug('Decoded service data: %O', dataResp);
     return dataResp;
+  }
+
+  public async login(
+    username: string,
+    password: string,
+    totp?: string // TODO
+  ): Promise<CreateSessionResponse> {
+    this.debug('Making login request. Username: %s, Password: %s', username, password);
+    const resp = await phin({
+      method: 'POST',
+      url: 'https://public-ubiservices.ubi.com/v3/profiles/sessions',
+      headers: {
+        'Ubi-AppId': this.appId,
+        Authorization: `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`,
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({ rememberMe: true }),
+    });
+    const data: CreateSessionResponse = JSON.parse(resp.body.toString());
+    this.debug('Login response: %j', data);
+    return data;
   }
 }
