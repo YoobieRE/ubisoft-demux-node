@@ -1,7 +1,7 @@
-import { Debugger } from 'debug';
+import type { Debugger } from 'debug';
 import { once } from 'events';
 import tls from 'tls';
-import * as demux from './generated/proto_demux/demux';
+import type { demux } from './generated';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
 
@@ -10,6 +10,7 @@ export interface DemuxSocketProps {
   startRequestId: number;
   debug: Debugger;
   timeout: number;
+  tlsConnectionOptions?: tls.ConnectionOptions;
 }
 
 type RespFn = (resp: demux.Downstream & protobuf.Message) => void;
@@ -22,6 +23,8 @@ export class DemuxSocket {
   private currentRequestId: number;
 
   private timeout: number;
+
+  private tlsConnectionOptions?: tls.ConnectionOptions;
 
   private socket?: tls.TLSSocket;
 
@@ -38,6 +41,7 @@ export class DemuxSocket {
     this.debug = props.debug.extend('socket');
     this.currentRequestId = props.startRequestId;
     this.timeout = props.timeout;
+    this.tlsConnectionOptions = props.tlsConnectionOptions;
   }
 
   private async getSocket(): Promise<tls.TLSSocket> {
@@ -47,22 +51,7 @@ export class DemuxSocket {
       port: 443,
       host: this.host,
       servername: this.host,
-      // ecdhCurve: ['x25519', 'secp256r1', 'secp384r1'].join(':'),
-      // sigalgs: [
-      //   'rsa_pss_rsae_sha256',
-      //   'rsa_pss_rsae_sha384',
-      //   'rsa_pss_rsae_sha512',
-      //   'rsa_pkcs1_sha256',
-      //   'rsa_pkcs1_sha384',
-      //   'rsa_pkcs1_sha1',
-      //   'ecdsa_secp256r1_sha256',
-      //   'ecdsa_secp384r1_sha384',
-      //   'ecdsa_sha1',
-      //   'SHA1 DSA',
-      //   'rsa_pkcs1_sha512',
-      //   'ecdsa_secp521r1_sha512',
-      // ].join(':'),
-      // enableTrace: true,
+      ...this.tlsConnectionOptions,
     });
     await once(this.socket, 'connect');
     this.debug = this.debug.extend(`p${this.socket.localPort}`);

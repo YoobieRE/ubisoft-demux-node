@@ -1,5 +1,5 @@
-import { UbisoftDemux } from '../src';
 import 'dotenv/config';
+import { UbisoftDemux } from '../src';
 
 jest.setTimeout(15000);
 describe('Demux package', () => {
@@ -15,7 +15,7 @@ describe('Demux package', () => {
     ubi = new UbisoftDemux();
     const resp = await ubi.basicRequest({
       getPatchInfoReq: {
-        patchTrackId: expect.any(String),
+        patchTrackId: '129.0',
         testConfig: false,
         trackType: 0,
       },
@@ -54,7 +54,7 @@ describe('Demux package', () => {
 
   it('should get a session token and authorize', async () => {
     ubi = new UbisoftDemux();
-    const resp = await ubi.login(email, password);
+    const resp = await ubi.ubiServices.login(email, password);
     expect(resp).toMatchObject({
       platformType: 'uplay',
       ticket: expect.any(String),
@@ -94,7 +94,7 @@ describe('Demux package', () => {
 
   it('should open and push to a connection', async () => {
     ubi = new UbisoftDemux();
-    const { ticket } = await ubi.login(email, password);
+    const { ticket } = await ubi.ubiServices.login(email, password);
     await ubi.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
