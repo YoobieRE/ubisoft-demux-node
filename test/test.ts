@@ -1,10 +1,6 @@
 import 'dotenv/config';
-import base32Encode from 'base32-encode';
 import { UbisoftDemux } from '../src';
-
-const getRandomInt = (min: number, max: number): number => {
-  return Math.random() * (max - min) + min;
-};
+import { fileHashToPathChar } from '../src/util';
 
 jest.setTimeout(15000);
 describe('Demux package', () => {
@@ -185,9 +181,16 @@ describe('Demux package', () => {
         },
       });
 
-      const randomB32 = base32Encode(new Uint8Array([getRandomInt(0, 32)]), 'RFC4648-HEX')
-        .toLowerCase()
-        .substring(0, 1);
+      const hashes = [
+        '1FC64441A932E9DDEBDD3373813D87FD3F3DB99F',
+        '0052FECD390A0B80D4ED8984897363DEF431E3DD',
+        '2080F18968F5B5BE4096398D90C18C7231AF2972',
+        'EF4846003A494EE2CD67AC0A03F50362D9528AF4',
+        'E9D9FE138B32D918E1A851479118AD4A0EF1BD43',
+        '0DCBCB404C3CE7982314FB2597683E76D9197F9A',
+      ];
+
+      const slicePaths = hashes.map((hash) => `slices_v3/${fileHashToPathChar(hash)}/${hash}`);
 
       const urlRequestResp = await downloadConnection.request({
         request: {
@@ -196,13 +199,16 @@ describe('Demux package', () => {
             urlRequests: [
               {
                 productId: 274,
-                relativeFilePath: [`slices_v3/v/1FC64441A932E9DDEBDD3373813D87FD3F3DB99F`],
+                relativeFilePath: slicePaths,
               },
             ],
           },
         },
       });
-      console.log('urlRequestResp:', JSON.stringify(urlRequestResp.response?.urlRsp?.urlResponses));
+      expect(urlRequestResp.response?.urlRsp?.urlResponses).toBeDefined();
+      hashes.forEach((hash) => {
+        expect(JSON.stringify(urlRequestResp.response?.urlRsp?.urlResponses)).toContain(hash);
+      });
     });
   }
 });
