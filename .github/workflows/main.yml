@@ -21,11 +21,14 @@ jobs:
           cache: 'npm'
           node-version: ${{ matrix.node }}
       - run: npm ci
-      - run: npm test
-      # - name: Coveralls
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm test:ci
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
   build:
     runs-on: ubuntu-latest
     name: Build package

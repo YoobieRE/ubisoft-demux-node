@@ -4,7 +4,7 @@ import 'dotenv/config';
 jest.setTimeout(15000);
 describe('Demux package', () => {
   let ubi: UbisoftDemux;
-  const username = process.env.USERNAME || '';
+  const email = process.env.EMAIL || '';
   const password = process.env.PASSWORD || '';
 
   afterEach(async () => {
@@ -54,7 +54,7 @@ describe('Demux package', () => {
 
   it('should get a session token and authorize', async () => {
     ubi = new UbisoftDemux();
-    const resp = await ubi.login(username, password);
+    const resp = await ubi.login(email, password);
     expect(resp).toMatchObject({
       platformType: 'uplay',
       ticket: expect.any(String),
@@ -94,7 +94,7 @@ describe('Demux package', () => {
 
   it('should open and push to a connection', async () => {
     ubi = new UbisoftDemux();
-    const { ticket } = await ubi.login(username, password);
+    const { ticket } = await ubi.login(email, password);
     await ubi.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',

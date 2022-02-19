@@ -212,17 +212,17 @@ export class UbisoftDemux {
   }
 
   public async login(
-    username: string,
+    email: string,
     password: string,
     totp?: string // TODO
   ): Promise<CreateSessionResponse> {
-    this.debug('Making login request. Username: %s, Password: %s', username, password);
+    this.debug('Making login request. Email: %s, Password: %s', email, password);
     const resp = await phin({
       method: 'POST',
       url: 'https://public-ubiservices.ubi.com/v3/profiles/sessions',
       headers: {
         'Ubi-AppId': this.appId,
-        Authorization: `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`,
+        Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
         'Content-Type': 'application/json',
       },
       data: JSON.stringify({ rememberMe: true }),
