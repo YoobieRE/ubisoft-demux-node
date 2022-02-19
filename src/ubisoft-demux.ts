@@ -31,6 +31,8 @@ export class UbisoftDemux {
 
   private debug = debug('ubisoft-demux');
 
+  private timeout = 10000;
+
   public socket: DemuxSocket;
 
   public basicRequest;
@@ -41,11 +43,12 @@ export class UbisoftDemux {
 
   constructor(props?: UbisoftDemuxProps) {
     this.host = props?.host ?? this.host;
+    this.timeout = props?.timeout ?? this.timeout;
     this.socket = new DemuxSocket({
       debug: this.debug,
       host: this.host,
       startRequestId: props?.startRequestId || 0,
-      timeout: props?.timeout || 10000,
+      timeout: this.timeout,
       tlsConnectionOptions: props?.tlsConnectionOptions,
     });
     this.basicRequest = this.socket.request.bind(this.socket);
@@ -123,6 +126,7 @@ export class UbisoftDemux {
       serviceName,
       socket: this.socket,
       debug: this.debug,
+      timeout: this.timeout,
     });
   }
 

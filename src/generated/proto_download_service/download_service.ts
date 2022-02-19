@@ -31,10 +31,10 @@ export interface UrlRsp_DownloadUrls {
 }
 
 export interface InitializeReq {
-  productId: number;
-  branchId: number;
-  expiration: number;
-  signature: string;
+  productId?: number;
+  branchId?: number;
+  expiration?: number;
+  signature?: string;
   ownershipToken: string;
 }
 

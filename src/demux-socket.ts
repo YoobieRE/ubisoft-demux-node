@@ -1,5 +1,5 @@
 import type { Debugger } from 'debug';
-import { once } from 'events';
+import EventEmitter, { once } from 'events';
 import tls from 'tls';
 import type { demux } from './generated';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
@@ -15,7 +15,7 @@ export interface DemuxSocketProps {
 
 type RespFn = (resp: demux.Downstream & protobuf.Message) => void;
 
-export class DemuxSocket {
+export class DemuxSocket extends EventEmitter {
   private host: string;
 
   private debug: Debugger;
@@ -30,13 +30,12 @@ export class DemuxSocket {
 
   private pendingRequestResponses = new Map<number, RespFn>();
 
-  private pendingConnectionResponses = new Map<number, RespFn>();
-
   private incomingPayloadBuffer: Buffer | null = null;
 
   private incomingPayloadLength = 0;
 
   constructor(props: DemuxSocketProps) {
+    super();
     this.host = props.host;
     this.debug = props.debug.extend('socket');
     this.currentRequestId = props.startRequestId;
@@ -70,7 +69,7 @@ export class DemuxSocket {
     });
   }
 
-  private handleDownstreamData(data: Buffer) {
+  private handleDownstreamData(data: Buffer): void {
     this.debug('Received incoming data: %s', data.toString('hex'));
     if (this.incomingPayloadBuffer === null) {
       this.incomingPayloadLength = data.readUInt32BE();
@@ -86,9 +85,10 @@ export class DemuxSocket {
       this.debug('Decoding response data: %s');
       const decodedDownstream = demuxDownstream.decode(fullBuffer) as demux.Downstream &
         protobuf.Message;
-      this.debug('Received response: %O', decodedDownstream);
+      this.debug('Decoded response: %O', decodedDownstream);
       const requestId = decodedDownstream.response?.requestId;
       const connectionId = decodedDownstream.push?.data?.connectionId;
+      const connectionData = decodedDownstream.push?.data?.data;
       if (requestId !== undefined) {
         const cb = this.pendingRequestResponses.get(requestId);
         if (cb) {
@@ -96,12 +96,8 @@ export class DemuxSocket {
           cb(decodedDownstream);
         }
       }
-      if (connectionId !== undefined) {
-        const cb = this.pendingConnectionResponses.get(connectionId);
-        if (cb) {
-          this.pendingRequestResponses.delete(connectionId);
-          cb(decodedDownstream);
-        }
+      if (connectionId !== undefined && connectionData !== undefined) {
+        this.emit('connectionData', connectionId, connectionData);
       }
     }
   }
@@ -136,13 +132,7 @@ export class DemuxSocket {
     return decodedResp.response as demux.Rsp & protobuf.Message;
   }
 
-  public async push(
-    payload: Required<Pick<demux.Push, 'data'>>
-  ): Promise<Required<Pick<demux.Push, 'data'>>>;
-
-  public async push(payload: Omit<demux.Push, 'data'>): Promise<undefined>;
-
-  public async push(payload: demux.Push): Promise<demux.Push | undefined> {
+  public async push(payload: demux.Push): Promise<void> {
     const connectionId = payload.data?.connectionId;
     const fullPayload: demux.Upstream = { push: payload };
     this.debug('Sending push: %O', fullPayload);
@@ -152,16 +142,7 @@ export class DemuxSocket {
     this.debug('Raw request (hex): %s', reqHex);
 
     await this.write(prefixedPayload);
-    if (!connectionId) return undefined;
-
-    this.debug('Sent connectionId: %d', connectionId);
-    const decodedResp = await promiseTimeout(
-      this.timeout,
-      new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
-        this.pendingConnectionResponses.set(connectionId, resolve);
-      })
-    );
-    return decodedResp.push as demux.Push;
+    if (connectionId) this.debug('Sent connectionId: %d', connectionId);
   }
 
   public async destroy(error?: Error | undefined): Promise<void> {
