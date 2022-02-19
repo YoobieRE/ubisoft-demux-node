@@ -107,9 +107,9 @@ export class UbisoftDemux {
     DemuxConnection<utility_service.Upstream, utility_service.Downstream & protobuf.Message>
   >;
 
-  public async openConnection<ReqType, RspType>(
+  public async openConnection<UpType, DownType>(
     serviceName: DemuxServiceName
-  ): Promise<DemuxConnection<ReqType, RspType>> {
+  ): Promise<DemuxConnection<UpType, DownType>> {
     this.debug('Opening a new connection');
     const requestResp: Pick<demux.Rsp, 'openConnectionRsp'> = await this.socket.request({
       openConnectionReq: {
@@ -118,7 +118,7 @@ export class UbisoftDemux {
     });
     const connectionId = requestResp.openConnectionRsp?.connectionId;
     if (!connectionId) throw new Error(`Failed to establish connection for ${serviceName}`);
-    return new DemuxConnection<ReqType, RspType>({
+    return new DemuxConnection<UpType, DownType>({
       connectionId,
       serviceName,
       socket: this.socket,
@@ -171,10 +171,10 @@ export class UbisoftDemux {
     payload: utility_service.Upstream
   ): Promise<utility_service.Downstream & protobuf.Message>;
 
-  public async serviceRequest<ReqType, RspType>(
+  public async serviceRequest<UpType, DownType>(
     service: DemuxServiceName,
-    payload: ReqType
-  ): Promise<RspType & protobuf.Message> {
+    payload: UpType
+  ): Promise<DownType & protobuf.Message> {
     this.debug('Encoding service data: %O', payload);
     const serviceUpstream = getServiceType(service, 'Upstream');
     const dataPayload = serviceUpstream.encode(payload).finish();
@@ -187,7 +187,7 @@ export class UbisoftDemux {
     });
 
     const serviceDownstream = getServiceType(service, 'Downstream');
-    const dataResp = serviceDownstream.decode(requestResp.serviceRsp?.data as Buffer) as RspType &
+    const dataResp = serviceDownstream.decode(requestResp.serviceRsp?.data as Buffer) as DownType &
       protobuf.Message;
     this.debug('Decoded service data: %O', dataResp);
     return dataResp;
