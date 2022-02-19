@@ -7,8 +7,6 @@ describe('Demux package', () => {
   let ubi: UbisoftDemux;
   const email = process.env.EMAIL || '';
   const password = process.env.PASSWORD || '';
-  const mainEmail = process.env.MAIN_EMAIL;
-  const mainPassword = process.env.MAIN_PASSWORD;
 
   afterEach(async () => {
     await ubi.destroy();
@@ -131,84 +129,82 @@ describe('Demux package', () => {
     });
   });
 
-  if (mainEmail && mainPassword) {
-    it('should get download manifest for an old version', async () => {
-      ubi = new UbisoftDemux();
-      const { ticket } = await ubi.ubiServices.login(mainEmail, mainPassword);
-      await ubi.basicRequest({
-        authenticateReq: {
-          clientId: 'uplay_pc',
-          sendKeepAlive: false,
-          token: {
-            ubiTicket: ticket,
-          },
+  it('should get download manifest for an old version', async () => {
+    const TRACKMANIA_ID = 5595;
+
+    ubi = new UbisoftDemux();
+    const { ticket } = await ubi.ubiServices.login(email, password);
+    await ubi.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket,
         },
-      });
-
-      const ownershipConnection = await ubi.openConnection('ownership_service');
-
-      await ownershipConnection.request({
-        request: {
-          requestId: 1,
-          initializeReq: {
-            getAssociations: true,
-            protoVersion: 7,
-            useStaging: false,
-          },
-        },
-      });
-
-      const ownershipTokenResp = await ownershipConnection.request({
-        request: {
-          requestId: 0,
-          ownershipTokenReq: {
-            productId: 274,
-          },
-        },
-      });
-
-      const ownershipToken = ownershipTokenResp.response?.ownershipTokenRsp?.token as string;
-      expect(ownershipToken).toBeDefined();
-
-      const downloadConnection = await ubi.openConnection('download_service');
-
-      await downloadConnection.request({
-        request: {
-          requestId: 0,
-          initializeReq: {
-            ownershipToken,
-          },
-        },
-      });
-
-      const hashes = [
-        '1FC64441A932E9DDEBDD3373813D87FD3F3DB99F',
-        '0052FECD390A0B80D4ED8984897363DEF431E3DD',
-        '2080F18968F5B5BE4096398D90C18C7231AF2972',
-        'EF4846003A494EE2CD67AC0A03F50362D9528AF4',
-        'E9D9FE138B32D918E1A851479118AD4A0EF1BD43',
-        '0DCBCB404C3CE7982314FB2597683E76D9197F9A',
-      ];
-
-      const slicePaths = hashes.map((hash) => `slices_v3/${fileHashToPathChar(hash)}/${hash}`);
-
-      const urlRequestResp = await downloadConnection.request({
-        request: {
-          requestId: 0,
-          urlReq: {
-            urlRequests: [
-              {
-                productId: 274,
-                relativeFilePath: slicePaths,
-              },
-            ],
-          },
-        },
-      });
-      expect(urlRequestResp.response?.urlRsp?.urlResponses).toBeDefined();
-      hashes.forEach((hash) => {
-        expect(JSON.stringify(urlRequestResp.response?.urlRsp?.urlResponses)).toContain(hash);
-      });
+      },
     });
-  }
+
+    const ownershipConnection = await ubi.openConnection('ownership_service');
+
+    await ownershipConnection.request({
+      request: {
+        requestId: 1,
+        initializeReq: {
+          getAssociations: true,
+          protoVersion: 7,
+          useStaging: false,
+        },
+      },
+    });
+
+    const ownershipTokenResp = await ownershipConnection.request({
+      request: {
+        requestId: 0,
+        ownershipTokenReq: {
+          productId: TRACKMANIA_ID,
+        },
+      },
+    });
+
+    const ownershipToken = ownershipTokenResp.response?.ownershipTokenRsp?.token as string;
+    expect(ownershipToken).toBeDefined();
+
+    const downloadConnection = await ubi.openConnection('download_service');
+
+    await downloadConnection.request({
+      request: {
+        requestId: 0,
+        initializeReq: {
+          ownershipToken,
+        },
+      },
+    });
+
+    const hashes = ['1762A79B92863ABE35E23D2361669D67943EAA4C'];
+
+    const slicePaths = hashes.map((hash) => `slices_v3/${fileHashToPathChar(hash)}/${hash}`);
+
+    const relativePaths = [
+      ...slicePaths,
+      'manifests/6AE3706598150132DC1A850493D1194AA516FC89.metadata',
+    ];
+
+    const urlRequestResp = await downloadConnection.request({
+      request: {
+        requestId: 0,
+        urlReq: {
+          urlRequests: [
+            {
+              productId: TRACKMANIA_ID,
+              relativeFilePath: relativePaths,
+            },
+          ],
+        },
+      },
+    });
+    expect(urlRequestResp.response?.urlRsp?.urlResponses).toBeDefined();
+    relativePaths.forEach((path) => {
+      expect(JSON.stringify(urlRequestResp.response?.urlRsp?.urlResponses)).toContain(path);
+    });
+  });
 });
