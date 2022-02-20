@@ -1,20 +1,20 @@
 import 'dotenv/config';
-import { UbisoftDemux } from '../src';
+import { UbiServicesApi, UbisoftDemux } from '../src';
 import { fileHashToPathChar } from '../src/util';
 
 jest.setTimeout(15000);
 describe('Demux package', () => {
-  let ubi: UbisoftDemux;
+  let ubiDemux: UbisoftDemux;
   const email = process.env.EMAIL || '';
   const password = process.env.PASSWORD || '';
 
   afterEach(async () => {
-    await ubi.destroy();
+    await ubiDemux.destroy();
   });
 
   it('should send a basic request', async () => {
-    ubi = new UbisoftDemux();
-    const resp = await ubi.basicRequest({
+    ubiDemux = new UbisoftDemux();
+    const resp = await ubiDemux.basicRequest({
       getPatchInfoReq: {
         patchTrackId: '129.0',
         testConfig: false,
@@ -36,8 +36,8 @@ describe('Demux package', () => {
   });
 
   it('should send a service request', async () => {
-    ubi = new UbisoftDemux();
-    const resp = await ubi.serviceRequest('utility_service', {
+    ubiDemux = new UbisoftDemux();
+    const resp = await ubiDemux.serviceRequest('utility_service', {
       request: {
         geoipReq: {},
       },
@@ -54,8 +54,9 @@ describe('Demux package', () => {
   });
 
   it('should get a session token and authorize', async () => {
-    ubi = new UbisoftDemux();
-    const resp = await ubi.ubiServices.login(email, password);
+    ubiDemux = new UbisoftDemux();
+    const ubiServices = new UbiServicesApi();
+    const resp = await ubiServices.login(email, password);
     expect(resp).toMatchObject({
       platformType: 'uplay',
       ticket: expect.any(String),
@@ -75,7 +76,7 @@ describe('Demux package', () => {
     });
 
     const { ticket } = resp;
-    const authResp = await ubi.basicRequest({
+    const authResp = await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
         sendKeepAlive: false,
@@ -94,9 +95,10 @@ describe('Demux package', () => {
   });
 
   it('should open and push to a connection', async () => {
-    ubi = new UbisoftDemux();
-    const { ticket } = await ubi.ubiServices.login(email, password);
-    await ubi.basicRequest({
+    ubiDemux = new UbisoftDemux();
+    const ubiServices = new UbiServicesApi();
+    const { ticket } = await ubiServices.login(email, password);
+    await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
         sendKeepAlive: false,
@@ -106,7 +108,7 @@ describe('Demux package', () => {
       },
     });
 
-    const connection = await ubi.openConnection('ownership_service');
+    const connection = await ubiDemux.openConnection('ownership_service');
 
     const resp = await connection.request({
       request: {
@@ -132,9 +134,10 @@ describe('Demux package', () => {
   it('should get download manifest for an old version', async () => {
     const TRACKMANIA_ID = 5595;
 
-    ubi = new UbisoftDemux();
-    const { ticket } = await ubi.ubiServices.login(email, password);
-    await ubi.basicRequest({
+    ubiDemux = new UbisoftDemux();
+    const ubiServices = new UbiServicesApi();
+    const { ticket } = await ubiServices.login(email, password);
+    await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
         sendKeepAlive: false,
@@ -144,7 +147,7 @@ describe('Demux package', () => {
       },
     });
 
-    const ownershipConnection = await ubi.openConnection('ownership_service');
+    const ownershipConnection = await ubiDemux.openConnection('ownership_service');
 
     await ownershipConnection.request({
       request: {
@@ -169,7 +172,7 @@ describe('Demux package', () => {
     const ownershipToken = ownershipTokenResp.response?.ownershipTokenRsp?.token as string;
     expect(ownershipToken).toBeDefined();
 
-    const downloadConnection = await ubi.openConnection('download_service');
+    const downloadConnection = await ubiDemux.openConnection('download_service');
 
     await downloadConnection.request({
       request: {

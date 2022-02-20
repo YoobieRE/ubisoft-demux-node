@@ -4,7 +4,6 @@ import type tls from 'tls';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
 import { DemuxConnection } from './demux-connection';
-import { UbiServicesApi } from './ubiservices-api';
 import type {
   client_configuration_service,
   denuvo_service,
@@ -20,7 +19,6 @@ import type {
 
 export interface UbisoftDemuxProps {
   host?: string;
-  appId?: string;
   startRequestId?: number;
   timeout?: number;
   tlsConnectionOptions?: tls.ConnectionOptions;
@@ -39,8 +37,6 @@ export class UbisoftDemux {
 
   public destroy;
 
-  public ubiServices: UbiServicesApi;
-
   constructor(props?: UbisoftDemuxProps) {
     this.host = props?.host ?? this.host;
     this.timeout = props?.timeout ?? this.timeout;
@@ -53,7 +49,6 @@ export class UbisoftDemux {
     });
     this.basicRequest = this.socket.request.bind(this.socket);
     this.destroy = this.socket.destroy.bind(this.socket);
-    this.ubiServices = new UbiServicesApi({ debug: this.debug, appId: props?.appId });
     this.debug('Initialized');
   }
 

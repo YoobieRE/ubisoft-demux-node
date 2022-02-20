@@ -2,7 +2,7 @@ import protobuf from 'protobufjs';
 import glob from 'glob';
 
 const protoFiles = glob.sync('proto/**/*.proto');
-const packageDefinition = protobuf.loadSync(protoFiles);
+export const packageDefinition = protobuf.loadSync(protoFiles);
 
 export type StreamDirection = 'Upstream' | 'Downstream';
 

@@ -18,6 +18,20 @@
             "env": {
                 "DEBUG": "*"
             }
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug Sandbox",
+            "runtimeArgs": [
+                "-r",
+                "ts-node/register"
+            ],
+            "args": [
+                "${workspaceFolder}/test/sandbox.ts"
+            ],
+            "outputCapture": "std",
+            "console": "integratedTerminal"
         }
     ]
 }

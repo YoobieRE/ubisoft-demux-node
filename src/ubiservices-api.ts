@@ -1,4 +1,4 @@
-import type { Debugger } from 'debug';
+import debug from 'debug';
 import phin from 'phin';
 
 export interface CreateSessionResponse {
@@ -20,18 +20,16 @@ export interface CreateSessionResponse {
 }
 
 export interface UbiServicesApiProps {
-  debug: Debugger;
   appId?: string;
 }
 
 export class UbiServicesApi {
   private appId = 'f68a4bb5-608a-4ff2-8123-be8ef797e0a6';
 
-  private debug: Debugger;
+  private debug = debug('ubiservices-api');
 
-  constructor(props: UbiServicesApiProps) {
-    this.debug = props.debug.extend('ubiservices');
-    this.appId = props.appId ?? this.appId;
+  constructor(props?: UbiServicesApiProps) {
+    this.appId = props?.appId ?? this.appId;
   }
 
   public async login(
