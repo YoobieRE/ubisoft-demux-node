@@ -8,7 +8,7 @@
     "test:ci": "jest --coverage",
     "build": "rimraf dist && tsc",
     "lint": "tsc --noEmit && eslint .",
-    "gen-demux": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=oneof=unions --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
+    "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
   },
   "author": {
     "name": "Charlie Laabs",
@@ -40,7 +40,6 @@
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",
-    "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^14.18.12",

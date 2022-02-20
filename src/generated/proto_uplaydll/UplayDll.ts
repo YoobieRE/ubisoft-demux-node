@@ -1527,61 +1527,29 @@ export interface GetStreamingResolutionRsp {
 
 export interface StreamingReq {
   requestId: number;
-  req?:
-    | {
-        $case: 'getStreamingCurrentUserCountryReq';
-        getStreamingCurrentUserCountryReq: GetStreamingCurrentUserCountryReq;
-      }
-    | { $case: 'getStreamingTypeReq'; getStreamingTypeReq: GetStreamingTypeReq }
-    | {
-        $case: 'getStreamingNetworkDelayForInputReq';
-        getStreamingNetworkDelayForInputReq: GetStreamingNetworkDelayForInputReq;
-      }
-    | {
-        $case: 'getStreamingNetworkDelayForVideoReq';
-        getStreamingNetworkDelayForVideoReq: GetStreamingNetworkDelayForVideoReq;
-      }
-    | {
-        $case: 'getStreamingNetworkDelayRoundtripReq';
-        getStreamingNetworkDelayRoundtripReq: GetStreamingNetworkDelayRoundtripReq;
-      }
-    | { $case: 'getStreamingDeviceTypeReq'; getStreamingDeviceTypeReq: GetStreamingDeviceTypeReq }
-    | { $case: 'getStreamingInputTypeReq'; getStreamingInputTypeReq: GetStreamingInputTypeReq }
-    | {
-        $case: 'getStreamingInputGamepadTypeReq';
-        getStreamingInputGamepadTypeReq: GetStreamingInputGamepadTypeReq;
-      }
-    | { $case: 'GetStreamingResolutionReq'; GetStreamingResolutionReq: GetStreamingResolutionReq };
+  getStreamingCurrentUserCountryReq?: GetStreamingCurrentUserCountryReq | undefined;
+  getStreamingTypeReq?: GetStreamingTypeReq | undefined;
+  getStreamingNetworkDelayForInputReq?: GetStreamingNetworkDelayForInputReq | undefined;
+  getStreamingNetworkDelayForVideoReq?: GetStreamingNetworkDelayForVideoReq | undefined;
+  getStreamingNetworkDelayRoundtripReq?: GetStreamingNetworkDelayRoundtripReq | undefined;
+  getStreamingDeviceTypeReq?: GetStreamingDeviceTypeReq | undefined;
+  getStreamingInputTypeReq?: GetStreamingInputTypeReq | undefined;
+  getStreamingInputGamepadTypeReq?: GetStreamingInputGamepadTypeReq | undefined;
+  GetStreamingResolutionReq?: GetStreamingResolutionReq | undefined;
 }
 
 export interface StreamingRsp {
   requestId: number;
   result: OperationResult;
-  rsp?:
-    | {
-        $case: 'getStreamingCurrentUserCountryRsp';
-        getStreamingCurrentUserCountryRsp: GetStreamingCurrentUserCountryRsp;
-      }
-    | { $case: 'getStreamingTypeRsp'; getStreamingTypeRsp: GetStreamingTypeRsp }
-    | {
-        $case: 'getStreamingNetworkDelayForInputRsp';
-        getStreamingNetworkDelayForInputRsp: GetStreamingNetworkDelayForInputRsp;
-      }
-    | {
-        $case: 'getStreamingNetworkDelayForVideoRsp';
-        getStreamingNetworkDelayForVideoRsp: GetStreamingNetworkDelayForVideoRsp;
-      }
-    | {
-        $case: 'getStreamingNetworkDelayRoundtripRsp';
-        getStreamingNetworkDelayRoundtripRsp: GetStreamingNetworkDelayRoundtripRsp;
-      }
-    | { $case: 'getStreamingDeviceTypeRsp'; getStreamingDeviceTypeRsp: GetStreamingDeviceTypeRsp }
-    | { $case: 'getStreamingInputTypeRsp'; getStreamingInputTypeRsp: GetStreamingInputTypeRsp }
-    | {
-        $case: 'getStreamingInputGamepadTypeRsp';
-        getStreamingInputGamepadTypeRsp: GetStreamingInputGamepadTypeRsp;
-      }
-    | { $case: 'GetStreamingResolutionRsp'; GetStreamingResolutionRsp: GetStreamingResolutionRsp };
+  getStreamingCurrentUserCountryRsp?: GetStreamingCurrentUserCountryRsp | undefined;
+  getStreamingTypeRsp?: GetStreamingTypeRsp | undefined;
+  getStreamingNetworkDelayForInputRsp?: GetStreamingNetworkDelayForInputRsp | undefined;
+  getStreamingNetworkDelayForVideoRsp?: GetStreamingNetworkDelayForVideoRsp | undefined;
+  getStreamingNetworkDelayRoundtripRsp?: GetStreamingNetworkDelayRoundtripRsp | undefined;
+  getStreamingDeviceTypeRsp?: GetStreamingDeviceTypeRsp | undefined;
+  getStreamingInputTypeRsp?: GetStreamingInputTypeRsp | undefined;
+  getStreamingInputGamepadTypeRsp?: GetStreamingInputGamepadTypeRsp | undefined;
+  GetStreamingResolutionRsp?: GetStreamingResolutionRsp | undefined;
 }
 
 export interface Req {

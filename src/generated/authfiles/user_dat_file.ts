@@ -2,15 +2,15 @@
 export const protobufPackage = 'mg.protocol.user_dat_file';
 
 export interface UserInfo {
-  Username?: { $case: 'username'; username: string };
-  UbiAccountId?: { $case: 'ubiAccountId'; ubiAccountId: string };
-  Email?: { $case: 'email'; email: string };
-  Name?: { $case: 'name'; name: string };
-  PasswordSalt?: { $case: 'passwordSalt'; passwordSalt: Buffer };
-  PasswordHash?: { $case: 'passwordHash'; passwordHash: Buffer };
-  MigrationEmailHash?: { $case: 'migrationEmailHash'; migrationEmailHash: string };
-  RememberMeTicket?: { $case: 'rememberMeTicket'; rememberMeTicket: string };
-  HashIterationsOffset?: { $case: 'hashIterationsOffset'; hashIterationsOffset: number };
+  username: string | undefined;
+  ubiAccountId: string | undefined;
+  email: string | undefined;
+  name: string | undefined;
+  passwordSalt: Buffer | undefined;
+  passwordHash: Buffer | undefined;
+  migrationEmailHash: string | undefined;
+  rememberMeTicket: string | undefined;
+  hashIterationsOffset: number | undefined;
 }
 
 export interface LegacyVulnerableUnversionedCache {
@@ -18,18 +18,18 @@ export interface LegacyVulnerableUnversionedCache {
 }
 
 export interface StartupEntry {
-  IsRememberMe?: { $case: 'isRememberMe'; isRememberMe: boolean };
-  IsRestartCredentials?: { $case: 'isRestartCredentials'; isRestartCredentials: boolean };
-  UserIndex?: { $case: 'userIndex'; userIndex: number };
+  isRememberMe: boolean | undefined;
+  isRestartCredentials: boolean | undefined;
+  userIndex: number | undefined;
 }
 
 export interface EnvironmentCache {
   users: UserInfo[];
-  StartupEntry?: { $case: 'startupEntry'; startupEntry: StartupEntry };
+  startupEntry?: StartupEntry | undefined;
 }
 
 export interface Cache {
-  Prod?: { $case: 'prod'; prod: EnvironmentCache };
-  Uat?: { $case: 'uat'; uat: EnvironmentCache };
-  Dev?: { $case: 'dev'; dev: EnvironmentCache };
+  prod?: EnvironmentCache | undefined;
+  uat?: EnvironmentCache | undefined;
+  dev?: EnvironmentCache | undefined;
 }

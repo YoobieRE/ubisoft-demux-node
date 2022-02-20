@@ -39,16 +39,14 @@ export interface NeowizSpendPointsRsp {
 
 export interface Req {
   requestId: number;
-  Request?:
-    | { $case: 'initializeReq'; initializeReq: InitializeReq }
-    | { $case: 'neowizSpendPointsReq'; neowizSpendPointsReq: NeowizSpendPointsReq };
+  initializeReq?: InitializeReq | undefined;
+  neowizSpendPointsReq?: NeowizSpendPointsReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  Response?:
-    | { $case: 'initializeRsp'; initializeRsp: InitializeRsp }
-    | { $case: 'neowizSpendPointsRsp'; neowizSpendPointsRsp: NeowizSpendPointsRsp };
+  initializeRsp?: InitializeRsp | undefined;
+  neowizSpendPointsRsp?: NeowizSpendPointsRsp | undefined;
 }
 
 export interface Upstream {
