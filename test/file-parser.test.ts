@@ -5,7 +5,7 @@ describe('UbisoftFileParser', () => {
   const fileParser = new UbisoftFileParser();
 
   it('should parse a user.dat file', () => {
-    const data = readFileSync(`${__dirname}/sample-files/new-user.dat`);
+    const data = readFileSync(`${__dirname}/sample-files/user.dat`);
     const result = fileParser.parseUserDat(data);
     expect(result.toJSON()).toMatchObject({
       prod: {
