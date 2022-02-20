@@ -67,7 +67,7 @@ export const fileHashToPathChar = (hash: string): string => {
   const [firstChar, secondChar] = hash;
   const reversedValue = Buffer.from(`${secondChar}${firstChar}`, 'hex').readUInt8();
   const isEven = reversedValue % 2 === 0;
-  const offset = Math.floor(reversedValue / 2 / 8);
+  const offset = Math.floor(reversedValue / 16);
   const halfOffset = isEven ? 0 : 16;
   return base32Def[offset + halfOffset];
 };
