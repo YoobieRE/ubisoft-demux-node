@@ -12,3 +12,6 @@ export * as utility_service from './generated/proto_utility/utility';
 
 export * as user_dat_file from './generated/authfiles/user_dat_file';
 export * as ownership_cache from './generated/proto_ownership_cache/ownership_cache';
+export * as download from './generated/proto_download/download';
+export * as download_cache from './generated/proto_download_cache/download_cache';
+export * as download_install_state from './generated/proto_download_install_state/download_install_state';
