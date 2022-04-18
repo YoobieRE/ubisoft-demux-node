@@ -16,7 +16,7 @@ describe('Demux package', () => {
     ubiDemux = new UbisoftDemux();
     const resp = await ubiDemux.basicRequest({
       getPatchInfoReq: {
-        patchTrackId: '129.0',
+        patchTrackId: 'DEFAULT',
         testConfig: false,
         trackType: 0,
       },
@@ -26,7 +26,7 @@ describe('Demux package', () => {
       requestId: 0,
       getPatchInfoRsp: {
         success: true,
-        patchTrackId: 'DEFAULT',
+        patchTrackId: expect.any(String),
         testConfig: false,
         patchBaseUrl: expect.any(String),
         latestVersion: expect.any(Number),
