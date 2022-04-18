@@ -12,6 +12,7 @@ export const demuxDownstream = demuxNs.lookupType('Downstream');
 
 export type DemuxServiceName =
   | 'client_configuration_service'
+  | 'cloudsave_service'
   | 'denuvo_service'
   | 'download_service'
   | 'friends_service'
@@ -24,6 +25,9 @@ export type DemuxServiceName =
 const serviceMap: Record<DemuxServiceName, protobuf.Namespace> = {
   client_configuration_service: packageDefinition.lookup(
     'mg.protocol.client_configuration'
+  ) as protobuf.Namespace,
+  cloudsave_service: packageDefinition.lookup(
+    'mg.protocol.cloudsave_service'
   ) as protobuf.Namespace,
   denuvo_service: packageDefinition.lookup('mg.protocol.denuvo_service') as protobuf.Namespace,
   download_service: packageDefinition.lookup('mg.protocol.download_service') as protobuf.Namespace,

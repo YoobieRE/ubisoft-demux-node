@@ -6,6 +6,7 @@ import { DemuxServiceName, getServiceType } from './proto-defs';
 import { DemuxConnection } from './demux-connection';
 import type {
   client_configuration_service,
+  cloudsave_service,
   denuvo_service,
   download_service,
   friends_service,
@@ -59,6 +60,12 @@ export class UbisoftDemux {
       client_configuration_service.Upstream,
       client_configuration_service.Downstream & protobuf.Message
     >
+  >;
+
+  public async openConnection(
+    serviceName: 'cloudsave_service'
+  ): Promise<
+    DemuxConnection<cloudsave_service.Upstream, cloudsave_service.Downstream & protobuf.Message>
   >;
 
   public async openConnection(
@@ -129,6 +136,11 @@ export class UbisoftDemux {
     service: 'client_configuration_service',
     payload: client_configuration_service.Upstream
   ): Promise<client_configuration_service.Downstream & protobuf.Message>;
+
+  public async serviceRequest(
+    service: 'cloudsave_service',
+    payload: cloudsave_service.Upstream
+  ): Promise<cloudsave_service.Downstream & protobuf.Message>;
 
   public async serviceRequest(
     service: 'denuvo_service',

@@ -1,6 +1,7 @@
 export * as demux from './generated/proto_demux/demux';
 
 export * as client_configuration_service from './generated/proto_client_configuration/client_configuration';
+export * as cloudsave_service from './generated/proto_cloudsave_service/cloudsave_service';
 export * as denuvo_service from './generated/proto_denuvo_service/denuvo_service';
 export * as download_service from './generated/proto_download_service/download_service';
 export * as friends_service from './generated/proto_friends/friends';
