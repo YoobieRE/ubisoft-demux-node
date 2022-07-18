@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeFrameReporter {
+    optional State state = 1;
+    enum State {
+        STATE_NO_UPDATE_DESIRED = 0;
+        STATE_PRESENTED_ALL = 1;
+        STATE_PRESENTED_PARTIAL = 2;
+        STATE_DROPPED = 3;
+    }
+    
+    optional FrameDropReason reason = 2;
+    enum FrameDropReason {
+        REASON_UNSPECIFIED = 0;
+        REASON_DISPLAY_COMPOSITOR = 1;
+        REASON_MAIN_THREAD = 2;
+        REASON_CLIENT_COMPOSITOR = 3;
+    }
+    
+    optional uint64 frame_source = 3;
+    optional uint64 frame_sequence = 4;
+    optional bool affects_smoothness = 5;
+    
+    optional ScrollState scroll_state = 6;
+    enum ScrollState {
+        SCROLL_NONE = 0;
+        SCROLL_MAIN_THREAD = 1;
+        SCROLL_COMPOSITOR_THREAD = 2;
+        SCROLL_UNKNOWN = 3;
+    }
+    
+    optional bool has_main_animation = 7;
+    optional bool has_compositor_animation = 8;
+    optional bool has_smooth_input_main = 9;
+    optional bool has_missing_content = 10;
+}

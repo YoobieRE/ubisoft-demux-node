@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message JavaHprofConfig {
+    repeated string process_cmdline = 1;
+    repeated uint64 pid = 2;
+    
+    optional ContinuousDumpConfig continuous_dump_config = 3;
+    message ContinuousDumpConfig {
+        optional uint32 dump_phase_ms = 1;
+        optional uint32 dump_interval_ms = 2;
+    }
+    
+    optional uint32 min_anonymous_memory_kb = 4;
+    optional bool dump_smaps = 5;
+    repeated string ignored_types = 6;
+}

@@ -24,6 +24,8 @@ message OwnedGame {
     enum TargetPartner {
         TargetPartner_None = 0;
         TargetPartner_EpicGames = 1;
+        TargetPartner_Neowiz = 2;
+        TargetPartner_Microsoft = 3;
     }
     
     optional ActivationType activation_type = 18;
@@ -47,4 +49,5 @@ message OwnedGame {
 message OwnershipCache {
     repeated OwnedGame owned_games = 1;
     repeated uint32 product_ids = 2;
+    repeated uint32 visible_or_installable_product_ids = 3;
 }

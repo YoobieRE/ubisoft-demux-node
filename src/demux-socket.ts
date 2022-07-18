@@ -1,6 +1,7 @@
 import type { Debugger } from 'debug';
 import EventEmitter, { once } from 'events';
 import tls from 'tls';
+import { API_VERSION } from './constants';
 import type { demux } from './generated';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
@@ -56,6 +57,12 @@ export class DemuxSocket extends EventEmitter {
     this.debug = this.debug.extend(`p${this.socket.localPort}`);
     this.debug('Connected to socket from local port %d', this.socket.localPort);
     this.socket.on('data', this.handleDownstreamData.bind(this));
+    // The clientVersion must be established as the first call on socket creation
+    await this.push({
+      clientVersion: {
+        version: API_VERSION,
+      },
+    });
     return this.socket;
   }
 
@@ -114,7 +121,7 @@ export class DemuxSocket extends EventEmitter {
     const fullPayload: demux.Upstream = {
       request: { ...payload, requestId },
     };
-    this.debug('Sending request: %O', fullPayload);
+    this.debug('Sending request: %j', fullPayload);
     const encodedPayload = demuxUpstream.encode(fullPayload).finish();
     const prefixedPayload = addLengthPrefix(encodedPayload);
     const reqHex = prefixedPayload.toString('hex');

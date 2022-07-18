@@ -15,6 +15,11 @@ export interface StoreData {
   promotionScore: number;
 }
 
+export interface UbiServicesDynamicConfig {
+  lunaAppId: string;
+  gfnAppId: string;
+}
+
 export interface OwnedGame {
   productId: number;
   cdKey: string;
@@ -53,6 +58,7 @@ export interface OwnedGame {
   targetPartner: OwnedGame_TargetPartner;
   denuvoActivationOverwrite: OwnedGame_DenuvoActivationOverwrite;
   subscriptionTypes: number[];
+  ubiservicesDynamicConfig?: UbiServicesDynamicConfig;
 }
 
 export enum OwnedGame_PackageOwnershipState {
@@ -79,6 +85,7 @@ export enum OwnedGame_TargetPartner {
   TargetPartner_None = 0,
   TargetPartner_EpicGames = 1,
   TargetPartner_Neowiz = 2,
+  TargetPartner_Microsoft = 3,
   UNRECOGNIZED = -1,
 }
 
@@ -118,9 +125,10 @@ export interface OwnedGame_ProductBranch {
   branchName: string;
 }
 
-export interface OwnedGamesSignature {
+export interface OwnedGamesContainer {
   productIds: number[];
   signature: Buffer;
+  visibleOrInstallableProductIds: number[];
 }
 
 export interface OwnedGames {
@@ -147,7 +155,7 @@ export interface InitializeReq_ProductBranchData {
 export interface InitializeRsp {
   success: boolean;
   ownedGames?: OwnedGames;
-  ownedGamesSignature?: OwnedGamesSignature;
+  ownedGamesContainer?: OwnedGamesContainer;
   keySpamBanSeconds: number;
   subscriptionState: SubscriptionState;
   subscriptionType: number;
@@ -214,13 +222,14 @@ export interface RegisterOwnershipFromOculusReq {
   accessToken: string;
   oculusAppId: string;
   oculusUserId: string;
+  userId: string;
 }
 
 export interface RegisterOwnershipFromOculusRsp {
   result: RegisterOwnershipFromOculusRsp_Result;
   claimedAccountId: string;
   ownedGames?: OwnedGames;
-  ownedGamesSignature?: OwnedGamesSignature;
+  ownedGamesContainer?: OwnedGamesContainer;
 }
 
 export enum RegisterOwnershipFromOculusRsp_Result {
@@ -244,7 +253,7 @@ export interface RegisterOwnershipFromWeGameReq {
 export interface RegisterOwnershipFromWeGameRsp {
   result: RegisterOwnershipFromWeGameRsp_Result;
   ownedGames?: OwnedGames;
-  ownedGamesSignature?: OwnedGamesSignature;
+  ownedGamesContainer?: OwnedGamesContainer;
 }
 
 export enum RegisterOwnershipFromWeGameRsp_Result {
@@ -259,7 +268,7 @@ export enum RegisterOwnershipFromWeGameRsp_Result {
 
 export interface RegisterOwnershipRsp {
   result: RegisterOwnershipRsp_Result;
-  ownedGamesSignature?: OwnedGamesSignature;
+  ownedGamesContainer?: OwnedGamesContainer;
   ownedGames?: OwnedGames;
   bannedTime: number;
   cdkeyClaimedDate: string;
@@ -526,6 +535,14 @@ export interface UnlockProductBranchRsp_ProductBranch {
 
 export interface GetUplayPCTicketReq {
   uplayId: number;
+  platform: GetUplayPCTicketReq_Platform;
+}
+
+export enum GetUplayPCTicketReq_Platform {
+  Normal = 0,
+  Luna = 1,
+  GFN = 2,
+  UNRECOGNIZED = -1,
 }
 
 export interface GetUplayPCTicketRsp {
@@ -668,8 +685,10 @@ export interface Req {
   deprecatedGetProductFromCdKeyReq?: DeprecatedGetProductFromCdKeyReq;
   getProductConfigReq?: GetProductConfigReq;
   deprecatedGetLatestManifestsReq?: DeprecatedGetLatestManifestsReq;
+  /** @deprecated */
   cloudsaveReq?: CloudsaveReq;
   getBatchDownloadUrlsReq?: GetBatchDownloadUrlsReq;
+  /** @deprecated */
   cloudsaveReqV2?: CloudsaveReqV2;
   getUplayPcTicketReq?: GetUplayPCTicketReq;
   retryUplayCoreInitializeReq?: RetryUplayCoreInitializeReq;
@@ -696,9 +715,11 @@ export interface Rsp {
   deprecatedGetProductFromCdKeyRsp?: DeprecatedGetProductFromCdKeyRsp;
   getProductConfigRsp?: GetProductConfigRsp;
   deprecatedGetLatestManifestsRsp?: DeprecatedGetLatestManifestsRsp;
+  /** @deprecated */
   cloudsaveRsp?: CloudsaveRsp;
   getBatchDownloadUrlsRsp?: GetBatchDownloadUrlsRsp;
   getUplayPcTicketRsp?: GetUplayPCTicketRsp;
+  /** @deprecated */
   cloudsaveRspV2?: CloudsaveRspV2;
   consumeOwnershipRsp?: ConsumeOwnershipRsp;
   switchProductBranchRsp?: SwitchProductBranchRsp;
@@ -717,7 +738,7 @@ export interface Rsp {
 }
 
 export interface OwnedGamePush {
-  ownedGamesSignature?: OwnedGamesSignature;
+  ownedGamesContainer?: OwnedGamesContainer;
   ownedGames?: OwnedGames;
   removedProducts: number[];
 }

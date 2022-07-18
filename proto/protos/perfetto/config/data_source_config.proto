@@ -1,0 +1,50 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+import "protos/perfetto/config/android/android_log_config.proto";
+import "protos/perfetto/config/android/android_polled_state_config.proto";
+import "protos/perfetto/config/android/packages_list_config.proto";
+import "protos/perfetto/config/chrome/chrome_config.proto";
+import "protos/perfetto/config/ftrace/ftrace_config.proto";
+import "protos/perfetto/config/gpu/gpu_counter_config.proto";
+import "protos/perfetto/config/gpu/vulkan_memory_config.proto";
+import "protos/perfetto/config/inode_file/inode_file_config.proto";
+import "protos/perfetto/config/interceptor_config.proto";
+import "protos/perfetto/config/power/android_power_config.proto";
+import "protos/perfetto/config/process_stats/process_stats_config.proto";
+import "protos/perfetto/config/profiling/heapprofd_config.proto";
+import "protos/perfetto/config/profiling/java_hprof_config.proto";
+import "protos/perfetto/config/profiling/perf_event_config.proto";
+import "protos/perfetto/config/sys_stats/sys_stats_config.proto";
+import "protos/perfetto/config/test_config.proto";
+import "protos/perfetto/config/track_event/track_event_config.proto";
+
+message DataSourceConfig {
+    optional string name = 1;
+    optional uint32 target_buffer = 2;
+    optional uint32 trace_duration_ms = 3;
+    optional uint32 stop_timeout_ms = 7;
+    optional bool enable_extra_guardrails = 6;
+    optional uint64 tracing_session_id = 4;
+    optional FtraceConfig ftrace_config = 100 [lazy = true];
+    optional InodeFileConfig inode_file_config = 102 [lazy = true];
+    optional ProcessStatsConfig process_stats_config = 103 [lazy = true];
+    optional SysStatsConfig sys_stats_config = 104 [lazy = true];
+    optional HeapprofdConfig heapprofd_config = 105 [lazy = true];
+    optional JavaHprofConfig java_hprof_config = 110 [lazy = true];
+    optional AndroidPowerConfig android_power_config = 106 [lazy = true];
+    optional AndroidLogConfig android_log_config = 107 [lazy = true];
+    optional GpuCounterConfig gpu_counter_config = 108 [lazy = true];
+    optional PackagesListConfig packages_list_config = 109 [lazy = true];
+    optional PerfEventConfig perf_event_config = 111 [lazy = true];
+    optional VulkanMemoryConfig vulkan_memory_config = 112 [lazy = true];
+    optional TrackEventConfig track_event_config = 113 [lazy = true];
+    optional AndroidPolledStateConfig android_polled_state_config = 114 [lazy = true];
+    optional ChromeConfig chrome_config = 101;
+    optional InterceptorConfig interceptor_config = 115;
+    optional string legacy_config = 1000;
+    optional TestConfig for_testing = 1001;
+    
+    reserved 268435455;
+}

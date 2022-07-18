@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {
+import type {
   GetPatchInfoReq as GetPatchInfoReq1,
   GetPatchInfoRsp as GetPatchInfoRsp2,
 } from '../proto_demux/demux';

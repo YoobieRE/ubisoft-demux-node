@@ -123,6 +123,7 @@ export interface CheckoutReq {
   languageCode: string;
   extra: KeyValuePair[];
   redirectLocale: string;
+  partnerPlatformName: string;
 }
 
 export interface CheckoutRsp {

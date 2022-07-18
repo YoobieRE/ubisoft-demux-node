@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message PackagesListConfig {
+    repeated string package_name_filter = 1;
+}

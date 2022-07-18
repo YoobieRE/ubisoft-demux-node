@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message LogMessage {
+    optional uint64 source_location_iid = 1;
+    optional uint64 body_iid = 2;
+}
+
+message LogMessageBody {
+    optional uint64 iid = 1;
+    optional string body = 2;
+}

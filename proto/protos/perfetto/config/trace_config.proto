@@ -1,0 +1,139 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+import "protos/perfetto/config/data_source_config.proto";
+import "protos/perfetto/common/builtin_clock.proto";
+
+message TraceConfig {
+    repeated BufferConfig buffers = 1;
+    message BufferConfig {
+        optional uint32 size_kb = 1;
+        
+        optional FillPolicy fill_policy = 4;
+        enum FillPolicy {
+            UNSPECIFIED = 0;
+            RING_BUFFER = 1;
+            DISCARD = 2;
+        }
+        
+        reserved 2, 3;
+    }
+    
+    repeated DataSource data_sources = 2;
+    message DataSource {
+        optional DataSourceConfig config = 1;
+        repeated string producer_name_filter = 2;
+        repeated string producer_name_regex_filter = 3;
+    }
+    
+    optional BuiltinDataSource builtin_data_sources = 20;
+    message BuiltinDataSource {
+        optional bool disable_clock_snapshotting = 1;
+        optional bool disable_trace_config = 2;
+        optional bool disable_system_info = 3;
+        optional bool disable_service_events = 4;
+        optional BuiltinClock primary_trace_clock = 5;
+        optional uint32 snapshot_interval_ms = 6;
+    }
+    
+    optional uint32 duration_ms = 3;
+    optional bool enable_extra_guardrails = 4;
+    
+    optional LockdownModeOperation lockdown_mode = 5;
+    enum LockdownModeOperation {
+        LOCKDOWN_UNCHANGED = 0;
+        LOCKDOWN_CLEAR = 1;
+        LOCKDOWN_SET = 2;
+    }
+    
+    repeated ProducerConfig producers = 6;
+    message ProducerConfig {
+        optional string producer_name = 1;
+        optional uint32 shm_size_kb = 2;
+        optional uint32 page_size_kb = 3;
+    }
+    
+    optional StatsdMetadata statsd_metadata = 7;
+    message StatsdMetadata {
+        optional int64 triggering_alert_id = 1;
+        optional int32 triggering_config_uid = 2;
+        optional int64 triggering_config_id = 3;
+        optional int64 triggering_subscription_id = 4;
+    }
+    
+    optional bool write_into_file = 8;
+    optional string output_path = 29;
+    optional uint32 file_write_period_ms = 9;
+    optional uint64 max_file_size_bytes = 10;
+    
+    optional GuardrailOverrides guardrail_overrides = 11;
+    message GuardrailOverrides {
+        optional uint64 max_upload_per_day_bytes = 1;
+    }
+    
+    optional bool deferred_start = 12;
+    optional uint32 flush_period_ms = 13;
+    optional uint32 flush_timeout_ms = 14;
+    optional uint32 data_source_stop_timeout_ms = 23;
+    optional bool notify_traceur = 16;
+    optional int32 bugreport_score = 30;
+    
+    optional TriggerConfig trigger_config = 17;
+    message TriggerConfig {
+        optional TriggerMode trigger_mode = 1;
+        enum TriggerMode {
+            UNSPECIFIED = 0;
+            START_TRACING = 1;
+            STOP_TRACING = 2;
+        }
+        
+        repeated Trigger triggers = 2;
+        message Trigger {
+            optional string name = 1;
+            optional string producer_name_regex = 2;
+            optional uint32 stop_delay_ms = 3;
+            optional uint32 max_per_24_h = 4;
+            optional double skip_probability = 5;
+        }
+        
+        optional uint32 trigger_timeout_ms = 3;
+    }
+    
+    repeated string activate_triggers = 18;
+    
+    optional IncrementalStateConfig incremental_state_config = 21;
+    message IncrementalStateConfig {
+        optional uint32 clear_period_ms = 1;
+    }
+    
+    optional bool allow_user_build_tracing = 19;
+    optional string unique_session_name = 22;
+    
+    optional CompressionType compression_type = 24;
+    enum CompressionType {
+        COMPRESSION_TYPE_UNSPECIFIED = 0;
+        COMPRESSION_TYPE_DEFLATE = 1;
+    }
+    
+    optional IncidentReportConfig incident_report_config = 25;
+    message IncidentReportConfig {
+        optional string destination_package = 1;
+        optional string destination_class = 2;
+        optional int32 privacy_level = 3;
+        optional bool skip_incidentd = 5;
+        optional bool skip_dropbox = 4 [deprecated = true];
+    }
+    
+    optional StatsdLogging statsd_logging = 31;
+    enum StatsdLogging {
+        STATSD_LOGGING_UNSPECIFIED = 0;
+        STATSD_LOGGING_ENABLED = 1;
+        STATSD_LOGGING_DISABLED = 2;
+    }
+    
+    optional int64 trace_uuid_msb = 27;
+    optional int64 trace_uuid_lsb = 28;
+    
+    reserved 15, 26;
+}

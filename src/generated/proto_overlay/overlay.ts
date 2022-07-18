@@ -16,6 +16,9 @@ export interface StartReq {
 export interface StartSuccessRsp {
   sharedMemoryName: string;
   sharedMemoryMutexName: string;
+  productId: number;
+  ubiservicesApplicationId: string;
+  ubiservicesSpaceId: string;
   virtualControlsEnabled: boolean;
 }
 
@@ -120,16 +123,6 @@ export interface CreateProcessRsp {
   pid: number;
 }
 
-export interface StartStreamPush {
-  frameWidth: number;
-  frameHeight: number;
-  bufferSize: number;
-  framesPerSecond: number;
-  bufferName: string;
-}
-
-export interface EndStreamPush {}
-
 export interface VideoFrameReadyReq {
   bufferIndex: number;
 }
@@ -163,26 +156,74 @@ export interface CursorChangePush {
   cursorId: number;
 }
 
-export interface SharePlayStartPush {
+export interface StreamingHostStartPush {
   sessionId: string;
   token: string;
   appId: string;
   isUat: boolean;
   bitrate: number;
-  guestId: string;
   mouseKeyboardAllowed: boolean;
   gamepadAllowed: boolean;
+  hostProfileId: string;
 }
 
-export interface SharePlayStopPush {}
+export interface StreamingHostStartResponse {
+  result: boolean;
+  inviteToken: string;
+  startConfig?: StreamingStartConfig;
+  errorMsg: string;
+  errorCode: number;
+}
 
-export interface SharePlaySettingsPush {
+export interface StreamingHostGuestPermissions {
+  gamepad: boolean;
+  keyboard: boolean;
+  mouse: boolean;
+  immersive: boolean;
+}
+
+export interface StreamingHostGuestSettingsResponse {
+  permissions?: StreamingHostGuestPermissions;
+}
+
+export interface StreamingHostGuestResponse {
+  guestId: number;
+  profileId: string;
+  settings?: StreamingHostGuestSettingsResponse;
+}
+
+export interface StreamingHostGuestConnectedReq {
+  guest?: StreamingHostGuestResponse;
+}
+
+export interface StreamingHostGuestDisconnectedReq {
+  guestId: number;
+  profileId: string;
+}
+
+export interface StreamingHostStopPush {}
+
+export interface StreamingHostKickPush {
+  guestId: number;
+}
+
+export interface StreamingSettingsPush {
   bitrate: number;
   mouseKeyboardAllowed: boolean;
   gamepadAllowed: boolean;
 }
 
-export interface SharePlayStartConfig {
+export interface StreamingHostPermissionsPush {
+  clientId: number;
+  mouseKeyboardAllowed: boolean;
+  gamepadAllowed: boolean;
+}
+
+export interface StreamingHostAddAllowedProfileIdsPush {
+  allowedProfileIds: string[];
+}
+
+export interface StreamingStartConfig {
   width: number;
   height: number;
   bitrate: number;
@@ -190,30 +231,29 @@ export interface SharePlayStartConfig {
   isFocused: boolean;
 }
 
-export interface SharePlayStartReq {
-  result: boolean;
-  inviteToken: string;
-  startConfig?: SharePlayStartConfig;
-}
-
-export interface SharePlayStopReq {
+export interface StreamingHostStopReq {
   result: boolean;
 }
 
-export interface SharePlaySettingsReq {
+export interface StreamingSettingsReq {
   result: number;
 }
 
-export interface SharePlayGuestConnectedReq {
-  guestId: string;
-}
-
-export interface SharePlayGuestDisconnectedReq {
-  guestId: string;
-}
-
-export interface SharePlayLatencyReq {
+export interface StreamingLatencyReq {
   latency: number;
+  profileId: string;
+}
+
+export interface StreamingHostMetricsReq {
+  latency: number;
+  bitrate: number;
+  clientId: number;
+}
+
+export interface StreamingVGPEvent {
+  source: number;
+  profileId: string;
+  streamingGamepadId: number;
 }
 
 export interface ScreenshotReadyReq {
@@ -274,12 +314,13 @@ export interface Req {
   imeSetCompositionReq?: IMESetCompositionReq;
   imeCancelCompositionReq?: IMECancelCompositionReq;
   imeUpdateCandidatesReq?: IMEUpdateCandidatesReq;
-  sharePlayStartReq?: SharePlayStartReq;
-  sharePlayStopReq?: SharePlayStopReq;
-  sharePlaySettingsReq?: SharePlaySettingsReq;
-  sharePlayGuestConnectedReq?: SharePlayGuestConnectedReq;
-  sharePlayGuestDisconnectedReq?: SharePlayGuestDisconnectedReq;
-  sharePlayLatencyReq?: SharePlayLatencyReq;
+  streamingSettingsReq?: StreamingSettingsReq;
+  streamingHostStartResponse?: StreamingHostStartResponse;
+  streamingHostGuestConnectedReq?: StreamingHostGuestConnectedReq;
+  streamingHostGuestDisconnectedReq?: StreamingHostGuestDisconnectedReq;
+  streamingHostStopReq?: StreamingHostStopReq;
+  streamingHostMetricsReq: StreamingHostMetricsReq[];
+  streamingVgpEventReq?: StreamingVGPEvent;
 }
 
 export interface Rsp {
@@ -296,8 +337,6 @@ export interface UserBannedPush {}
 
 export interface Push {
   multipleLogin?: MultipleLogin;
-  startStream?: StartStreamPush;
-  endStream?: EndStreamPush;
   captureScreenshot?: CaptureScreenshotPush;
   cursorChange?: CursorChangePush;
   userBanned?: UserBannedPush;
@@ -305,9 +344,12 @@ export interface Push {
   uiClosed?: UiClosedPush;
   imeClearComposition?: IMEClearCompositionPush;
   imeSelectCandidate?: IMESelectCandidatePush;
-  sharePlayStart?: SharePlayStartPush;
-  sharePlayStop?: SharePlayStopPush;
-  sharePlaySettings?: SharePlaySettingsPush;
+  streamingSettings?: StreamingSettingsPush;
+  streamingHostStart?: StreamingHostStartPush;
+  streamingHostStop?: StreamingHostStopPush;
+  streamingHostKick?: StreamingHostKickPush;
+  streamingHostAddAllowedProfileIds?: StreamingHostAddAllowedProfileIdsPush;
+  streamingHostPermissions?: StreamingHostPermissionsPush;
 }
 
 export interface Upstream {

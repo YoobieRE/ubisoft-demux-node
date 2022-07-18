@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+import "protos/perfetto/common/android_log_constants.proto";
+
+message AndroidLogConfig {
+    repeated AndroidLogId log_ids = 1;
+    optional AndroidLogPriority min_prio = 3;
+    repeated string filter_tags = 4;
+    
+    reserved 2;
+}

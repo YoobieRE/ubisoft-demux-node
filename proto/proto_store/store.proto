@@ -88,6 +88,7 @@ message CheckoutReq {
     optional string language_code = 5;
     repeated KeyValuePair extra = 6;
     optional string redirect_locale = 7;
+    optional string partner_platform_name = 8;
 }
 
 message CheckoutRsp {

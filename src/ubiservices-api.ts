@@ -42,7 +42,9 @@ export class UbiServicesApi {
       method: 'POST',
       url: 'https://public-ubiservices.ubi.com/v3/profiles/sessions',
       headers: {
+        'User-Agent': 'Massgate',
         'Ubi-AppId': this.appId,
+        'Ubi-RequestedPlatformType': 'uplay',
         Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
         'Content-Type': 'application/json',
       },

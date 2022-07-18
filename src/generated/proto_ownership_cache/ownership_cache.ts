@@ -26,6 +26,8 @@ export interface OwnedGame {
 export enum OwnedGame_TargetPartner {
   TargetPartner_None = 0,
   TargetPartner_EpicGames = 1,
+  TargetPartner_Neowiz = 2,
+  TargetPartner_Microsoft = 3,
   UNRECOGNIZED = -1,
 }
 
@@ -48,4 +50,5 @@ export enum OwnedGame_PackageState {
 export interface OwnershipCache {
   ownedGames: OwnedGame[];
   productIds: number[];
+  visibleOrInstallableProductIds: number[];
 }

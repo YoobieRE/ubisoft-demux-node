@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeUserEvent {
+    optional string action = 1;
+    optional uint64 action_hash = 2;
+}

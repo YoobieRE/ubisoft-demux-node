@@ -127,6 +127,9 @@ export interface SharePlay {
   mouseAndKeyboardAccessAllowed: boolean;
   gamepadAccessAllowed: boolean;
   displayWizardTour: boolean;
+  lastTimeFeedBackWindowDisplayed: number;
+  nbBuyGameRefused: number;
+  nbFeedbackUnfilled: number;
 }
 
 export interface SettingsModel {

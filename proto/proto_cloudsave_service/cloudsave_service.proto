@@ -43,14 +43,117 @@ message CloudsaveUrlRsp {
     }
 }
 
+message CloudsaveReq {
+    uint32 uplay_id = 1;
+    string username = 6;
+    string ownership_token = 7;
+    
+    oneof method {
+        PutItem put_item = 2;
+        GetItem get_item = 3;
+        DeleteItem delete_item = 4;
+        ListItems list_items = 5;
+    }
+    
+    message PutItem {
+        uint32 item_id = 1;
+        uint32 write_length = 2;
+        string md5_base64 = 3;
+    }
+    
+    message GetItem {
+        uint32 item_id = 1;
+    }
+    
+    message ListItems {
+        
+    }
+    
+    message DeleteItem {
+        uint32 item_id = 1;
+    }
+}
+
+message CloudsaveRsp {
+    Status status = 1;
+    enum Status {
+        Status_Ok = 0;
+        Status_InternalError = 1;
+        Status_Denied = 2;
+    }
+    
+    string method_string = 2;
+    string path_string = 3;
+    string host_string = 4;
+    string header_string = 5;
+}
+
+message CloudsaveReqV2 {
+    uint32 uplay_id = 1;
+    string ownership_token = 5;
+    
+    oneof method {
+        PutItems put_items = 2;
+        GetItems get_items = 3;
+        DeleteItems delete_items = 4;
+    }
+    
+    message PutItems {
+        repeated Item items = 1;
+        message Item {
+            uint32 item_id = 1;
+            uint32 write_length = 2;
+            string md5_base64 = 3;
+            string item_name = 4;
+        }
+    }
+    
+    message GetItems {
+        repeated Item items = 1;
+        message Item {
+            uint32 item_id = 1;
+            string item_name = 2;
+        }
+    }
+    
+    message DeleteItems {
+        repeated Item items = 1;
+        message Item {
+            uint32 item_id = 1;
+            string item_name = 2;
+        }
+    }
+}
+
+message CloudsaveRspV2 {
+    Status status = 1;
+    enum Status {
+        Status_Ok = 0;
+        Status_InternalError = 1;
+        Status_Denied = 2;
+    }
+    
+    repeated HttpReq http_reqs = 2;
+    message HttpReq {
+        string method = 1;
+        string path = 2;
+        string host = 3;
+        string header = 4;
+    }
+}
+
 message Req {
     uint32 request_id = 1;
     CloudsaveUrlReq cloudsave_url_req = 2;
+    CloudsaveReq cloudsave_req = 3;
+    CloudsaveReqV2 cloudsave_req_v2 = 4;
 }
 
 message Rsp {
     uint32 request_id = 1;
     CloudsaveUrlRsp cloudsave_url_rsp = 2;
+    CloudsaveRsp cloudsave_rsp = 3;
+    CloudsaveRspV2 cloudsave_rsp_v2 = 4;
 }
 
 message Upstream {

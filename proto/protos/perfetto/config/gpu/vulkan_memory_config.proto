@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message VulkanMemoryConfig {
+    optional bool track_driver_memory_usage = 1;
+    optional bool track_device_memory_usage = 2;
+}

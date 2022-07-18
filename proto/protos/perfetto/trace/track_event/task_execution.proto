@@ -1,0 +1,7 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message TaskExecution {
+    optional uint64 posted_from_iid = 1;
+}

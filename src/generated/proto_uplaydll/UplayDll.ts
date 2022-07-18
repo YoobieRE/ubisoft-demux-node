@@ -125,6 +125,8 @@ export enum CheckoutResult {
 export enum TargetPartner {
   TargetPartner_None = 0,
   TargetPartner_EpicGames = 1,
+  TargetPartner_Neowiz = 2,
+  TargetPartner_Microsoft = 3,
   UNRECOGNIZED = -1,
 }
 

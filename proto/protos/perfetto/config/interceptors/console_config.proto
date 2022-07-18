@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ConsoleConfig {
+    optional Output output = 1;
+    enum Output {
+        OUTPUT_UNSPECIFIED = 0;
+        OUTPUT_STDOUT = 1;
+        OUTPUT_STDERR = 2;
+    }
+    
+    optional bool enable_colors = 2;
+}

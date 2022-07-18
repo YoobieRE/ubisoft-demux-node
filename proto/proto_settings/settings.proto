@@ -115,6 +115,9 @@ message SharePlay {
     optional bool mouseAndKeyboardAccessAllowed = 3 [default = true];
     optional bool gamepadAccessAllowed = 4 [default = true];
     optional bool displayWizardTour = 5 [default = true];
+    optional uint32 lastTimeFeedBackWindowDisplayed = 6 [default = 0];
+    optional uint32 nbBuyGameRefused = 7 [default = 0];
+    optional uint32 nbFeedbackUnfilled = 8 [default = 0];
 }
 
 message SettingsModel {

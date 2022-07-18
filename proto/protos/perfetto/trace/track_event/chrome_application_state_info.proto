@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package perfetto.protos;
+
+message ChromeApplicationStateInfo {
+    optional ChromeApplicationState application_state = 1;
+    enum ChromeApplicationState {
+        APPLICATION_STATE_UNKNOWN = 0;
+        APPLICATION_STATE_HAS_RUNNING_ACTIVITIES = 1;
+        APPLICATION_STATE_HAS_PAUSED_ACTIVITIES = 2;
+        APPLICATION_STATE_HAS_STOPPED_ACTIVITIES = 3;
+        APPLICATION_STATE_HAS_DESTROYED_ACTIVITIES = 4;
+    }
+}

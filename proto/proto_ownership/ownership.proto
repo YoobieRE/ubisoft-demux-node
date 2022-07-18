@@ -9,6 +9,11 @@ message StoreData {
     optional uint32 promotion_score = 4;
 }
 
+message UbiServicesDynamicConfig {
+    optional string luna_app_id = 1;
+    optional string gfn_app_id = 2;
+}
+
 message OwnedGame {
     required uint32 product_id = 1;
     optional string cd_key = 2;
@@ -75,6 +80,7 @@ message OwnedGame {
         TargetPartner_None = 0;
         TargetPartner_EpicGames = 1;
         TargetPartner_Neowiz = 2;
+        TargetPartner_Microsoft = 3;
     }
     
     optional DenuvoActivationOverwrite denuvo_activation_overwrite = 39;
@@ -84,6 +90,7 @@ message OwnedGame {
     }
     
     repeated uint32 subscription_types = 40;
+    optional UbiServicesDynamicConfig ubiservices_dynamic_config = 41;
     
     enum ProductType {
         ProductType_Game = 0;
@@ -109,9 +116,10 @@ message OwnedGame {
     }
 }
 
-message OwnedGamesSignature {
+message OwnedGamesContainer {
     repeated uint32 product_ids = 1;
     required bytes signature = 2;
+    repeated uint32 visible_or_installable_product_ids = 3;
 }
 
 message OwnedGames {
@@ -138,7 +146,7 @@ message InitializeReq {
 message InitializeRsp {
     required bool success = 1;
     optional OwnedGames owned_games = 2;
-    optional OwnedGamesSignature owned_games_signature = 3;
+    optional OwnedGamesContainer owned_games_container = 3;
     optional uint32 key_spam_ban_seconds = 4;
     optional SubscriptionState subscription_state = 5;
     optional uint32 subscription_type = 6;
@@ -203,6 +211,7 @@ message RegisterOwnershipFromOculusReq {
     optional string access_token = 1;
     optional string oculus_app_id = 2;
     optional string oculus_user_id = 3;
+    optional string user_id = 4;
 }
 
 message RegisterOwnershipFromOculusRsp {
@@ -222,7 +231,7 @@ message RegisterOwnershipFromOculusRsp {
     
     optional string claimed_account_id = 2;
     optional OwnedGames owned_games = 3;
-    optional OwnedGamesSignature owned_games_signature = 4;
+    optional OwnedGamesContainer owned_games_container = 4;
 }
 
 message RegisterOwnershipFromWeGameReq {
@@ -241,7 +250,7 @@ message RegisterOwnershipFromWeGameRsp {
     }
     
     optional OwnedGames owned_games = 2;
-    optional OwnedGamesSignature owned_games_signature = 3;
+    optional OwnedGamesContainer owned_games_container = 3;
 }
 
 message RegisterOwnershipRsp {
@@ -260,7 +269,7 @@ message RegisterOwnershipRsp {
         Result_UsedCdKeyThisAccount = 11;
     }
     
-    optional OwnedGamesSignature owned_games_signature = 4;
+    optional OwnedGamesContainer owned_games_container = 4;
     optional OwnedGames owned_games = 5;
     optional uint32 banned_time = 6;
     optional string cdkey_claimed_date = 7;
@@ -496,6 +505,13 @@ message UnlockProductBranchRsp {
 
 message GetUplayPCTicketReq {
     required uint32 uplay_id = 1;
+    
+    optional Platform platform = 2;
+    enum Platform {
+        Normal = 0;
+        Luna = 1;
+        GFN = 2;
+    }
 }
 
 message GetUplayPCTicketRsp {
@@ -634,9 +650,9 @@ message Req {
     optional DeprecatedGetProductFromCdKeyReq deprecated_get_product_from_cd_key_req = 6;
     optional GetProductConfigReq get_product_config_req = 9;
     optional DeprecatedGetLatestManifestsReq deprecated_get_latest_manifests_req = 10;
-    optional CloudsaveReq cloudsave_req = 11;
+    optional CloudsaveReq cloudsave_req = 11 [deprecated = true];
     optional GetBatchDownloadUrlsReq get_batch_download_urls_req = 12;
-    optional CloudsaveReqV2 cloudsave_req_v2 = 13;
+    optional CloudsaveReqV2 cloudsave_req_v2 = 13 [deprecated = true];
     optional GetUplayPCTicketReq get_uplay_pc_ticket_req = 14;
     optional RetryUplayCoreInitializeReq retry_uplay_core_initialize_req = 15;
     optional ConsumeOwnershipReq consume_ownership_req = 16;
@@ -662,10 +678,10 @@ message Rsp {
     optional DeprecatedGetProductFromCdKeyRsp deprecated_get_product_from_cd_key_rsp = 5;
     optional GetProductConfigRsp get_product_config_rsp = 9;
     optional DeprecatedGetLatestManifestsRsp deprecated_get_latest_manifests_rsp = 10;
-    optional CloudsaveRsp cloudsave_rsp = 11;
+    optional CloudsaveRsp cloudsave_rsp = 11 [deprecated = true];
     optional GetBatchDownloadUrlsRsp get_batch_download_urls_rsp = 12;
     optional GetUplayPCTicketRsp get_uplay_pc_ticket_rsp = 13;
-    optional CloudsaveRspV2 cloudsave_rsp_v2 = 14;
+    optional CloudsaveRspV2 cloudsave_rsp_v2 = 14 [deprecated = true];
     optional ConsumeOwnershipRsp consume_ownership_rsp = 15;
     optional SwitchProductBranchRsp switch_product_branch_rsp = 16;
     optional UnlockProductBranchRsp unlock_product_branch_rsp = 17;
@@ -683,7 +699,7 @@ message Rsp {
 }
 
 message OwnedGamePush {
-    optional OwnedGamesSignature owned_games_signature = 2;
+    optional OwnedGamesContainer owned_games_container = 2;
     optional OwnedGames owned_games = 4;
     repeated uint32 removed_products = 5;
 }

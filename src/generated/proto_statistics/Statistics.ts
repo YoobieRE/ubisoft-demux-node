@@ -519,6 +519,7 @@ export interface PromoTabInteractionObjectData {
   brandId: number;
   url: string;
   clientLanguage: string;
+  ownScenario: string;
 }
 
 export interface NewsInteractionObjectData {
@@ -628,14 +629,6 @@ export interface SharePlayHostSessionStreamingStopData {
   reason: string;
 }
 
-export interface SharePlayHostOutOfFocusStartData {
-  invitationId: string;
-}
-
-export interface SharePlayHostOutOfFocusStopData {
-  invitationId: string;
-}
-
 export interface SharePlayOnboardingData {
   sourceTrackingData: string;
   reason: string;
@@ -674,6 +667,35 @@ export interface SharePlayHostSettingsData {
   sourceTrackingData: string;
 }
 
+export interface StreamingHostStartSessionData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  bitrateMbps: number;
+}
+
+export interface StreamingHostStopSessionData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  reason: string;
+  bitrateMbps: number;
+}
+
+export interface StreamingHostSessionSettingsChanged {
+  sender: string;
+  settingName: string;
+  newValue: string;
+  oldValue: string;
+}
+
+export interface StreamingErrorData {
+  errorName: string;
+  errorType: string;
+  hostPeerId: string;
+  side: string;
+}
+
 export interface StreamingFeedBackData {
   audioIssue: boolean;
   inputLag: boolean;
@@ -690,6 +712,29 @@ export interface StreamingFeedBackData {
   videoIssue: boolean;
   side: string;
   userType: string;
+}
+
+export interface StreamingHostOutOfFocusStartData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+}
+
+export interface StreamingHostOutOfFocusStopData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+}
+
+export interface StreamingVGPEvent {
+  deviceId: number;
+  deviceName: string;
+  deviceType: string;
+  guestProfileId: string;
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  state: string;
 }
 
 export interface EventTypeData {
@@ -752,9 +797,14 @@ export interface EventObjectData {
   sharePlayHostError?: SharePlayHostErrorData;
   sharePlayHostSettings?: SharePlayHostSettingsData;
   sharePlayOnboarding?: SharePlayOnboardingData;
-  sharePlayHostOutOfFocusStart?: SharePlayHostOutOfFocusStartData;
-  sharePlayHostOutOfFocusStop?: SharePlayHostOutOfFocusStopData;
+  streamingHostOutOfFocusStart?: StreamingHostOutOfFocusStartData;
+  streamingHostOutOfFocusStop?: StreamingHostOutOfFocusStopData;
   streamingFeedBack?: StreamingFeedBackData;
+  streamingHostStartSession?: StreamingHostStartSessionData;
+  streamingHostStopSession?: StreamingHostStopSessionData;
+  streamingError?: StreamingErrorData;
+  streamingHostSessionSettings?: StreamingHostSessionSettingsChanged;
+  streamingVGPEvent?: StreamingVGPEvent;
 }
 
 export interface Event {
