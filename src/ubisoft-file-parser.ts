@@ -22,6 +22,15 @@ export class UbisoftFileParser {
     const protoType = packageDefinition.lookupType('mg.protocol.user_dat_file.Cache');
     const result = protoType.decode(userDat) as user_dat_file.Cache & protobuf.Message;
     return result;
+    /**
+     * Note: the rememberMeTicket returned here is not a hash, but is encrypted so it can be decrypted and the login can be refreshed.
+     * What I know so far about the encryption scheme:
+     * - The registry key `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Cryptography\MachineGuid` is likely used as the key or IV (it's read right before writing user.dat)
+     *     It is stripped of its dashes and likely parsed as a string and not converted from hex to binary (it's seen in memory as a string without dashes, and not found as a hexadecimal binary array)
+     * - The encryption algorithm is non-avalanching, which pretty much narrows it down to AES or 3DES
+     * - If the MachineGuid as a string is the key, it's likely a 256 bit AES key
+     * - The ciphertext is exactly the size of the plaintext, so there isn't an IV header in the cipertext
+     */
   }
 
   /**
