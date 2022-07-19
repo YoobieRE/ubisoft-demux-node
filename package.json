@@ -1,8 +1,8 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10690.0",
+  "version": "1.10690.1",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "scripts": {
     "test": "DEBUG=ubisoft-demux* jest",
     "test:ci": "jest --coverage",
@@ -10,6 +10,7 @@
     "lint": "tsc --noEmit && eslint .",
     "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
   },
+  "types": "dist/src/index.d.ts",
   "author": {
     "name": "Charlie Laabs",
     "url": "https://github.com/claabs"

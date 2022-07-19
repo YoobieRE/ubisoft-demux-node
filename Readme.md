@@ -1,7 +1,11 @@
 # ubisoft-demux-node
 
+[![npm](https://img.shields.io/npm/v/ubisoft-demux)](https://www.npmjs.com/package/ubisoft-demux)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/claabs/ubisoft-demux-node/Unit%20test%20and%20build)
 [![Coverage Status](https://coveralls.io/repos/github/claabs/ubisoft-demux-node/badge.svg?branch=master)](https://coveralls.io/github/claabs/ubisoft-demux-node?branch=master)
+
+The Ubisoft Connect game launcher uses a bespoke socket-level protocol sending protocol buffer encoded messages to perform the majority of its core functionality.
+This package implements the Demux protocol and assists with communicating directly with the Demux API.
 
 ## Usage
 
@@ -16,6 +20,7 @@ You should be using this package guided by knowledge gained from reverse enginee
 Basic requests contain a `requestId` that must increment with each request. This method keeps track of all requests and manages the `requestId` for you.
 
 ```ts
+import { UbisoftDemux } from 'ubisoft-demux';
 const ubiDemux = new UbisoftDemux();
 const resp = await ubiDemux.basicRequest({
     getPatchInfoReq: {
@@ -31,6 +36,7 @@ const resp = await ubiDemux.basicRequest({
 A service is a set of requests restricted to a certain domain's data model. This package will keep track of a request's service type and decode it appropriately.
 
 ```ts
+import { UbisoftDemux } from 'ubisoft-demux';
 const ubiDemux = new UbisoftDemux();
 const resp = await ubiDemux.serviceRequest('utility_service', {
     request: {
@@ -44,6 +50,7 @@ const resp = await ubiDemux.serviceRequest('utility_service', {
 Most service interactions occur through an open "connection". This package will open a connection and manage incrementing its connection `requestId`.
 
 ```ts
+import { UbisoftDemux } from 'ubisoft-demux';
 const ubiDemux = new UbisoftDemux();
 const connection = await ubiDemux.openConnection('ownership_service');
 const resp = await connection.request({
@@ -63,6 +70,7 @@ const resp = await connection.request({
 You can authenticate with the Demux API using a login ticket obtained from the UbiServices HTTP API. See below for more on it.
 
 ```ts
+import { UbisoftDemux } from 'ubisoft-demux';
 const ubiDemux = new UbisoftDemux();
 await ubiDemux.basicRequest({
     authenticateReq: {
@@ -88,6 +96,7 @@ Ubisoft's HTTP REST API is out of the scope of this package, but it contains som
 Currently only supports fresh login without 2FA.
 
 ```ts
+import { UbiServicesApi } from 'ubisoft-demux';
 const ubiServices = new UbiServicesApi();
 const { ticket } = await ubiServices.login(email, password);
 ```
@@ -97,6 +106,7 @@ const { ticket } = await ubiServices.login(email, password);
 Since many of Ubisoft Connect's local files are also protobuf format, this package can also decode many of them.
 
 ```ts
+import { UbisoftFileParser } from 'ubisoft-demux';
 const data = readFileSync(`%LOCALAPPDATA%/Ubisoft Game Launcher/user.dat`);
 const fileParser = new UbisoftFileParser();
 const result = fileParser.parseUserDat(data);
