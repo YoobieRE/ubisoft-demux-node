@@ -1,15 +1,15 @@
 import debug from 'debug';
 import phin from 'phin';
 
-export interface CreateSessionResponse {
+export interface CreateSessionSuccessResponse {
   platformType: string;
   ticket: string;
-  twoFactorAuthenticationTicket: string | null;
+  twoFactorAuthenticationTicket: null;
   profileId: string;
   userId: string;
   nameOnPlatform: string;
   environment: string;
-  expiration: Date;
+  expiration: string;
   spaceId: string;
   clientIp: string;
   clientIpCountry: string;
@@ -17,6 +17,26 @@ export interface CreateSessionResponse {
   sessionId: string;
   sessionKey: string;
   rememberMeTicket: string | null;
+}
+
+export interface CreateSession2FaRequiredResponse {
+  maskedPhone: string;
+  platformType: null;
+  ticket: null;
+  twoFactorAuthenticationTicket: string;
+  profileId: null;
+  userId: null;
+  nameOnPlatform: null;
+  environment: null;
+  expiration: Date;
+  spaceId: null;
+  clientIp: null;
+  clientIpCountry: null;
+  serverTime: null;
+  sessionId: string;
+  sessionKey: null;
+  rememberMeTicket: null;
+  codeGenerationPreference: string[];
 }
 
 export interface UbiServicesApiProps {
@@ -34,9 +54,8 @@ export class UbiServicesApi {
 
   public async login(
     email: string,
-    password: string,
-    totp?: string // TODO
-  ): Promise<CreateSessionResponse> {
+    password: string
+  ): Promise<CreateSessionSuccessResponse | CreateSession2FaRequiredResponse> {
     this.debug('Making login request. Email: %s, Password: %s', email, password);
     const resp = await phin({
       method: 'POST',
@@ -50,8 +69,33 @@ export class UbiServicesApi {
       },
       data: JSON.stringify({ rememberMe: true }),
     });
-    const data: CreateSessionResponse = JSON.parse(resp.body.toString());
+    const data: CreateSessionSuccessResponse | CreateSession2FaRequiredResponse = JSON.parse(
+      resp.body.toString()
+    );
     this.debug('Login response: %j', data);
+    return data;
+  }
+
+  public async login2fa(
+    twoFactorAuthenticationTicket: string,
+    twoFactorCode: string
+  ): Promise<CreateSessionSuccessResponse> {
+    this.debug('Making 2fa request. twoFactorCode: %s', twoFactorCode);
+    const resp = await phin({
+      method: 'POST',
+      url: 'https://public-ubiservices.ubi.com/v3/profiles/sessions',
+      headers: {
+        'User-Agent': 'Massgate',
+        'Ubi-AppId': this.appId,
+        'Ubi-RequestedPlatformType': 'uplay',
+        'Ubi-2faCode': twoFactorCode,
+        Authorization: `ubi_2fa_v1 t=${twoFactorAuthenticationTicket}`,
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({ rememberMe: true }),
+    });
+    const data: CreateSessionSuccessResponse = JSON.parse(resp.body.toString());
+    this.debug('Login 2fa response: %j', data);
     return data;
   }
 }

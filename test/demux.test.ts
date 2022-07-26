@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import { Secret, TOTP } from 'otpauth';
 import { UbiServicesApi, UbisoftDemux } from '../src';
 import { fileHashToPathChar } from '../src/util';
 
@@ -7,6 +8,24 @@ describe('Demux package', () => {
   let ubiDemux: UbisoftDemux;
   const email = process.env.EMAIL || '';
   const password = process.env.PASSWORD || '';
+  const totpSecret = process.env.TOTP_SECRET || '';
+
+  let ticket: string;
+
+  beforeAll(async () => {
+    const ubiServices = new UbiServicesApi();
+    const resp = await ubiServices.login(email, password);
+    if (resp.ticket) {
+      ticket = resp.ticket;
+    } else {
+      const totp = new TOTP({ secret: Secret.fromBase32(totpSecret) });
+      const mfaResp = await ubiServices.login2fa(
+        resp.twoFactorAuthenticationTicket as string,
+        totp.generate()
+      );
+      ticket = mfaResp.ticket;
+    }
+  });
 
   afterEach(async () => {
     await ubiDemux.destroy();
@@ -55,27 +74,6 @@ describe('Demux package', () => {
 
   it('should get a session token and authorize', async () => {
     ubiDemux = new UbisoftDemux();
-    const ubiServices = new UbiServicesApi();
-    const resp = await ubiServices.login(email, password);
-    expect(resp).toMatchObject({
-      platformType: 'uplay',
-      ticket: expect.any(String),
-      twoFactorAuthenticationTicket: null,
-      profileId: expect.any(String),
-      userId: expect.any(String),
-      nameOnPlatform: expect.any(String),
-      environment: 'Prod',
-      expiration: expect.any(String),
-      spaceId: 'e17be87d-2996-4f3b-97c4-19bb2dae2933',
-      clientIp: expect.any(String),
-      clientIpCountry: 'US',
-      serverTime: expect.any(String),
-      sessionId: expect.any(String),
-      sessionKey: expect.any(String),
-      rememberMeTicket: expect.any(String),
-    });
-
-    const { ticket } = resp;
     const authResp = await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
@@ -96,8 +94,6 @@ describe('Demux package', () => {
 
   it('should open and push to a connection', async () => {
     ubiDemux = new UbisoftDemux();
-    const ubiServices = new UbiServicesApi();
-    const { ticket } = await ubiServices.login(email, password);
     await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
@@ -135,8 +131,6 @@ describe('Demux package', () => {
     const TRACKMANIA_ID = 5595;
 
     ubiDemux = new UbisoftDemux();
-    const ubiServices = new UbiServicesApi();
-    const { ticket } = await ubiServices.login(email, password);
     await ubiDemux.basicRequest({
       authenticateReq: {
         clientId: 'uplay_pc',
