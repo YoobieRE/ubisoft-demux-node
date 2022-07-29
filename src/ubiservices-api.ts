@@ -13,7 +13,7 @@ export interface CreateSessionSuccessResponse {
   spaceId: string;
   clientIp: string;
   clientIpCountry: string;
-  serverTime: Date;
+  serverTime: string;
   sessionId: string;
   sessionKey: string;
   rememberMeTicket: string | null;
@@ -28,7 +28,7 @@ export interface CreateSession2FaRequiredResponse {
   userId: null;
   nameOnPlatform: null;
   environment: null;
-  expiration: Date;
+  expiration: string;
   spaceId: null;
   clientIp: null;
   clientIpCountry: null;
@@ -96,6 +96,25 @@ export class UbiServicesApi {
     });
     const data: CreateSessionSuccessResponse = JSON.parse(resp.body.toString());
     this.debug('Login 2fa response: %j', data);
+    return data;
+  }
+
+  public async loginRememberMe(rememberMeTicket: string): Promise<CreateSessionSuccessResponse> {
+    this.debug('Making rememberMe request');
+    const resp = await phin({
+      method: 'POST',
+      url: 'https://public-ubiservices.ubi.com/v3/profiles/sessions',
+      headers: {
+        'User-Agent': 'Massgate',
+        'Ubi-AppId': this.appId,
+        'Ubi-RequestedPlatformType': 'uplay',
+        Authorization: `ubi_rm t=${rememberMeTicket}`,
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({ rememberMe: true }),
+    });
+    const data: CreateSessionSuccessResponse = JSON.parse(resp.body.toString());
+    this.debug('Login rememberMe response: %j', data);
     return data;
   }
 }
