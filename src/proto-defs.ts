@@ -1,7 +1,7 @@
 import protobuf from 'protobufjs';
 import glob from 'glob';
 
-const protoFiles = glob.sync('proto/**/*.proto');
+const protoFiles = glob.sync(`${__dirname}/../proto/**/*.proto`);
 export const packageDefinition = protobuf.loadSync(protoFiles);
 
 export type StreamDirection = 'Upstream' | 'Downstream';
