@@ -16,3 +16,5 @@ export * as ownership_cache from './generated/proto_ownership_cache/ownership_ca
 export * as download from './generated/proto_download/download';
 export * as download_cache from './generated/proto_download_cache/download_cache';
 export * as download_install_state from './generated/proto_download_install_state/download_install_state';
+
+export * as game_configuration from './generated/configuration-types';
