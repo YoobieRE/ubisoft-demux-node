@@ -19,7 +19,7 @@ const main = async () => {
   } else {
     const totp = new TOTP({ secret: Secret.fromBase32(totpSecret) });
     const mfaResp = await ubiServices.login2fa(
-      loginResp.twoFactorAuthenticationTicket as string,
+      loginResp.twoFactorAuthenticationTicket,
       totp.generate()
     );
     ticket = mfaResp.ticket;

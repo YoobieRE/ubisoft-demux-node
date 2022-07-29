@@ -20,7 +20,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-shadow': 'off',
     '@typescript-eslint/no-shadow': ['error'],
-    'import/no-extraneous-dependencies': ['error', { devDependencies: ['test/**/*.ts', 'scripts/**/*.ts'] }],
+    'import/no-extraneous-dependencies': ['error', { devDependencies: ['test/**/*.ts', 'scripts/**/*'] }],
     'camelcase': 0,
   },
   settings: {

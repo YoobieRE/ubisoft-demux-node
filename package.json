@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "lint": "tsc --noEmit && eslint .",
     "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages",
-    "gen-configuration": "ts-node scripts/generate-configuration-types.ts"
+    "gen-configuration": "node scripts/generate-configuration-types.js"
   },
   "types": "dist/src/index.d.ts",
   "author": {
