@@ -1,12 +1,12 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10690.2",
+  "version": "1.10690.3",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
   "main": "dist/src/index.js",
   "scripts": {
     "test": "DEBUG=ubisoft-demux* jest",
     "test:ci": "jest --coverage",
-    "build": "rimraf dist && tsc",
+    "build": "rimraf dist && tsc && copyfiles proto/**/* dist",
     "lint": "tsc --noEmit && eslint .",
     "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages",
     "gen-configuration": "node scripts/generate-configuration-types.js"
@@ -35,7 +35,8 @@
     "node": ">=14"
   },
   "files": [
-    "dist/src"
+    "dist/src",
+    "dist/proto"
   ],
   "dependencies": {
     "debug": "^4.3.3",
@@ -50,6 +51,7 @@
     "@types/node": "^14.18.12",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
+    "copyfiles": "^2.4.1",
     "dotenv": "^16.0.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb-base": "^15.0.0",
