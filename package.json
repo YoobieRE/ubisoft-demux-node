@@ -1,6 +1,6 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10690.3",
+  "version": "1.10690.4",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
   "main": "dist/src/index.js",
   "scripts": {
