@@ -1,7 +1,7 @@
 import debug from 'debug';
 import phin from 'phin';
 
-export interface CreateSessionSuccessResponse {
+export interface CreateSessionSuccessResponse<T = string> {
   platformType: string;
   ticket: string;
   twoFactorAuthenticationTicket: null;
@@ -16,7 +16,7 @@ export interface CreateSessionSuccessResponse {
   serverTime: string;
   sessionId: string;
   sessionKey: string;
-  rememberMeTicket: string | null;
+  rememberMeTicket: T;
 }
 
 export interface CreateSession2FaRequiredResponse {
@@ -108,7 +108,7 @@ export class UbiServicesApi {
         'User-Agent': 'Massgate',
         'Ubi-AppId': this.appId,
         'Ubi-RequestedPlatformType': 'uplay',
-        Authorization: `ubi_rm t=${rememberMeTicket}`,
+        Authorization: `rm_v1 t=${rememberMeTicket}`,
         'Content-Type': 'application/json',
       },
       data: JSON.stringify({ rememberMe: true }),

@@ -11,12 +11,14 @@ describe('Demux package', () => {
   const totpSecret = process.env.TOTP_SECRET || '';
 
   let ticket: string;
+  let rememberMeTicket: string;
 
   beforeAll(async () => {
     const ubiServices = new UbiServicesApi();
     const resp = await ubiServices.login(email, password);
     if (resp.ticket) {
       ticket = resp.ticket;
+      rememberMeTicket = resp.rememberMeTicket;
     } else {
       const totp = new TOTP({ secret: Secret.fromBase32(totpSecret) });
       const mfaResp = await ubiServices.login2fa(
@@ -24,11 +26,36 @@ describe('Demux package', () => {
         totp.generate()
       );
       ticket = mfaResp.ticket;
+      rememberMeTicket = mfaResp.rememberMeTicket;
     }
   });
 
   afterEach(async () => {
     await ubiDemux.destroy();
+  });
+
+  it('should login with rememberMeTicket', async () => {
+    const ubiServices = new UbiServicesApi();
+    const resp = await ubiServices.loginRememberMe(rememberMeTicket);
+    expect(resp.ticket).toBeDefined();
+    ticket = resp.ticket;
+    ubiDemux = new UbisoftDemux();
+    const authResp = await ubiDemux.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket,
+        },
+      },
+    });
+
+    expect(authResp).toMatchObject({
+      requestId: 0,
+      authenticateRsp: {
+        success: true,
+      },
+    });
   });
 
   it('should send a basic request', async () => {
