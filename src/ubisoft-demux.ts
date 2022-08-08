@@ -42,7 +42,6 @@ export class UbisoftDemux {
     this.host = props?.host ?? this.host;
     this.timeout = props?.timeout ?? this.timeout;
     this.socket = new DemuxSocket({
-      debug: this.debug,
       host: this.host,
       startRequestId: props?.startRequestId || 0,
       timeout: this.timeout,
@@ -127,7 +126,6 @@ export class UbisoftDemux {
       connectionId,
       serviceName,
       socket: this.socket,
-      debug: this.debug,
       timeout: this.timeout,
     });
   }

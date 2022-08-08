@@ -1,4 +1,4 @@
-import type { Debugger } from 'debug';
+import debug, { Debugger } from 'debug';
 import type { demux } from './generated';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
@@ -8,7 +8,6 @@ export interface DemuxConnectionProps {
   serviceName: DemuxServiceName;
   connectionId: number;
   socket: DemuxSocket;
-  debug: Debugger;
   timeout: number;
   startRequestId?: number;
 }
@@ -46,7 +45,7 @@ export class DemuxConnection<UpType, DownType> {
     this.timeout = props.timeout;
     this.socket = props.socket;
     this.currentRequestId = props.startRequestId ?? this.currentRequestId;
-    this.debug = props.debug.extend(`connection${this.connectionId}`);
+    this.debug = debug(`ubisoft-demux:connection${this.connectionId}`);
     this.socket.on('connectionData', this.handleConnectionData.bind(this));
     this.debug('Connection created for %s', this.serviceName);
   }

@@ -1,4 +1,4 @@
-import type { Debugger } from 'debug';
+import debug, { Debugger } from 'debug';
 import EventEmitter, { once } from 'events';
 import tls from 'tls';
 import { API_VERSION } from './constants';
@@ -9,7 +9,6 @@ import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
 export interface DemuxSocketProps {
   host: string;
   startRequestId: number;
-  debug: Debugger;
   timeout: number;
   tlsConnectionOptions?: tls.ConnectionOptions;
 }
@@ -38,7 +37,7 @@ export class DemuxSocket extends EventEmitter {
   constructor(props: DemuxSocketProps) {
     super();
     this.host = props.host;
-    this.debug = props.debug.extend('socket');
+    this.debug = debug('ubisoft-demux:socket');
     this.currentRequestId = props.startRequestId;
     this.timeout = props.timeout;
     this.tlsConnectionOptions = props.tlsConnectionOptions;
@@ -54,7 +53,7 @@ export class DemuxSocket extends EventEmitter {
       ...this.tlsConnectionOptions,
     });
     await once(this.socket, 'connect');
-    this.debug = this.debug.extend(`p${this.socket.localPort}`);
+    this.debug = debug(`ubisoft-demux:p${this.socket.localPort}`);
     this.debug('Connected to socket from local port %d', this.socket.localPort);
     this.socket.on('data', this.handleDownstreamData.bind(this));
     // The clientVersion must be established as the first call on socket creation
