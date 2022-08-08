@@ -3,6 +3,7 @@ import type { demux } from './generated';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
+import { DemuxError } from './demux-error';
 
 export interface DemuxConnectionProps {
   serviceName: DemuxServiceName;
@@ -102,12 +103,13 @@ export class DemuxConnection<UpType, DownType> {
     const fullPayload = payload as unknown as AbstractUpstreamRequest;
     fullPayload.request.requestId = requestId;
     this.debug('Connection request data: %O', fullPayload);
-    await this.push(payload);
+    await this.push(payload); // Payload was mutated, so we can use it here
     const response = await promiseTimeout(
       this.timeout,
       new Promise<DownType & protobuf.Message<object>>((resolve) => {
         this.pendingRequestResponses.set(requestId, resolve);
-      })
+      }),
+      new DemuxError(fullPayload)
     );
     this.debug('Connection response data: %O', response);
     return response;

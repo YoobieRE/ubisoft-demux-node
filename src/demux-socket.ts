@@ -2,6 +2,7 @@ import debug, { Debugger } from 'debug';
 import EventEmitter, { once } from 'events';
 import tls from 'tls';
 import { API_VERSION } from './constants';
+import { DemuxError } from './demux-error';
 import type { demux } from './generated';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
@@ -133,7 +134,8 @@ export class DemuxSocket extends EventEmitter {
       this.timeout,
       new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
         this.pendingRequestResponses.set(requestId, resolve);
-      })
+      }),
+      new DemuxError(fullPayload)
     );
     return decodedResp.response as demux.Rsp & protobuf.Message;
   }

@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import { Secret, TOTP } from 'otpauth';
-import { UbiServicesApi, UbisoftDemux } from '../src';
+import { DemuxError, UbiServicesApi, UbisoftDemux } from '../src';
 import { fileHashToPathChar } from '../src/util';
 
 jest.setTimeout(15000);
@@ -229,6 +229,80 @@ describe('Demux package', () => {
     expect(urlRequestResp.response?.urlRsp?.urlResponses).toBeDefined();
     relativePaths.forEach((path) => {
       expect(JSON.stringify(urlRequestResp.response?.urlRsp?.urlResponses)).toContain(path);
+    });
+  });
+
+  it('should get config and manifest for unowned game', async () => {
+    const WD1_ID = 274;
+
+    ubiDemux = new UbisoftDemux();
+    await ubiDemux.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket,
+        },
+      },
+    });
+
+    const ownershipConnection = await ubiDemux.openConnection('ownership_service');
+
+    await ownershipConnection.request({
+      request: {
+        requestId: 1,
+        initializeReq: {
+          getAssociations: true,
+          protoVersion: 7,
+          useStaging: false,
+        },
+      },
+    });
+
+    const configResp = await ownershipConnection.request({
+      request: {
+        requestId: 0,
+        getProductConfigReq: {
+          deprecatedTestConfig: false,
+          productId: WD1_ID,
+        },
+      },
+    });
+
+    expect(configResp?.response?.getProductConfigRsp?.configuration).toBeTruthy();
+
+    const manifestResp = await ownershipConnection.request({
+      request: {
+        requestId: 0,
+        deprecatedGetLatestManifestsReq: {
+          deprecatedProductIds: [WD1_ID],
+          deprecatedTestConfig: false,
+        },
+      },
+    });
+
+    expect(
+      manifestResp?.response?.deprecatedGetLatestManifestsRsp?.manifests?.[0]?.manifest
+    ).toBeTruthy();
+  });
+
+  it('handle an error', async () => {
+    ubiDemux = new UbisoftDemux({ timeout: 1000 });
+
+    let error: DemuxError | undefined;
+    try {
+      await ubiDemux.openConnection('ownership_service');
+    } catch (err) {
+      error = err;
+    }
+    expect(error).toBeInstanceOf(DemuxError);
+    expect(error?.request).toEqual({
+      request: {
+        openConnectionReq: {
+          serviceName: 'ownership_service',
+        },
+        requestId: 0,
+      },
     });
   });
 });
