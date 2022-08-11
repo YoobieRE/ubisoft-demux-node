@@ -126,17 +126,17 @@ export class DemuxSocket extends EventEmitter {
     const prefixedPayload = addLengthPrefix(encodedPayload);
     const reqHex = prefixedPayload.toString('hex');
     this.debug('Raw request (hex): %s', reqHex);
-
-    await this.write(prefixedPayload);
-    this.debug('Sent requestId: %d', requestId);
-
-    const decodedResp = await promiseTimeout(
-      this.timeout,
-      new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
-        this.pendingRequestResponses.set(requestId, resolve);
-      }),
-      new DemuxError(fullPayload)
-    );
+    this.debug('Sending requestId: %d', requestId);
+    const [decodedResp] = await Promise.all([
+      promiseTimeout(
+        this.timeout,
+        new Promise<demux.Downstream & protobuf.Message<object>>((resolve) => {
+          this.pendingRequestResponses.set(requestId, resolve);
+        }),
+        new DemuxError(fullPayload)
+      ),
+      this.write(prefixedPayload),
+    ]);
     return decodedResp.response as demux.Rsp & protobuf.Message;
   }
 

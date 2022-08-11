@@ -103,14 +103,16 @@ export class DemuxConnection<UpType, DownType> {
     const fullPayload = payload as unknown as AbstractUpstreamRequest;
     fullPayload.request.requestId = requestId;
     this.debug('Connection request data: %O', fullPayload);
-    await this.push(payload); // Payload was mutated, so we can use it here
-    const response = await promiseTimeout(
-      this.timeout,
-      new Promise<DownType & protobuf.Message<object>>((resolve) => {
-        this.pendingRequestResponses.set(requestId, resolve);
-      }),
-      new DemuxError(fullPayload)
-    );
+    const [response] = await Promise.all([
+      promiseTimeout(
+        this.timeout,
+        new Promise<DownType & protobuf.Message<object>>((resolve) => {
+          this.pendingRequestResponses.set(requestId, resolve);
+        }),
+        new DemuxError(fullPayload)
+      ),
+      await this.push(payload), // Payload was mutated, so we can use it here
+    ]);
     this.debug('Connection response data: %O', response);
     return response;
   }
