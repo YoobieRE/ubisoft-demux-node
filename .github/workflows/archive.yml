@@ -22,5 +22,6 @@ jobs:
         run: |
           pip install .
           ia configure -u ${{ secrets.IA_USER }} -p ${{ secrets.IA_PASS }}
+          cp ~/.config/internetarchive/ia.ini ~/.config/ia.ini
       - name: Upload
-        run: iagitup ${{github.repositoryUrl}}
+        run: iagitup ${{ github.repositoryUrl }}
