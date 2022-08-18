@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - master
+
+name: Upload to Internet Archive
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    name: Upload to Internet Archive
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+          cache: "pip"
+      - name: Install iagitup
+        run: |
+          git clone https://github.com/gdamdam/iagitup.git
+          cd iagitup
+          pip install .
+          ia configure -u ${{ secrets.IA_USER }} -p ${{ secrets.IA_PASS }}
+      - name: Upload
+        run: iagitup ${{github.repositoryUrl}}
