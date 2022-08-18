@@ -1,9 +1,8 @@
 on:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: 0 0 * * 1
 
-name: Upload to Internet Archive
+name: Archive
 
 jobs:
   archive:
@@ -16,9 +15,9 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.x"
-          cache: "pip"
-      - name: Install iagitup
+          python-version: 3.x
+          cache: pip
+      - name: Setup iagitup
         run: |
           pip install .
           ia configure -u ${{ secrets.IA_USER }} -p ${{ secrets.IA_PASS }}
