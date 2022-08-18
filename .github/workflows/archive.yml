@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Upload to Internet Archive
     steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: gdamdam/iagitup
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
@@ -17,8 +20,6 @@ jobs:
           cache: "pip"
       - name: Install iagitup
         run: |
-          git clone https://github.com/gdamdam/iagitup.git
-          cd iagitup
           pip install .
           ia configure -u ${{ secrets.IA_USER }} -p ${{ secrets.IA_PASS }}
       - name: Upload
