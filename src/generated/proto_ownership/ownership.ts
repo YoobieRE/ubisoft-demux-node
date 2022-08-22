@@ -369,101 +369,6 @@ export enum DeprecatedGetLatestManifestsRsp_Manifest_Result {
   UNRECOGNIZED = -1,
 }
 
-export interface CloudsaveReq {
-  uplayId: number;
-  putItem?: CloudsaveReq_PutItem;
-  getItem?: CloudsaveReq_GetItem;
-  deleteItem?: CloudsaveReq_DeleteItem;
-  listItems?: CloudsaveReq_ListItems;
-  username: string;
-}
-
-export interface CloudsaveReq_PutItem {
-  itemId: number;
-  writeLength: number;
-  md5Base64: string;
-}
-
-export interface CloudsaveReq_GetItem {
-  itemId: number;
-}
-
-export interface CloudsaveReq_DeleteItem {
-  itemId: number;
-}
-
-export interface CloudsaveReq_ListItems {}
-
-export interface CloudsaveRsp {
-  status: CloudsaveRsp_Status;
-  methodString: string;
-  pathString: string;
-  hostString: string;
-  headerString: string;
-}
-
-export enum CloudsaveRsp_Status {
-  Status_Ok = 1,
-  Status_InternalError = 2,
-  Status_Denied = 3,
-  UNRECOGNIZED = -1,
-}
-
-export interface CloudsaveReqV2 {
-  uplayId: number;
-  putItems?: CloudsaveReqV2_PutItems;
-  getItems?: CloudsaveReqV2_GetItems;
-  deleteItems?: CloudsaveReqV2_DeleteItems;
-}
-
-export interface CloudsaveReqV2_PutItems {
-  items: CloudsaveReqV2_PutItems_Item[];
-}
-
-export interface CloudsaveReqV2_PutItems_Item {
-  itemId: number;
-  writeLength: number;
-  md5Base64: string;
-  itemName: string;
-}
-
-export interface CloudsaveReqV2_GetItems {
-  items: CloudsaveReqV2_GetItems_Item[];
-}
-
-export interface CloudsaveReqV2_GetItems_Item {
-  itemId: number;
-  itemName: string;
-}
-
-export interface CloudsaveReqV2_DeleteItems {
-  items: CloudsaveReqV2_DeleteItems_Item[];
-}
-
-export interface CloudsaveReqV2_DeleteItems_Item {
-  itemId: number;
-  itemName: string;
-}
-
-export interface CloudsaveRspV2 {
-  status: CloudsaveRspV2_Status;
-  httpReqs: CloudsaveRspV2_HttpReq[];
-}
-
-export enum CloudsaveRspV2_Status {
-  Status_Ok = 1,
-  Status_InternalError = 2,
-  Status_Denied = 3,
-  UNRECOGNIZED = -1,
-}
-
-export interface CloudsaveRspV2_HttpReq {
-  method: string;
-  path: string;
-  host: string;
-  header: string;
-}
-
 export interface GetProductConfigReq {
   productId: number;
   deprecatedTestConfig: boolean;
@@ -685,11 +590,7 @@ export interface Req {
   deprecatedGetProductFromCdKeyReq?: DeprecatedGetProductFromCdKeyReq;
   getProductConfigReq?: GetProductConfigReq;
   deprecatedGetLatestManifestsReq?: DeprecatedGetLatestManifestsReq;
-  /** @deprecated */
-  cloudsaveReq?: CloudsaveReq;
   getBatchDownloadUrlsReq?: GetBatchDownloadUrlsReq;
-  /** @deprecated */
-  cloudsaveReqV2?: CloudsaveReqV2;
   getUplayPcTicketReq?: GetUplayPCTicketReq;
   retryUplayCoreInitializeReq?: RetryUplayCoreInitializeReq;
   consumeOwnershipReq?: ConsumeOwnershipReq;
@@ -715,12 +616,8 @@ export interface Rsp {
   deprecatedGetProductFromCdKeyRsp?: DeprecatedGetProductFromCdKeyRsp;
   getProductConfigRsp?: GetProductConfigRsp;
   deprecatedGetLatestManifestsRsp?: DeprecatedGetLatestManifestsRsp;
-  /** @deprecated */
-  cloudsaveRsp?: CloudsaveRsp;
   getBatchDownloadUrlsRsp?: GetBatchDownloadUrlsRsp;
   getUplayPcTicketRsp?: GetUplayPCTicketRsp;
-  /** @deprecated */
-  cloudsaveRspV2?: CloudsaveRspV2;
   consumeOwnershipRsp?: ConsumeOwnershipRsp;
   switchProductBranchRsp?: SwitchProductBranchRsp;
   unlockProductBranchRsp?: UnlockProductBranchRsp;

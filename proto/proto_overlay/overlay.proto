@@ -182,6 +182,8 @@ message StreamingHostStartPush {
     required bool mouse_keyboard_allowed = 6;
     required bool gamepad_allowed = 7;
     required string host_profile_id = 8;
+    required uint32 resolution = 9;
+    required uint32 fps = 10;
 }
 
 message StreamingHostStartResponse {
@@ -228,8 +230,10 @@ message StreamingHostKickPush {
 
 message StreamingSettingsPush {
     required uint32 bitrate = 1;
-    required bool mouse_keyboard_allowed = 2;
-    required bool gamepad_allowed = 3;
+    required uint32 resolution = 2;
+    required uint32 fps = 3;
+    required bool mouse_keyboard_allowed = 4;
+    required bool gamepad_allowed = 5;
 }
 
 message StreamingHostPermissionsPush {

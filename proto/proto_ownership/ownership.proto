@@ -348,98 +348,6 @@ message DeprecatedGetLatestManifestsRsp {
     }
 }
 
-message CloudsaveReq {
-    required uint32 uplay_id = 1;
-    
-    optional PutItem put_item = 2;
-    message PutItem {
-        required uint32 item_id = 1;
-        required uint32 write_length = 2;
-        required string md5_base64 = 3;
-    }
-    
-    optional GetItem get_item = 3;
-    message GetItem {
-        required uint32 item_id = 1;
-    }
-    
-    optional DeleteItem delete_item = 4;
-    message DeleteItem {
-        required uint32 item_id = 1;
-    }
-    
-    optional ListItems list_items = 5;
-    message ListItems {
-        
-    }
-    
-    optional string username = 6;
-}
-
-message CloudsaveRsp {
-    required Status status = 1;
-    enum Status {
-        Status_Ok = 1;
-        Status_InternalError = 2;
-        Status_Denied = 3;
-    }
-    
-    required string method_string = 2;
-    required string path_string = 3;
-    required string host_string = 4;
-    required string header_string = 5;
-}
-
-message CloudsaveReqV2 {
-    required uint32 uplay_id = 1;
-    
-    optional PutItems put_items = 2;
-    message PutItems {
-        repeated Item items = 1;
-        message Item {
-            required uint32 item_id = 1;
-            required uint32 write_length = 2;
-            required string md5_base64 = 3;
-            optional string item_name = 4;
-        }
-    }
-    
-    optional GetItems get_items = 3;
-    message GetItems {
-        repeated Item items = 1;
-        message Item {
-            required uint32 item_id = 1;
-            optional string item_name = 2;
-        }
-    }
-    
-    optional DeleteItems delete_items = 4;
-    message DeleteItems {
-        repeated Item items = 1;
-        message Item {
-            required uint32 item_id = 1;
-            optional string item_name = 2;
-        }
-    }
-}
-
-message CloudsaveRspV2 {
-    required Status status = 1;
-    enum Status {
-        Status_Ok = 1;
-        Status_InternalError = 2;
-        Status_Denied = 3;
-    }
-    
-    repeated HttpReq http_reqs = 2;
-    message HttpReq {
-        required string method = 1;
-        required string path = 2;
-        required string host = 3;
-        required string header = 4;
-    }
-}
-
 message GetProductConfigReq {
     required uint32 product_id = 1;
     optional bool deprecated_test_config = 2;
@@ -650,9 +558,7 @@ message Req {
     optional DeprecatedGetProductFromCdKeyReq deprecated_get_product_from_cd_key_req = 6;
     optional GetProductConfigReq get_product_config_req = 9;
     optional DeprecatedGetLatestManifestsReq deprecated_get_latest_manifests_req = 10;
-    optional CloudsaveReq cloudsave_req = 11 [deprecated = true];
     optional GetBatchDownloadUrlsReq get_batch_download_urls_req = 12;
-    optional CloudsaveReqV2 cloudsave_req_v2 = 13 [deprecated = true];
     optional GetUplayPCTicketReq get_uplay_pc_ticket_req = 14;
     optional RetryUplayCoreInitializeReq retry_uplay_core_initialize_req = 15;
     optional ConsumeOwnershipReq consume_ownership_req = 16;
@@ -669,6 +575,8 @@ message Req {
     optional RegisterOwnershipFromWeGameReq register_ownership_from_wegame_req = 27;
     optional OwnershipTokenReq ownership_token_req = 28;
     optional RegisterTemporaryOwnershipReq register_temporary_ownership_req = 29;
+    
+    reserved 11, 13;
 }
 
 message Rsp {
@@ -678,10 +586,8 @@ message Rsp {
     optional DeprecatedGetProductFromCdKeyRsp deprecated_get_product_from_cd_key_rsp = 5;
     optional GetProductConfigRsp get_product_config_rsp = 9;
     optional DeprecatedGetLatestManifestsRsp deprecated_get_latest_manifests_rsp = 10;
-    optional CloudsaveRsp cloudsave_rsp = 11 [deprecated = true];
     optional GetBatchDownloadUrlsRsp get_batch_download_urls_rsp = 12;
     optional GetUplayPCTicketRsp get_uplay_pc_ticket_rsp = 13;
-    optional CloudsaveRspV2 cloudsave_rsp_v2 = 14 [deprecated = true];
     optional ConsumeOwnershipRsp consume_ownership_rsp = 15;
     optional SwitchProductBranchRsp switch_product_branch_rsp = 16;
     optional UnlockProductBranchRsp unlock_product_branch_rsp = 17;
@@ -696,6 +602,8 @@ message Rsp {
     optional RegisterOwnershipFromWeGameRsp register_ownership_from_wegame_rsp = 26;
     optional OwnershipTokenRsp ownership_token_rsp = 27;
     optional RegisterTemporaryOwnershipRsp register_temporary_ownership_rsp = 28;
+    
+    reserved 11, 14;
 }
 
 message OwnedGamePush {

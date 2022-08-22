@@ -66,7 +66,7 @@ export interface InitializeReq {
   useStaging: boolean;
   protoVersion: number;
   /** @deprecated */
-  clientIpOverride: number;
+  clientIpOverride?: number;
 }
 
 export interface InitializeRsp {

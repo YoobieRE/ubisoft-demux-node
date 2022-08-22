@@ -2,50 +2,7 @@ syntax = "proto2";
 
 package mg.protocol.settings;
 
-import "google/protobuf/descriptor.proto";
-
-message User {
-    optional bool syncsavegames = 1 [default = true];
-    optional bool offline = 2 [default = false];
-    optional CloseBehavior closebehavior = 3 [default = CloseBehavior_Undefined];
-    optional LandingPage landingpage = 4 [default = LandingPageNews];
-    optional bool start_on_windows_start = 5 [default = false];
-    optional bool non_friend_game_invite_enabled = 6 [default = true];
-    optional bool landingpage_set_by_user = 7 [default = false];
-}
-
-message Overlay {
-    optional bool enabled = 1 [default = true];
-    optional bool forceunhookgame = 2 [default = false];
-    optional bool fps_enabled = 3 [default = false];
-    optional bool warning_enabled = 4 [default = true];
-}
-
-message Language {
-    optional string code = 1 [default = "en-US"];
-}
-
-message Misc {
-    optional string installer_cache_path = 1;
-    optional string screenshot_root_path = 2;
-    optional bool enable_screenshots_on_achievements = 3 [default = false];
-    optional string game_installation_path = 4;
-    optional bool enable_auto_wall_posts = 5 [default = true];
-    optional bool save_screenshot_uncompressed_copy = 6 [default = false];
-}
-
-message Position {
-    optional uint32 left = 1 [default = 0];
-    optional uint32 top = 2 [default = 0];
-    optional uint32 width = 3 [default = 0];
-    optional uint32 height = 4 [default = 0];
-    optional bool maximized = 5 [default = false];
-}
-
-message ModelessPositions {
-    optional Position friends_window = 1;
-    optional Position conversations_window = 2;
-}
+import "proto_settings/common_settings.proto";
 
 message Notifications {
     optional bool inGameEnabled = 1 [default = true];
@@ -65,59 +22,6 @@ message Notifications {
     optional bool desktopScreenshotsEnabled = 15 [default = true];
     optional bool desktopAchievementsEnabled = 16 [default = true];
     optional bool desktopClubActionsEnabled = 17 [default = false];
-}
-
-message Masters {
-    optional string username = 1;
-    optional string password = 2;
-}
-
-message Hotkey {
-    optional uint32 keyCode = 1 [default = 0];
-    optional bool altState = 2 [default = false];
-    optional bool shiftState = 3 [default = false];
-    optional bool controlState = 4 [default = false];
-}
-
-message Downloads {
-    optional uint64 limit = 1 [default = 10000000];
-    optional bool limitEnabled = 2 [default = false];
-    optional bool pauseOnGameLaunch = 3 [default = true];
-}
-
-message Betas {
-    optional bool optIn = 1 [default = false];
-}
-
-message AutoPatching {
-    optional bool enabled = 1 [default = true];
-}
-
-message Spotlight {
-    optional bool enabled = 1 [default = true];
-}
-
-message Conversations {
-    optional bool taskbarTabsEnabled = 1 [default = false];
-}
-
-message Epic {
-    optional string exchangeCode = 1;
-}
-
-message BrandedInstaller {
-    optional string pending_protocol = 1;
-}
-
-message SharePlay {
-    optional uint32 bitrate = 1 [default = 20];
-    optional bool displayOnboarding = 2 [default = true];
-    optional bool mouseAndKeyboardAccessAllowed = 3 [default = true];
-    optional bool gamepadAccessAllowed = 4 [default = true];
-    optional bool displayWizardTour = 5 [default = true];
-    optional uint32 lastTimeFeedBackWindowDisplayed = 6 [default = 0];
-    optional uint32 nbBuyGameRefused = 7 [default = 0];
-    optional uint32 nbFeedbackUnfilled = 8 [default = 0];
 }
 
 message SettingsModel {
@@ -140,25 +44,4 @@ message SettingsModel {
     optional Epic epic = 18;
     optional BrandedInstaller branded_installer = 19;
     optional SharePlay sharePlay = 20;
-}
-
-enum CloseBehavior {
-    CloseBehavior_Undefined = 0;
-    CloseBehavior_Close = 1;
-    CloseBehavior_Minimize = 2;
-}
-
-enum LandingPage {
-    LandingPageNews = 0;
-    LandingPageGames = 1;
-    LandingPageLastPlayedGame = 2;
-    LandingPageUplayPlus = 3;
-}
-
-extend google.protobuf.FieldOptions {
-    optional bool disableStatsTracking = 50000;
-}
-
-extend google.protobuf.MessageOptions {
-    optional bool disableMessageStatsTracking = 50001;
 }

@@ -165,6 +165,8 @@ export interface StreamingHostStartPush {
   mouseKeyboardAllowed: boolean;
   gamepadAllowed: boolean;
   hostProfileId: string;
+  resolution: number;
+  fps: number;
 }
 
 export interface StreamingHostStartResponse {
@@ -209,6 +211,8 @@ export interface StreamingHostKickPush {
 
 export interface StreamingSettingsPush {
   bitrate: number;
+  resolution: number;
+  fps: number;
   mouseKeyboardAllowed: boolean;
   gamepadAllowed: boolean;
 }
