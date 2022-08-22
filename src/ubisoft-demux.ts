@@ -2,7 +2,7 @@ import protobuf from 'protobufjs';
 import debug from 'debug';
 import type tls from 'tls';
 import { DemuxSocket } from './demux-socket';
-import { DemuxServiceName, getServiceType } from './proto-defs';
+import { DemuxServiceName, getServiceType, ServiceDownstream, ServiceUpstream } from './proto-defs';
 import { DemuxConnection } from './demux-connection';
 import type {
   client_configuration_service,
@@ -113,6 +113,10 @@ export class UbisoftDemux {
 
   public async openConnection<UpType, DownType>(
     serviceName: DemuxServiceName
+  ): Promise<DemuxConnection<UpType, DownType>>;
+
+  public async openConnection<UpType, DownType>(
+    serviceName: DemuxServiceName
   ): Promise<DemuxConnection<UpType, DownType>> {
     this.debug('Opening a new connection');
     const requestResp: Pick<demux.Rsp, 'openConnectionRsp'> = await this.socket.request({
@@ -181,9 +185,14 @@ export class UbisoftDemux {
   ): Promise<utility_service.Downstream & protobuf.Message>;
 
   public async serviceRequest<UpType, DownType>(
-    service: DemuxServiceName,
+    service: string,
     payload: UpType
-  ): Promise<DownType & protobuf.Message> {
+  ): Promise<DownType & protobuf.Message>;
+
+  public async serviceRequest(
+    service: DemuxServiceName,
+    payload: ServiceUpstream
+  ): Promise<ServiceDownstream & protobuf.Message> {
     this.debug('Encoding service data: %O', payload);
     const serviceUpstream = getServiceType(service, 'Upstream');
     const dataPayload = serviceUpstream.encode(payload).finish();
@@ -196,8 +205,9 @@ export class UbisoftDemux {
     });
 
     const serviceDownstream = getServiceType(service, 'Downstream');
-    const dataResp = serviceDownstream.decode(requestResp.serviceRsp?.data as Buffer) as DownType &
-      protobuf.Message;
+    const dataResp = serviceDownstream.decode(
+      requestResp.serviceRsp?.data as Buffer
+    ) as ServiceDownstream & protobuf.Message;
     this.debug('Decoded service data: %O', dataResp);
     return dataResp;
   }

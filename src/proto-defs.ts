@@ -1,5 +1,17 @@
 import protobuf from 'protobufjs';
 import glob from 'glob';
+import {
+  client_configuration_service,
+  cloudsave_service,
+  denuvo_service,
+  download_service,
+  friends_service,
+  ownership_service,
+  party_service,
+  playtime_service,
+  store_service,
+  utility_service,
+} from './generated';
 
 const protoFiles = glob.sync(`${__dirname}/../proto/**/*.proto`);
 export const packageDefinition = protobuf.loadSync(protoFiles);
@@ -38,6 +50,30 @@ const serviceMap: Record<DemuxServiceName, protobuf.Namespace> = {
   store_service: packageDefinition.lookup('mg.protocol.store') as protobuf.Namespace,
   utility_service: packageDefinition.lookup('mg.protocol.utility') as protobuf.Namespace,
 };
+
+export type ServiceUpstream =
+  | client_configuration_service.Upstream
+  | cloudsave_service.Upstream
+  | denuvo_service.Upstream
+  | download_service.Upstream
+  | friends_service.Upstream
+  | ownership_service.Upstream
+  | party_service.Upstream
+  | playtime_service.Upstream
+  | store_service.Upstream
+  | utility_service.Upstream;
+
+export type ServiceDownstream =
+  | client_configuration_service.Downstream
+  | cloudsave_service.Downstream
+  | denuvo_service.Downstream
+  | download_service.Downstream
+  | friends_service.Downstream
+  | ownership_service.Downstream
+  | party_service.Downstream
+  | playtime_service.Downstream
+  | store_service.Downstream
+  | utility_service.Downstream;
 
 export const getServiceType = (
   name: DemuxServiceName,
