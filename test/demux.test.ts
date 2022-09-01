@@ -232,7 +232,7 @@ describe('Demux package', () => {
     });
   });
 
-  it('should get config and manifest for unowned game', async () => {
+  it.skip('should get config and manifest for unowned game', async () => {
     const WD1_ID = 274;
 
     ubiDemux = new UbisoftDemux();
