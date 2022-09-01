@@ -52,6 +52,7 @@ export class DemuxConnection<UpType, DownType> {
   }
 
   private handleConnectionData(connectionId: number, connectionData: Buffer): void {
+    if (connectionId !== this.connectionId) return;
     this.debug(
       'Received connection data for connectionId %d: %s',
       connectionId,
