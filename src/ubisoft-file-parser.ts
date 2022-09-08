@@ -50,7 +50,7 @@ export class UbisoftFileParser {
   }
 
   /**
-   * Parse the contents of `Registry(HKLM\SOFTWARE\WOW6432Node\Ubisoft\Launcher\InstallDir)\cache\download\{user guid}`
+   * Parse the contents of `Registry(HKLM\SOFTWARE\WOW6432Node\Ubisoft\Launcher\InstallDir)\cache\download\{appId guid}`
    * @param downloadCache Raw contents of the download cache
    * @returns Decoded object of file
    */
@@ -112,8 +112,7 @@ export class UbisoftFileParser {
   }
 
   /**
-   * Parse the contents of `{game install directory}\uplay_download\{game ID}\{manifest hash}.state`
-   * or `{game install directory}\uplay_install.state`
+   * Parse the contents of `{game install directory}\uplay_install.state`
    * @param downloadManifest Raw contents of the download/install state
    * @returns Decoded object of file
    */
