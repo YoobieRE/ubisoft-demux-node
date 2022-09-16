@@ -11,7 +11,9 @@
             "runtimeArgs": [
                 "--inspect-brk",
                 "${workspaceRoot}/node_modules/.bin/jest",
-                "--runInBand"
+                "--runInBand",
+                // "-t",
+                // "should receive friends push events"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",

@@ -1,11 +1,13 @@
 import 'dotenv/config';
 import { Secret, TOTP } from 'otpauth';
-import { DemuxError, UbiServicesApi, UbisoftDemux } from '../src';
+import { once } from 'events';
+import { DemuxError, UbiServicesApi, UbisoftDemux, friends_service } from '../src';
 import { fileHashToPathChar } from '../src/util';
 
 jest.setTimeout(15000);
 describe('Demux package', () => {
   let ubiDemux: UbisoftDemux;
+  let ubiDemux2: UbisoftDemux | undefined;
   const email = process.env.EMAIL || '';
   const password = process.env.PASSWORD || '';
   const totpSecret = process.env.TOTP_SECRET || '';
@@ -32,6 +34,7 @@ describe('Demux package', () => {
 
   afterEach(async () => {
     await ubiDemux.destroy();
+    await ubiDemux2?.destroy();
   });
 
   it('should login with rememberMeTicket', async () => {
@@ -232,9 +235,8 @@ describe('Demux package', () => {
     });
   });
 
-  it.skip('should get config and manifest for unowned game', async () => {
-    const WD1_ID = 274;
-
+  it('should receive friends push events', async () => {
+    // User 1 logs in
     ubiDemux = new UbisoftDemux();
     await ubiDemux.basicRequest({
       authenticateReq: {
@@ -246,44 +248,68 @@ describe('Demux package', () => {
       },
     });
 
-    const ownershipConnection = await ubiDemux.openConnection('ownership_service');
+    const ownershipConnection = await ubiDemux.openConnection('friends_service');
 
-    await ownershipConnection.request({
+    const initResp = await ownershipConnection.request({
       request: {
         requestId: 1,
         initializeReq: {
-          getAssociations: true,
-          protoVersion: 7,
-          useStaging: false,
+          ubiTicket: ticket,
+        } as friends_service.InitializeReq,
+      },
+    });
+
+    expect(initResp).toBeDefined();
+
+    // User 2 logs in
+    const ubiServices = new UbiServicesApi();
+    const email2 = process.env.EMAIL2 || '';
+    const password2 = process.env.PASSWORD2 || '';
+    const loginResp = await ubiServices.login(email2, password2);
+    const ticket2 = loginResp.ticket as string;
+
+    ubiDemux2 = new UbisoftDemux();
+    await ubiDemux2.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket2,
         },
       },
     });
 
-    const configResp = await ownershipConnection.request({
-      request: {
-        requestId: 0,
-        getProductConfigReq: {
-          deprecatedTestConfig: false,
-          productId: WD1_ID,
+    const ownershipConnection2 = await ubiDemux2.openConnection('friends_service');
+
+    const [initResp2, [pushData]] = await Promise.all([
+      ownershipConnection2.request({
+        request: {
+          requestId: 1,
+          initializeReq: {
+            ubiTicket: ticket2,
+          } as friends_service.InitializeReq,
+        },
+      }),
+      once(ownershipConnection, 'push'), // User 1 listens for User 2 comes online event
+    ]);
+
+    expect(initResp2).toBeDefined();
+    expect(pushData).toEqual({
+      push: {
+        pushUpdatedStatus: {
+          updatesStatus: {
+            user: {
+              accountId: expect.any(String),
+            },
+            onlineStatus: 1,
+            voipStatus: 0,
+            activityStatus: 0,
+            localizedRichPresence: '',
+          },
+          isInitialStatus: false,
         },
       },
     });
-
-    expect(configResp?.response?.getProductConfigRsp?.configuration).toBeTruthy();
-
-    const manifestResp = await ownershipConnection.request({
-      request: {
-        requestId: 0,
-        deprecatedGetLatestManifestsReq: {
-          deprecatedProductIds: [WD1_ID],
-          deprecatedTestConfig: false,
-        },
-      },
-    });
-
-    expect(
-      manifestResp?.response?.deprecatedGetLatestManifestsRsp?.manifests?.[0]?.manifest
-    ).toBeTruthy();
   });
 
   it('handle an error', async () => {

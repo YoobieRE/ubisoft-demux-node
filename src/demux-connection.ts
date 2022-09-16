@@ -1,9 +1,11 @@
+// eslint-disable-next-line max-classes-per-file
 import debug, { Debugger } from 'debug';
 import type { demux } from './generated';
 import { DemuxSocket } from './demux-socket';
 import { DemuxServiceName, getServiceType } from './proto-defs';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
 import { DemuxError } from './demux-error';
+import { BaseEmitter } from './typed-emitter';
 
 export interface DemuxConnectionProps {
   serviceName: DemuxServiceName;
@@ -25,7 +27,17 @@ interface AbstractDownstreamResponse {
   };
 }
 
-export class DemuxConnection<UpType, DownType> {
+interface AbstractDownstreamPush {
+  push: {
+    [rspType: string]: unknown;
+  };
+}
+
+export type ConnectionEvents<DownType> = {
+  push: (payload: DownType & protobuf.Message) => void;
+};
+
+export class DemuxConnection<UpType, DownType> extends BaseEmitter<ConnectionEvents<DownType>> {
   public serviceName: DemuxServiceName;
 
   public connectionId: number;
@@ -41,6 +53,7 @@ export class DemuxConnection<UpType, DownType> {
   private pendingRequestResponses = new Map<number, (resp: DownType & protobuf.Message) => void>();
 
   constructor(props: DemuxConnectionProps) {
+    super();
     this.serviceName = props.serviceName;
     this.connectionId = props.connectionId;
     this.timeout = props.timeout;
@@ -59,17 +72,25 @@ export class DemuxConnection<UpType, DownType> {
       connectionData.toString('hex')
     );
     const serviceDownstream = getServiceType(this.serviceName, 'Downstream');
-    const payload = serviceDownstream.decode(
-      stripLengthPrefix(connectionData)
-    ) as AbstractDownstreamResponse & protobuf.Message;
+    const payload = serviceDownstream.decode(stripLengthPrefix(connectionData)) as (
+      | AbstractDownstreamResponse
+      | AbstractDownstreamPush
+    ) &
+      protobuf.Message;
     this.debug('Decoded response: %O', payload);
-    const requestId = payload?.response?.requestId;
-    if (requestId !== undefined) {
-      const cb = this.pendingRequestResponses.get(requestId);
-      if (cb) {
-        this.pendingRequestResponses.delete(requestId);
-        cb(payload as unknown as DownType & protobuf.Message);
+    if ('response' in payload && payload.response) {
+      const requestId = payload?.response?.requestId;
+      if (requestId !== undefined) {
+        const cb = this.pendingRequestResponses.get(requestId);
+        if (cb) {
+          this.debug('Responding to connection request: %d', requestId);
+          this.pendingRequestResponses.delete(requestId);
+          cb(payload as unknown as DownType & protobuf.Message);
+        }
       }
+    } else {
+      this.debug('Emitting push event');
+      this.emit('push', payload as unknown as DownType & protobuf.Message);
     }
   }
 

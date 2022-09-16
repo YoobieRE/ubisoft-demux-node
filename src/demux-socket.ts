@@ -1,10 +1,11 @@
 import debug, { Debugger } from 'debug';
-import EventEmitter, { once } from 'events';
+import { once } from 'events';
 import tls from 'tls';
 import { API_VERSION } from './constants';
 import { DemuxError } from './demux-error';
 import type { demux } from './generated';
 import { demuxDownstream, demuxUpstream } from './proto-defs';
+import { BaseEmitter } from './typed-emitter';
 import { addLengthPrefix, promiseTimeout, stripLengthPrefix } from './util';
 
 export interface DemuxSocketProps {
@@ -16,7 +17,12 @@ export interface DemuxSocketProps {
 
 type RespFn = (resp: demux.Downstream & protobuf.Message) => void;
 
-export class DemuxSocket extends EventEmitter {
+export type DemuxSocketEvents = {
+  connectionData: (connectionId: number, connectionData: Buffer) => void;
+  push: (payload: demux.Downstream & protobuf.Message) => void;
+};
+
+export class DemuxSocket extends BaseEmitter<DemuxSocketEvents> {
   private host: string;
 
   private debug: Debugger;
@@ -93,18 +99,27 @@ export class DemuxSocket extends EventEmitter {
       const decodedDownstream = demuxDownstream.decode(fullBuffer) as demux.Downstream &
         protobuf.Message;
       this.debug('Decoded response: %O', decodedDownstream);
-      const requestId = decodedDownstream.response?.requestId;
-      const connectionId = decodedDownstream.push?.data?.connectionId;
-      const connectionData = decodedDownstream.push?.data?.data;
-      if (requestId !== undefined) {
-        const cb = this.pendingRequestResponses.get(requestId);
-        if (cb) {
-          this.pendingRequestResponses.delete(requestId);
-          cb(decodedDownstream);
+      if (decodedDownstream.response) {
+        const requestId = decodedDownstream.response?.requestId;
+        if (requestId !== undefined) {
+          const cb = this.pendingRequestResponses.get(requestId);
+          if (cb) {
+            this.debug('Responding to service request: %d', requestId);
+            this.pendingRequestResponses.delete(requestId);
+            cb(decodedDownstream);
+          }
         }
       }
-      if (connectionId !== undefined && connectionData !== undefined) {
-        this.emit('connectionData', connectionId, connectionData);
+      if (decodedDownstream.push) {
+        const connectionId = decodedDownstream.push.data?.connectionId;
+        const connectionData = decodedDownstream.push.data?.data;
+        if (connectionId !== undefined && connectionData) {
+          this.debug('Emitting connectionData: %d', connectionId);
+          this.emit('connectionData', connectionId, connectionData);
+        } else {
+          this.debug('Emitting push event');
+          this.emit('push', decodedDownstream);
+        }
       }
     }
   }
