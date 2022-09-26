@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.friends';
+
+export const protobufPackage = "mg.protocol.friends";
 
 export interface ReconnectInfo {
   reconnectSuccess: boolean;
@@ -158,7 +159,8 @@ export enum Status_ActivityStatus {
   UNRECOGNIZED = -1,
 }
 
-export interface GetRelationshipsListReq {}
+export interface GetRelationshipsListReq {
+}
 
 export interface GetRelationshipsListRsp {
   relationship: Relationship[];

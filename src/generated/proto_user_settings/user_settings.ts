@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.user_settings';
+
+export const protobufPackage = "mg.protocol.user_settings";
 
 export enum GameLibraryStyle {
   GameLibraryStyle_Thumbs = 0,

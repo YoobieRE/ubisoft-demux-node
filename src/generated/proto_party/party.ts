@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.party';
+
+export const protobufPackage = "mg.protocol.party";
 
 export enum PartyReqResult {
   PartyReqResult_Ok = 1,
@@ -35,11 +36,14 @@ export interface Guest {
   nick: string;
 }
 
-export interface GameSessionRemoved {}
+export interface GameSessionRemoved {
+}
 
-export interface UserDataRemoved {}
+export interface UserDataRemoved {
+}
 
-export interface GuestRemoved {}
+export interface GuestRemoved {
+}
 
 export interface GameSession {
   uplayId: number;
@@ -92,7 +96,8 @@ export interface PartyInviteRsp {
   party?: Party;
 }
 
-export interface LeaveReq {}
+export interface LeaveReq {
+}
 
 export interface LeaveRsp {
   ok: boolean;
@@ -133,7 +138,8 @@ export interface SetUserDataRsp {
   ok: boolean;
 }
 
-export interface GameSessionInviteReq {}
+export interface GameSessionInviteReq {
+}
 
 export interface GameSessionInviteRsp {
   ok: boolean;

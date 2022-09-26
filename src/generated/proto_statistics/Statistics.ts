@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.statistics';
+
+export const protobufPackage = "mg.protocol.statistics";
 
 export interface GameStartTypeData {
   machineId: string;

@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.steam_service';
+
+export const protobufPackage = "mg.protocol.steam_service";
 
 export enum CommunityVisibilityState {
   CommunityVisibilityState_Unsupported = 0,

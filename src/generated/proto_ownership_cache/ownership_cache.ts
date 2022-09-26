@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.ownership_cache';
+
+export const protobufPackage = "mg.protocol.ownership_cache";
 
 export interface OwnedGame {
   productId: number;

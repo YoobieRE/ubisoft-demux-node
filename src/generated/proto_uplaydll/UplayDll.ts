@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.uplaydll';
+
+export const protobufPackage = "mg.protocol.uplaydll";
 
 export enum OperationResult {
   ok = 1,
@@ -253,7 +254,8 @@ export interface InitProcessReq {
   uplayEnvIsSet: boolean;
 }
 
-export interface InitSubSystemOverlayReq {}
+export interface InitSubSystemOverlayReq {
+}
 
 export interface GameCdKey {
   uplayId: number;
@@ -332,7 +334,8 @@ export interface InitProcessRsp {
   devmode: boolean;
 }
 
-export interface InitSubSystemOverlayRsp {}
+export interface InitSubSystemOverlayRsp {
+}
 
 export interface RichPresenceTokenPair {
   key: string;
@@ -512,7 +515,8 @@ export interface PromoteToLeaderRsp {
   result: OperationResult;
 }
 
-export interface SetInPartyGameSessionReq {}
+export interface SetInPartyGameSessionReq {
+}
 
 export interface GameInvitePush {
   inviteId: number;
@@ -557,7 +561,8 @@ export interface SetGameSessionReq {
   gameSession?: GameSession;
 }
 
-export interface ClearGameSessionReq {}
+export interface ClearGameSessionReq {
+}
 
 export interface GetCredentialsReq {
   requestId: number;
@@ -571,11 +576,14 @@ export interface GetCredentialsRsp {
   email: string;
 }
 
-export interface AccountSharingPush {}
+export interface AccountSharingPush {
+}
 
-export interface ConnectionLostPush {}
+export interface ConnectionLostPush {
+}
 
-export interface ConnectionRestoredPush {}
+export interface ConnectionRestoredPush {
+}
 
 export interface OwnershipAddedPush {
   uplayId: number;
@@ -591,7 +599,8 @@ export interface TrialAboutToExpirePush {
   minutesBeforeEnd: number;
 }
 
-export interface TrialExpiredPush {}
+export interface TrialExpiredPush {
+}
 
 export interface TicketPush {
   ticket: string;
@@ -663,7 +672,8 @@ export interface Friend {
   gameSession?: GameSession;
 }
 
-export interface InitFriendsReq {}
+export interface InitFriendsReq {
+}
 
 export interface FriendInit {
   friendList: string[];
@@ -737,9 +747,11 @@ export interface ShowFriendSelectionUISuccess {
   accountId: string;
 }
 
-export interface ShowFriendSelectionUICanceled {}
+export interface ShowFriendSelectionUICanceled {
+}
 
-export interface ShowFriendSelectionUIEmptyList {}
+export interface ShowFriendSelectionUIEmptyList {
+}
 
 export interface ShowFriendSelectionUIRsp {
   requestId: number;
@@ -995,7 +1007,8 @@ export interface ShowProductsReq {
   tags: number[];
 }
 
-export interface ProductsListChangedPush {}
+export interface ProductsListChangedPush {
+}
 
 export interface StoreCheckoutStartedPush {
   id: number;
@@ -1325,7 +1338,8 @@ export interface GetActionsRsp {
   actions: Action[];
 }
 
-export interface RefreshActionsReq {}
+export interface RefreshActionsReq {
+}
 
 export interface SetActionsCompletedReq {
   requestId: number;
@@ -1419,7 +1433,8 @@ export interface InstallerReq {
   updateInstallOrderReq?: UpdateInstallOrderReq;
 }
 
-export interface UpdateAvailablePush {}
+export interface UpdateAvailablePush {
+}
 
 export interface InstallerRsp {
   initInstallerRsp?: InitInstallerRsp;
@@ -1458,7 +1473,8 @@ export interface GameOptionsReq {
   setInGameStateReq?: SetGameOptionsInGameStateReq;
 }
 
-export interface TerminateGamePush {}
+export interface TerminateGamePush {
+}
 
 export interface LaunchAppReq {
   productId: number;
@@ -1468,55 +1484,64 @@ export interface LaunchAppRsp {
   result: GameLaunchResult;
 }
 
-export interface GetStreamingCurrentUserCountryReq {}
+export interface GetStreamingCurrentUserCountryReq {
+}
 
 export interface GetStreamingCurrentUserCountryRsp {
   userCountry: string;
 }
 
-export interface GetStreamingTypeReq {}
+export interface GetStreamingTypeReq {
+}
 
 export interface GetStreamingTypeRsp {
   streamingType: StreamingType;
 }
 
-export interface GetStreamingNetworkDelayForInputReq {}
+export interface GetStreamingNetworkDelayForInputReq {
+}
 
 export interface GetStreamingNetworkDelayForInputRsp {
   delay: number;
 }
 
-export interface GetStreamingNetworkDelayForVideoReq {}
+export interface GetStreamingNetworkDelayForVideoReq {
+}
 
 export interface GetStreamingNetworkDelayForVideoRsp {
   delay: number;
 }
 
-export interface GetStreamingNetworkDelayRoundtripReq {}
+export interface GetStreamingNetworkDelayRoundtripReq {
+}
 
 export interface GetStreamingNetworkDelayRoundtripRsp {
   delay: number;
 }
 
-export interface GetStreamingDeviceTypeReq {}
+export interface GetStreamingDeviceTypeReq {
+}
 
 export interface GetStreamingDeviceTypeRsp {
   streamingDeviceType: StreamingDeviceType;
 }
 
-export interface GetStreamingInputTypeReq {}
+export interface GetStreamingInputTypeReq {
+}
 
 export interface GetStreamingInputTypeRsp {
   streamingInputType: StreamingInputType;
 }
 
-export interface GetStreamingInputGamepadTypeReq {}
+export interface GetStreamingInputGamepadTypeReq {
+}
 
 export interface GetStreamingInputGamepadTypeRsp {
   streamingInputGamepadType: GamepadType;
 }
 
-export interface GetStreamingResolutionReq {}
+export interface GetStreamingResolutionReq {
+}
 
 export interface Dimension2d {
   width: number;

@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'uplay.channelservice.v1';
+
+export const protobufPackage = "uplay.channelservice.v1";
 
 export enum ChannelType {
   CHANNEL_TYPE_UNSPECIFIED = 0,

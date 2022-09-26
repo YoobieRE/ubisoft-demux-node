@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.channel';
+
+export const protobufPackage = "mg.channel";
 
 export enum ResponseCode {
   ResponseCode_Success = 200,
@@ -129,7 +130,8 @@ export interface UpdateChannelRsp {
   responseCode: ResponseCode;
 }
 
-export interface GetChannelsByUserIdReq {}
+export interface GetChannelsByUserIdReq {
+}
 
 export interface GetChannelsByUserIdRsp {
   responseCode: ResponseCode;
@@ -146,14 +148,16 @@ export interface CreateInviteRsp {
   invites: Invite[];
 }
 
-export interface GetInvitesSentReq {}
+export interface GetInvitesSentReq {
+}
 
 export interface GetInvitesSentRsp {
   responseCode: ResponseCode;
   invites: Invite[];
 }
 
-export interface GetInvitesReceivedReq {}
+export interface GetInvitesReceivedReq {
+}
 
 export interface GetInvitesReceivedRsp {
   responseCode: ResponseCode;
@@ -227,7 +231,8 @@ export interface AckMessageRsp {
   responseCode: ResponseCode;
 }
 
-export interface GetUnreadMessagesReq {}
+export interface GetUnreadMessagesReq {
+}
 
 export interface GetUnreadMessagesRsp {
   responseCode: ResponseCode;

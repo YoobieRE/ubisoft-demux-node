@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.conversations_cache';
+
+export const protobufPackage = "mg.protocol.conversations_cache";
 
 export enum ConversationsCacheVersion {
   ConversationsCacheVersion_Default = 2,

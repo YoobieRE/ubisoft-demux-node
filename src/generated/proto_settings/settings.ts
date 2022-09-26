@@ -1,24 +1,24 @@
 /* eslint-disable */
 import type {
-  User,
-  Overlay,
-  Language,
-  Misc,
-  Position,
-  Masters,
-  Hotkey,
-  Downloads,
-  Betas,
   AutoPatching,
-  Spotlight,
-  ModelessPositions,
-  Conversations,
-  Epic,
+  Betas,
   BrandedInstaller,
+  Conversations,
+  Downloads,
+  Epic,
+  Hotkey,
+  Language,
+  Masters,
+  Misc,
+  ModelessPositions,
+  Overlay,
+  Position,
   SharePlay,
-} from './common_settings';
+  Spotlight,
+  User,
+} from "./common_settings";
 
-export const protobufPackage = 'mg.protocol.settings';
+export const protobufPackage = "mg.protocol.settings";
 
 export interface Notifications {
   inGameEnabled: boolean;

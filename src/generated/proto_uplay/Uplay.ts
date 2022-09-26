@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.uplay';
+
+export const protobufPackage = "mg.protocol.uplay";
 
 export interface Achievement {
   achievementId: number;
@@ -36,7 +37,8 @@ export interface WriteAchievementsReq {
   achievementBlob?: AchievementBlob;
 }
 
-export interface WriteAchievementsRsp {}
+export interface WriteAchievementsRsp {
+}
 
 export interface ReadAchievementsReq {
   userId: string;

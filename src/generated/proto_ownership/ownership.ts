@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.ownership';
+
+export const protobufPackage = "mg.protocol.ownership";
 
 export enum SubscriptionState {
   SubscriptionState_NoState = 0,

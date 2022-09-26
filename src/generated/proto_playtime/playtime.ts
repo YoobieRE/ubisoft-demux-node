@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.playtime';
+
+export const protobufPackage = "mg.playtime";
 
 export enum Result {
   Result_Success = 0,

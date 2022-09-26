@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.crash_reporter';
+
+export const protobufPackage = "mg.protocol.crash_reporter";
 
 export interface UploadDumpReq {
   dumpFilename: string;

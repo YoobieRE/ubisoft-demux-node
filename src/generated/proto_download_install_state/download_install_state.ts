@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.download_install_state';
+
+export const protobufPackage = "mg.protocol.download_install_state";
 
 export interface License {
   identifier: string;

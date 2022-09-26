@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.settings';
+
+export const protobufPackage = "mg.protocol.settings";
 
 export enum CloseBehavior {
   CloseBehavior_Undefined = 0,

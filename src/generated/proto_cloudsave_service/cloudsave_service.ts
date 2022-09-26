@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.cloudsave_service';
+
+export const protobufPackage = "mg.protocol.cloudsave_service";
 
 export interface OptionalArgs {
   writeLength: number;
@@ -64,7 +65,8 @@ export interface CloudsaveReq_GetItem {
   itemId: number;
 }
 
-export interface CloudsaveReq_ListItems {}
+export interface CloudsaveReq_ListItems {
+}
 
 export interface CloudsaveReq_DeleteItem {
   itemId: number;

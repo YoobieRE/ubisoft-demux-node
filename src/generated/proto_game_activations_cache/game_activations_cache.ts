@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.game_activations_cache';
+
+export const protobufPackage = "mg.protocol.game_activations_cache";
 
 export interface ExecutableToken {
   exeIndex: number;

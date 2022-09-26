@@ -1,10 +1,7 @@
 /* eslint-disable */
-import type {
-  GetPatchInfoReq as GetPatchInfoReq1,
-  GetPatchInfoRsp as GetPatchInfoRsp2,
-} from '../proto_demux/demux';
+import type { GetPatchInfoReq as GetPatchInfoReq1, GetPatchInfoRsp as GetPatchInfoRsp2 } from "../proto_demux/demux";
 
-export const protobufPackage = 'mg.protocol.client_configuration';
+export const protobufPackage = "mg.protocol.client_configuration";
 
 export interface BuildVersion {
   versionNumber: number;

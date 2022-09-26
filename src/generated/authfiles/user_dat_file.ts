@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.user_dat_file';
+
+export const protobufPackage = "mg.protocol.user_dat_file";
 
 export interface UserInfo {
   username: string | undefined;

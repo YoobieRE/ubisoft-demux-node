@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.pcbang';
+
+export const protobufPackage = "mg.pcbang";
 
 export enum Result {
   OK = 0,

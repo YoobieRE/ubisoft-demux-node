@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.uplay_service';
+
+export const protobufPackage = "mg.protocol.uplay_service";
 
 export interface StartInstall {
   uplayId: number;
@@ -41,7 +42,8 @@ export interface Rsp {
   restart?: DependencyRestartRsp;
 }
 
-export interface CancelInstallPush {}
+export interface CancelInstallPush {
+}
 
 export interface Push {
   cancelInstall?: CancelInstallPush;

@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.control_panel';
+
+export const protobufPackage = "mg.protocol.control_panel";
 
 export interface AccountCache {
   email: string;

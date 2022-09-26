@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.remember_device_file';
+
+export const protobufPackage = "mg.protocol.remember_device_file";
 
 export interface User {
   accountId: string | undefined;

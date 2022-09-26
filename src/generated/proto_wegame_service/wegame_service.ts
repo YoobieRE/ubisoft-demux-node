@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.wegame_service';
+
+export const protobufPackage = "mg.protocol.wegame_service";
 
 export enum Status {
   Status_Unknown = 0,

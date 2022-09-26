@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.uplayauxdll';
+
+export const protobufPackage = "mg.protocol.uplayauxdll";
 
 export enum OperationResult {
   ok = 1,
@@ -40,7 +41,8 @@ export interface InitRsp {
   uplayPID: number;
 }
 
-export interface InvalidateCachedTokenReq {}
+export interface InvalidateCachedTokenReq {
+}
 
 export interface GetCachedOrFreshTokenReq {
   requestToken: Buffer;

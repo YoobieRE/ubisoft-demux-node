@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.installation_backup';
+
+export const protobufPackage = "mg.protocol.installation_backup";
 
 export enum LicenseFormat {
   LicenseFormat_Text = 1,

@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.chat_message_data';
+
+export const protobufPackage = "mg.protocol.chat_message_data";
 
 export interface GameSession {
   id: number;

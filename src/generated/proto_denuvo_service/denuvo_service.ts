@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.denuvo_service';
+
+export const protobufPackage = "mg.protocol.denuvo_service";
 
 export interface GetGameTokenReq {
   ownershipToken: string;

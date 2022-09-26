@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.download_cache';
+
+export const protobufPackage = "mg.protocol.download_cache";
 
 export interface Download {
   productId: number;

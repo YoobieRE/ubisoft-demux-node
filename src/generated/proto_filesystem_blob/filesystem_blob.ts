@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.filesystem_blob';
+
+export const protobufPackage = "mg.protocol.filesystem_blob";
 
 export interface File {
   name: string;

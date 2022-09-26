@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.club_cache';
+
+export const protobufPackage = "mg.protocol.club_cache";
 
 export enum ClubCacheVersion {
   ClubCacheVersion_Default = 1,

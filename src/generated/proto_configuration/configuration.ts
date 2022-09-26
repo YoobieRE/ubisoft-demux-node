@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.configuration';
+
+export const protobufPackage = "mg.protocol.configuration";
 
 export interface Configuration {
   productId: number;

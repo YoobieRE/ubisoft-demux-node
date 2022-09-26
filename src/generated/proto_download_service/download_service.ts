@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.download_service';
+
+export const protobufPackage = "mg.protocol.download_service";
 
 export interface UrlReq {
   urlRequests: UrlReq_Request[];

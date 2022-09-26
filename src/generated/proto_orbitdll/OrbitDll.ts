@@ -1,7 +1,9 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.orbitdll';
 
-export interface GetLoginDetailsReq {}
+export const protobufPackage = "mg.protocol.orbitdll";
+
+export interface GetLoginDetailsReq {
+}
 
 export interface GetLoginDetailsRsp {
   username: string;

@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.store';
+
+export const protobufPackage = "mg.protocol.store";
 
 export enum StoreProtocolVersion {
   ProtocolVersion = 3,
@@ -74,7 +75,8 @@ export interface InitializeRsp {
   storefront?: Storefront;
 }
 
-export interface GetStoreReq {}
+export interface GetStoreReq {
+}
 
 export interface GetStoreRsp {
   result: StoreResult;

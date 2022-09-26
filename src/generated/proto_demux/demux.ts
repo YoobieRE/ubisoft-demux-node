@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.demux';
+
+export const protobufPackage = "mg.protocol.demux";
 
 export interface Token {
   ubiTicket?: string;
@@ -29,7 +30,8 @@ export interface OpenConnectionRsp {
   success: boolean;
 }
 
-export interface KeepAlivePush {}
+export interface KeepAlivePush {
+}
 
 export interface DataMessage {
   connectionId: number;
@@ -40,7 +42,8 @@ export interface ClientVersionPush {
   version: number;
 }
 
-export interface ClientOutdatedPush {}
+export interface ClientOutdatedPush {
+}
 
 export interface ProductStartedPush {
   productId: number;

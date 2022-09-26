@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.game_starter';
+
+export const protobufPackage = "mg.protocol.game_starter";
 
 export interface RichPresenceToken {
   key: string;
@@ -110,18 +111,22 @@ export enum StartDeniedRsp_Reason {
   UNRECOGNIZED = -1,
 }
 
-export interface UpdateRequiredRsp {}
+export interface UpdateRequiredRsp {
+}
 
-export interface ConfirmationRsp {}
+export interface ConfirmationRsp {
+}
 
 export interface Req {
   startReq?: StartReq;
   hotkeyStateChangedReq?: HotkeyStateChangedReq;
 }
 
-export interface ReconnectPush {}
+export interface ReconnectPush {
+}
 
-export interface UserInteractionRequiredPush {}
+export interface UserInteractionRequiredPush {
+}
 
 export interface SteamOverlayShowPush {
   url: string;

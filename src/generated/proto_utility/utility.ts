@@ -1,7 +1,9 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.utility';
 
-export interface GeoIpReq {}
+export const protobufPackage = "mg.protocol.utility";
+
+export interface GeoIpReq {
+}
 
 export interface GeoIpRsp {
   countryCode: string;

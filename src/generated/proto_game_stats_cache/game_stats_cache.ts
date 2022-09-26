@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.game_stats_cache';
+
+export const protobufPackage = "mg.protocol.game_stats_cache";
 
 export interface GameStatsCard {
   spaceId: string;

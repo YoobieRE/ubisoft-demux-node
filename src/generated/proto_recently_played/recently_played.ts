@@ -1,5 +1,6 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.recently_played';
+
+export const protobufPackage = "mg.protocol.recently_played";
 
 export interface GameSessionInfo {
   productId: number;

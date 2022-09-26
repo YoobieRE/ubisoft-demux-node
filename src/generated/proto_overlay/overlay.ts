@@ -1,7 +1,9 @@
 /* eslint-disable */
-export const protobufPackage = 'mg.protocol.overlay';
 
-export interface GetConfigurationReq {}
+export const protobufPackage = "mg.protocol.overlay";
+
+export interface GetConfigurationReq {
+}
 
 export interface GetConfigurationRsp {
   libraryPath: string;
@@ -22,7 +24,8 @@ export interface StartSuccessRsp {
   virtualControlsEnabled: boolean;
 }
 
-export interface StartFailureRsp {}
+export interface StartFailureRsp {
+}
 
 export interface StartRsp {
   successRsp?: StartSuccessRsp;
@@ -39,7 +42,8 @@ export interface ResizeSuccessRsp {
   sharedMemoryMutexName: string;
 }
 
-export interface ResizeFailureRsp {}
+export interface ResizeFailureRsp {
+}
 
 export interface ResizeRsp {
   successRsp?: ResizeSuccessRsp;
@@ -106,13 +110,17 @@ export interface LangChangeReq {
   langAbbreviate: string;
 }
 
-export interface ShowUiReq {}
+export interface ShowUiReq {
+}
 
-export interface CloseUiReq {}
+export interface CloseUiReq {
+}
 
-export interface RefreshUiReq {}
+export interface RefreshUiReq {
+}
 
-export interface BufferReadyReq {}
+export interface BufferReadyReq {
+}
 
 export interface CreateProcessReq {
   pid: number;
@@ -146,7 +154,8 @@ export interface UiClosedPush {
   success: boolean;
 }
 
-export interface IMEClearCompositionPush {}
+export interface IMEClearCompositionPush {
+}
 
 export interface IMESelectCandidatePush {
   selectedCandidateIndex: number;
@@ -203,7 +212,8 @@ export interface StreamingHostGuestDisconnectedReq {
   profileId: string;
 }
 
-export interface StreamingHostStopPush {}
+export interface StreamingHostStopPush {
+}
 
 export interface StreamingHostKickPush {
   guestId: number;
@@ -264,9 +274,11 @@ export interface ScreenshotReadyReq {
   isVulkanHDR: boolean;
 }
 
-export interface ScreenshotCaptureFailureReq {}
+export interface ScreenshotCaptureFailureReq {
+}
 
-export interface VideoCaptureFailureReq {}
+export interface VideoCaptureFailureReq {
+}
 
 export interface IMECommitText {
   text: string;
@@ -286,7 +298,8 @@ export interface IMESetCompositionReq {
   underlines: IMECompositionUnderline[];
 }
 
-export interface IMECancelCompositionReq {}
+export interface IMECancelCompositionReq {
+}
 
 export interface IMEUpdateCandidatesReq {
   candidates: string[];
@@ -335,9 +348,11 @@ export interface Rsp {
   videoFrameReleasedRsp?: VideoFrameReleasedRsp;
 }
 
-export interface MultipleLogin {}
+export interface MultipleLogin {
+}
 
-export interface UserBannedPush {}
+export interface UserBannedPush {
+}
 
 export interface Push {
   multipleLogin?: MultipleLogin;
