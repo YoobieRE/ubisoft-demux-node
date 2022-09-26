@@ -33,7 +33,7 @@ export class DemuxSocket extends BaseEmitter<DemuxSocketEvents> {
 
   private tlsConnectionOptions?: tls.ConnectionOptions;
 
-  private socket?: tls.TLSSocket;
+  public socket?: tls.TLSSocket;
 
   private pendingRequestResponses = new Map<number, RespFn>();
 
