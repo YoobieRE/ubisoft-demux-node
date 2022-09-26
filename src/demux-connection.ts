@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint-disable-next-line max-classes-per-file
 import debug, { Debugger } from 'debug';
 import type { demux } from './generated';
@@ -37,7 +38,10 @@ export type ConnectionEvents<DownType> = {
   push: (payload: DownType & protobuf.Message) => void;
 };
 
-export class DemuxConnection<UpType, DownType> extends BaseEmitter<ConnectionEvents<DownType>> {
+export class DemuxConnection<
+  UpType extends Record<string, any>,
+  DownType extends Record<string, any>
+> extends BaseEmitter<ConnectionEvents<DownType>> {
   public serviceName: DemuxServiceName;
 
   public connectionId: number;

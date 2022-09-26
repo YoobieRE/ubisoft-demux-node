@@ -1,9 +1,8 @@
-import type { demux } from './generated';
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class DemuxError extends Error {
-  request: demux.Upstream;
+  request: Record<string, any>;
 
-  constructor(request: demux.Upstream) {
+  constructor(request: Record<string, any>) {
     super('The Demux request received no response and timed out');
     // 👇️ because we are extending a built-in class
     Object.setPrototypeOf(this, DemuxError.prototype);

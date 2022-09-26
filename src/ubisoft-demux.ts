@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import protobuf from 'protobufjs';
 import debug from 'debug';
 import type tls from 'tls';
@@ -111,13 +112,15 @@ export class UbisoftDemux {
     DemuxConnection<utility_service.Upstream, utility_service.Downstream & protobuf.Message>
   >;
 
-  public async openConnection<UpType, DownType>(
-    serviceName: DemuxServiceName
-  ): Promise<DemuxConnection<UpType, DownType>>;
+  public async openConnection<
+    UpType extends Record<string, any>,
+    DownType extends Record<string, any>
+  >(serviceName: DemuxServiceName): Promise<DemuxConnection<UpType, DownType>>;
 
-  public async openConnection<UpType, DownType>(
-    serviceName: DemuxServiceName
-  ): Promise<DemuxConnection<UpType, DownType>> {
+  public async openConnection<
+    UpType extends Record<string, any>,
+    DownType extends Record<string, any>
+  >(serviceName: DemuxServiceName): Promise<DemuxConnection<UpType, DownType>> {
     this.debug('Opening a new connection');
     const requestResp: Pick<demux.Rsp, 'openConnectionRsp'> = await this.socket.request({
       openConnectionReq: {
