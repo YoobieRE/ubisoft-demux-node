@@ -167,20 +167,19 @@ export interface CursorChangePush {
 
 export interface StreamingHostStartPush {
   sessionId: string;
-  token: string;
+  ubiTicket: string;
   appId: string;
   isUat: boolean;
   bitrate: number;
-  mouseKeyboardAllowed: boolean;
-  gamepadAllowed: boolean;
-  hostProfileId: string;
   resolution: number;
   fps: number;
+  gameName: string;
+  guestsLimit: number;
 }
 
 export interface StreamingHostStartResponse {
   result: boolean;
-  inviteToken: string;
+  hostPeerId: string;
   startConfig?: StreamingStartConfig;
   errorMsg: string;
   errorCode: number;
@@ -197,14 +196,11 @@ export interface StreamingHostGuestSettingsResponse {
   permissions?: StreamingHostGuestPermissions;
 }
 
-export interface StreamingHostGuestResponse {
+export interface StreamingHostGuestConnectedReq {
   guestId: number;
   profileId: string;
   settings?: StreamingHostGuestSettingsResponse;
-}
-
-export interface StreamingHostGuestConnectedReq {
-  guest?: StreamingHostGuestResponse;
+  connectedTs: number;
 }
 
 export interface StreamingHostGuestDisconnectedReq {
@@ -223,18 +219,12 @@ export interface StreamingSettingsPush {
   bitrate: number;
   resolution: number;
   fps: number;
-  mouseKeyboardAllowed: boolean;
-  gamepadAllowed: boolean;
 }
 
 export interface StreamingHostPermissionsPush {
   clientId: number;
   mouseKeyboardAllowed: boolean;
   gamepadAllowed: boolean;
-}
-
-export interface StreamingHostAddAllowedProfileIdsPush {
-  allowedProfileIds: string[];
 }
 
 export interface StreamingStartConfig {
@@ -264,10 +254,36 @@ export interface StreamingHostMetricsReq {
   clientId: number;
 }
 
-export interface StreamingVGPEvent {
+export interface StreamingVGPEventReq {
   source: number;
   profileId: string;
   streamingGamepadId: number;
+}
+
+export interface StreamingHostCreateTokenPush {
+  usageLimit: number;
+  expiration: number;
+  tokenNumber: number;
+}
+
+export interface StreamingHostCreateTokenReq {
+  result: boolean;
+  token: string;
+  tokenNumber: number;
+}
+
+export interface StreamingHostDecodeTokenPush {
+  token: string;
+  tokenNumber: number;
+}
+
+export interface StreamingHostDecodeTokenReq {
+  result: boolean;
+  appId: string;
+  spaceId: string;
+  productId: number;
+  tokenNumber: number;
+  gameName: string;
 }
 
 export interface ScreenshotReadyReq {
@@ -337,7 +353,9 @@ export interface Req {
   streamingHostGuestDisconnectedReq?: StreamingHostGuestDisconnectedReq;
   streamingHostStopReq?: StreamingHostStopReq;
   streamingHostMetricsReq: StreamingHostMetricsReq[];
-  streamingVgpEventReq?: StreamingVGPEvent;
+  streamingVgpEventReq?: StreamingVGPEventReq;
+  streamingHostCreateTokenReq?: StreamingHostCreateTokenReq;
+  streamingHostDecodeTokenReq?: StreamingHostDecodeTokenReq;
 }
 
 export interface Rsp {
@@ -367,8 +385,9 @@ export interface Push {
   streamingHostStart?: StreamingHostStartPush;
   streamingHostStop?: StreamingHostStopPush;
   streamingHostKick?: StreamingHostKickPush;
-  streamingHostAddAllowedProfileIds?: StreamingHostAddAllowedProfileIdsPush;
   streamingHostPermissions?: StreamingHostPermissionsPush;
+  streamingHostCreateToken?: StreamingHostCreateTokenPush;
+  streamingHostDecodeToken?: StreamingHostDecodeTokenPush;
 }
 
 export interface Upstream {

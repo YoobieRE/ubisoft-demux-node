@@ -175,20 +175,19 @@ message CursorChangePush {
 
 message StreamingHostStartPush {
     required string session_id = 1;
-    required string token = 2;
+    required string ubi_ticket = 2;
     required string app_id = 3;
     required bool is_uat = 4;
     required uint32 bitrate = 5;
-    required bool mouse_keyboard_allowed = 6;
-    required bool gamepad_allowed = 7;
-    required string host_profile_id = 8;
-    required uint32 resolution = 9;
-    required uint32 fps = 10;
+    required uint32 resolution = 6;
+    required uint32 fps = 7;
+    required string game_name = 8;
+    required uint32 guests_limit = 9;
 }
 
 message StreamingHostStartResponse {
     required bool result = 1;
-    optional string invite_token = 2;
+    optional string host_peer_id = 2;
     optional StreamingStartConfig start_config = 3;
     optional string error_msg = 4;
     optional int32 error_code = 5;
@@ -205,14 +204,11 @@ message StreamingHostGuestSettingsResponse {
     required StreamingHostGuestPermissions permissions = 1;
 }
 
-message StreamingHostGuestResponse {
+message StreamingHostGuestConnectedReq {
     required uint32 guest_id = 1;
     required string profile_id = 2;
     required StreamingHostGuestSettingsResponse settings = 3;
-}
-
-message StreamingHostGuestConnectedReq {
-    required StreamingHostGuestResponse guest = 1;
+    required uint64 connected_ts = 4;
 }
 
 message StreamingHostGuestDisconnectedReq {
@@ -232,18 +228,12 @@ message StreamingSettingsPush {
     required uint32 bitrate = 1;
     required uint32 resolution = 2;
     required uint32 fps = 3;
-    required bool mouse_keyboard_allowed = 4;
-    required bool gamepad_allowed = 5;
 }
 
 message StreamingHostPermissionsPush {
     required uint32 client_id = 1;
     required bool mouse_keyboard_allowed = 2;
     required bool gamepad_allowed = 3;
-}
-
-message StreamingHostAddAllowedProfileIdsPush {
-    repeated string allowed_profile_ids = 1;
 }
 
 message StreamingStartConfig {
@@ -273,10 +263,36 @@ message StreamingHostMetricsReq {
     required uint32 client_id = 3;
 }
 
-message StreamingVGPEvent {
+message StreamingVGPEventReq {
     required uint32 source = 1;
     required string profile_id = 2;
     required uint32 streaming_gamepad_id = 3;
+}
+
+message StreamingHostCreateTokenPush {
+    required uint32 usage_limit = 1;
+    required uint32 expiration = 2;
+    required uint32 token_number = 3;
+}
+
+message StreamingHostCreateTokenReq {
+    required bool result = 1;
+    required string token = 2;
+    required uint32 token_number = 3;
+}
+
+message StreamingHostDecodeTokenPush {
+    required string token = 1;
+    required uint32 token_number = 2;
+}
+
+message StreamingHostDecodeTokenReq {
+    required bool result = 1;
+    required string app_id = 2;
+    required string space_id = 3;
+    required uint32 product_id = 4;
+    required uint32 token_number = 5;
+    required string game_name = 6;
 }
 
 message ScreenshotReadyReq {
@@ -349,7 +365,9 @@ message Req {
     optional StreamingHostGuestDisconnectedReq streaming_host_guest_disconnected_req = 31;
     optional StreamingHostStopReq streaming_host_stop_req = 32;
     repeated StreamingHostMetricsReq streaming_host_metrics_req = 33;
-    optional StreamingVGPEvent streaming_vgp_event_req = 34;
+    optional StreamingVGPEventReq streaming_vgp_event_req = 34;
+    optional StreamingHostCreateTokenReq streaming_host_create_token_req = 35;
+    optional StreamingHostDecodeTokenReq streaming_host_decode_token_req = 36;
 }
 
 message Rsp {
@@ -381,8 +399,9 @@ message Push {
     optional StreamingHostStartPush streaming_host_start = 10;
     optional StreamingHostStopPush streaming_host_stop = 11;
     optional StreamingHostKickPush streaming_host_kick = 12;
-    optional StreamingHostAddAllowedProfileIdsPush streaming_host_add_allowed_profileIds = 13;
-    optional StreamingHostPermissionsPush streaming_host_permissions = 14;
+    optional StreamingHostPermissionsPush streaming_host_permissions = 13;
+    optional StreamingHostCreateTokenPush streaming_host_create_token = 14;
+    optional StreamingHostDecodeTokenPush streaming_host_decode_token = 15;
 }
 
 message Upstream {

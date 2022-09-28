@@ -620,14 +620,18 @@ export interface TrustedDeviceActionData {
 }
 
 export interface SharePlayHostSessionStreamingStartData {
-  width: number;
-  height: number;
-  bitrate: number;
-  isAudioEnabled: boolean;
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  streamingService: string;
 }
 
 export interface SharePlayHostSessionStreamingStopData {
+  hostPeerId: string;
+  side: string;
   reason: string;
+  spaceIdGame: string;
+  streamingService: string;
 }
 
 export interface SharePlayOnboardingData {
@@ -673,6 +677,8 @@ export interface StreamingHostStartSessionData {
   side: string;
   spaceIdGame: string;
   bitrateMbps: number;
+  resolution: string;
+  fps: number;
 }
 
 export interface StreamingHostStopSessionData {
@@ -681,6 +687,8 @@ export interface StreamingHostStopSessionData {
   spaceIdGame: string;
   reason: string;
   bitrateMbps: number;
+  resolution: string;
+  fps: number;
 }
 
 export interface StreamingHostSessionSettingsChanged {
@@ -738,11 +746,31 @@ export interface StreamingVGPEvent {
   state: string;
 }
 
+export interface StreamingHostLinkCreatedEvent {
+  hostPeerId: string;
+  spaceIdGame: string;
+  source: string;
+}
+
 export interface EventTypeData {
   gameStart?: GameStartTypeData;
   gameLocalization?: GameLocalizationTypeData;
   contextStart?: ContextStartTypeData;
   contextStop?: ContextStopTypeData;
+}
+
+export interface RemotePlayHostSessionStreamingStartData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  streamingService: string;
+}
+
+export interface RemotePlayHostSessionStreamingStopData {
+  hostPeerId: string;
+  side: string;
+  spaceIdGame: string;
+  streamingService: string;
 }
 
 export interface EventObjectData {
@@ -806,6 +834,9 @@ export interface EventObjectData {
   streamingError?: StreamingErrorData;
   streamingHostSessionSettings?: StreamingHostSessionSettingsChanged;
   streamingVGPEvent?: StreamingVGPEvent;
+  streamingHostLinkCreated?: StreamingHostLinkCreatedEvent;
+  remotePlaySessionStart?: RemotePlayHostSessionStreamingStartData;
+  remotePlaySessionStop?: RemotePlayHostSessionStreamingStopData;
 }
 
 export interface Event {

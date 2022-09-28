@@ -612,14 +612,18 @@ message TrustedDeviceActionData {
 }
 
 message SharePlayHostSessionStreamingStartData {
-    optional uint32 width = 1;
-    optional uint32 height = 2;
-    optional uint32 bitrate = 3;
-    optional bool is_audio_enabled = 4;
+    optional string hostPeerId = 1;
+    optional string side = 2;
+    optional string spaceIdGame = 3;
+    optional string streamingService = 4;
 }
 
 message SharePlayHostSessionStreamingStopData {
-    optional string reason = 1;
+    optional string hostPeerId = 1;
+    optional string side = 2;
+    optional string reason = 3;
+    optional string spaceIdGame = 4;
+    optional string streamingService = 5;
 }
 
 message SharePlayOnboardingData {
@@ -665,6 +669,8 @@ message StreamingHostStartSessionData {
     optional string side = 2;
     optional string spaceIdGame = 3;
     optional uint32 bitrateMbps = 4;
+    optional string resolution = 5;
+    optional uint32 fps = 6;
 }
 
 message StreamingHostStopSessionData {
@@ -673,6 +679,8 @@ message StreamingHostStopSessionData {
     optional string spaceIdGame = 3;
     optional string reason = 4;
     optional uint32 bitrateMbps = 5;
+    optional string resolution = 6;
+    optional uint32 fps = 7;
 }
 
 message StreamingHostSessionSettingsChanged {
@@ -730,11 +738,31 @@ message StreamingVGPEvent {
     optional string state = 8;
 }
 
+message StreamingHostLinkCreatedEvent {
+    optional string hostPeerId = 1;
+    optional string spaceIdGame = 2;
+    optional string source = 3;
+}
+
 message EventTypeData {
     optional GameStartTypeData gameStart = 1;
     optional GameLocalizationTypeData gameLocalization = 2;
     optional ContextStartTypeData contextStart = 3;
     optional ContextStopTypeData contextStop = 4;
+}
+
+message RemotePlayHostSessionStreamingStartData {
+    optional string hostPeerId = 1;
+    optional string side = 2;
+    optional string spaceIdGame = 3;
+    optional string streamingService = 4;
+}
+
+message RemotePlayHostSessionStreamingStopData {
+    optional string hostPeerId = 1;
+    optional string side = 2;
+    optional string spaceIdGame = 3;
+    optional string streamingService = 4;
 }
 
 message EventObjectData {
@@ -798,6 +826,9 @@ message EventObjectData {
     optional StreamingErrorData streamingError = 58;
     optional StreamingHostSessionSettingsChanged streamingHostSessionSettings = 59;
     optional StreamingVGPEvent streamingVGPEvent = 60;
+    optional StreamingHostLinkCreatedEvent streamingHostLinkCreated = 61;
+    optional RemotePlayHostSessionStreamingStartData remotePlaySessionStart = 62;
+    optional RemotePlayHostSessionStreamingStopData remotePlaySessionStop = 63;
 }
 
 message Event {
