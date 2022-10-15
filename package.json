@@ -1,6 +1,6 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10753.0",
+  "version": "1.10753.1",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
   "main": "dist/src/index.js",
   "scripts": {
@@ -8,8 +8,7 @@
     "test:ci": "jest --coverage",
     "build": "rimraf dist && tsc && copyfiles proto/**/* dist",
     "lint": "tsc --noEmit && eslint .",
-    "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages",
-    "gen-configuration": "node scripts/generate-configuration-types.js"
+    "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
   },
   "types": "dist/src/index.d.ts",
   "author": {
@@ -62,7 +61,6 @@
     "jest": "^29.0.3",
     "otpauth": "^8.0.3",
     "prettier": "^2.7.1",
-    "quicktype-core": "^6.1.0",
     "rimraf": "^3.0.2",
     "ts-jest": "^29.0.2",
     "ts-node": "^10.9.1",

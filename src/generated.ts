@@ -18,3 +18,5 @@ export * as download_cache from './generated/proto_download_cache/download_cache
 export * as download_install_state from './generated/proto_download_install_state/download_install_state';
 
 export * as game_configuration from './generated/configuration-types';
+export * as product_configuration from './generated/configuration-types';
+export * as product_store_configuration from './generated/store-configuration-types';
