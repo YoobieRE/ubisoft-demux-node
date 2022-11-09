@@ -102,6 +102,10 @@ export interface BrandedInstaller {
   pendingProtocol: string;
 }
 
+export interface ConnectView {
+  enabled: boolean;
+}
+
 export interface SharePlay {
   bitrate: number;
   displayOnboarding: boolean;
@@ -113,4 +117,8 @@ export interface SharePlay {
   nbFeedbackUnfilled: number;
   resolution: number;
   fps: number;
+}
+
+export interface RemotePlay {
+  allowed: boolean;
 }

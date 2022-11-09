@@ -145,4 +145,5 @@ export interface UserSettings {
   seenPromoTabs?: SeenPromoTabs;
   isunavailablebannerdisabled: boolean;
   spotlightShownTimestamps?: SpotlightShownTimestamps;
+  connectBetaPromoDismissed: boolean;
 }

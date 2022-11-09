@@ -175,6 +175,7 @@ export interface StreamingHostStartPush {
   fps: number;
   gameName: string;
   guestsLimit: number;
+  hostProfileId: string;
 }
 
 export interface StreamingHostStartResponse {
@@ -263,6 +264,7 @@ export interface StreamingVGPEventReq {
 export interface StreamingHostCreateTokenPush {
   usageLimit: number;
   expiration: number;
+  profileId: string;
   tokenNumber: number;
 }
 
@@ -284,6 +286,22 @@ export interface StreamingHostDecodeTokenReq {
   productId: number;
   tokenNumber: number;
   gameName: string;
+}
+
+export interface StreamingHostFocusReq {
+  focus: boolean;
+}
+
+export interface StreamingHostUpdateGuestRemainingTimePush {
+  clientId: number;
+  remainingTime: number;
+}
+
+export interface StreamingHostUpdateGuestRemainingTimeReq {
+  result: boolean;
+  hostPeerId: string;
+  errorMsg: string;
+  errorCode: number;
 }
 
 export interface ScreenshotReadyReq {
@@ -356,6 +374,8 @@ export interface Req {
   streamingVgpEventReq?: StreamingVGPEventReq;
   streamingHostCreateTokenReq?: StreamingHostCreateTokenReq;
   streamingHostDecodeTokenReq?: StreamingHostDecodeTokenReq;
+  streamingHostFocusReq?: StreamingHostFocusReq;
+  streamingHostUpdateGuestRemainingTimeReq?: StreamingHostUpdateGuestRemainingTimeReq;
 }
 
 export interface Rsp {
@@ -388,6 +408,7 @@ export interface Push {
   streamingHostPermissions?: StreamingHostPermissionsPush;
   streamingHostCreateToken?: StreamingHostCreateTokenPush;
   streamingHostDecodeToken?: StreamingHostDecodeTokenPush;
+  streamingHostUpdateGuestRemainingTime?: StreamingHostUpdateGuestRemainingTimePush;
 }
 
 export interface Upstream {

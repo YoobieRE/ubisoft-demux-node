@@ -183,6 +183,7 @@ message StreamingHostStartPush {
     required uint32 fps = 7;
     required string game_name = 8;
     required uint32 guests_limit = 9;
+    required string host_profile_id = 10;
 }
 
 message StreamingHostStartResponse {
@@ -272,7 +273,8 @@ message StreamingVGPEventReq {
 message StreamingHostCreateTokenPush {
     required uint32 usage_limit = 1;
     required uint32 expiration = 2;
-    required uint32 token_number = 3;
+    required string profile_id = 3;
+    required uint32 token_number = 4;
 }
 
 message StreamingHostCreateTokenReq {
@@ -293,6 +295,22 @@ message StreamingHostDecodeTokenReq {
     required uint32 product_id = 4;
     required uint32 token_number = 5;
     required string game_name = 6;
+}
+
+message StreamingHostFocusReq {
+    required bool focus = 1;
+}
+
+message StreamingHostUpdateGuestRemainingTimePush {
+    required uint32 client_id = 1;
+    required uint32 remaining_time = 2;
+}
+
+message StreamingHostUpdateGuestRemainingTimeReq {
+    required bool result = 1;
+    required string host_peer_id = 2;
+    required string error_msg = 3;
+    required int32 error_code = 4;
 }
 
 message ScreenshotReadyReq {
@@ -368,6 +386,8 @@ message Req {
     optional StreamingVGPEventReq streaming_vgp_event_req = 34;
     optional StreamingHostCreateTokenReq streaming_host_create_token_req = 35;
     optional StreamingHostDecodeTokenReq streaming_host_decode_token_req = 36;
+    optional StreamingHostFocusReq streaming_host_focus_req = 37;
+    optional StreamingHostUpdateGuestRemainingTimeReq streaming_host_update_guest_remaining_time_req = 38;
 }
 
 message Rsp {
@@ -402,6 +422,7 @@ message Push {
     optional StreamingHostPermissionsPush streaming_host_permissions = 13;
     optional StreamingHostCreateTokenPush streaming_host_create_token = 14;
     optional StreamingHostDecodeTokenPush streaming_host_decode_token = 15;
+    optional StreamingHostUpdateGuestRemainingTimePush streaming_host_update_guest_remaining_time = 16;
 }
 
 message Upstream {

@@ -3,6 +3,7 @@ import type {
   AutoPatching,
   Betas,
   BrandedInstaller,
+  ConnectView,
   Conversations,
   Downloads,
   Epic,
@@ -13,6 +14,7 @@ import type {
   ModelessPositions,
   Overlay,
   Position,
+  RemotePlay,
   SharePlay,
   Spotlight,
   User,
@@ -60,4 +62,6 @@ export interface SettingsModel {
   epic?: Epic;
   brandedInstaller?: BrandedInstaller;
   sharePlay?: SharePlay;
+  connectView?: ConnectView;
+  remotePlay?: RemotePlay;
 }

@@ -118,6 +118,7 @@ message UserSettings {
     optional SeenPromoTabs seenPromoTabs = 24;
     optional bool isunavailablebannerdisabled = 25;
     optional SpotlightShownTimestamps spotlightShownTimestamps = 26;
+    optional bool connectBetaPromoDismissed = 27;
 }
 
 enum GameLibraryStyle {

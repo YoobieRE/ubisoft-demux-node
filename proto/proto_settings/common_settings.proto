@@ -89,6 +89,10 @@ message BrandedInstaller {
     optional string pending_protocol = 1;
 }
 
+message ConnectView {
+    optional bool enabled = 1 [default = false];
+}
+
 message SharePlay {
     optional uint32 bitrate = 1 [default = 20];
     optional bool displayOnboarding = 2 [default = true];
@@ -100,6 +104,10 @@ message SharePlay {
     optional uint32 nbFeedbackUnfilled = 8 [default = 0];
     optional uint32 resolution = 9 [default = 1080];
     optional uint32 fps = 10 [default = 60];
+}
+
+message RemotePlay {
+    optional bool allowed = 1 [default = false];
 }
 
 enum CloseBehavior {

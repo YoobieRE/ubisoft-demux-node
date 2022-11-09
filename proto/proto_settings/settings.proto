@@ -44,4 +44,6 @@ message SettingsModel {
     optional Epic epic = 18;
     optional BrandedInstaller branded_installer = 19;
     optional SharePlay sharePlay = 20;
+    optional ConnectView connect_view = 21;
+    optional RemotePlay remotePlay = 22;
 }
