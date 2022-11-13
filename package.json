@@ -1,11 +1,13 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10773.0",
+  "version": "1.10773.1",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
   "main": "dist/src/index.js",
   "scripts": {
-    "test": "DEBUG=ubisoft-demux* jest",
-    "test:ci": "jest --coverage",
+    "prepare": "husky install",
+    "test": "DEBUG=ubisoft-demux* jest --coverage",
+    "test:all": ". ~/.nvm/nvm.sh && nvm exec 14 jest && nvm exec 16 jest && nvm exec 18 jest",
+    "test:ci": "jest test/file-parser.test.ts",
     "build": "rimraf dist && tsc && copyfiles proto/**/* dist",
     "lint": "tsc --noEmit && eslint .",
     "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
@@ -58,6 +60,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^27.0.4",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
     "jest": "^29.0.3",
     "otpauth": "^8.0.3",
     "prettier": "^2.7.1",

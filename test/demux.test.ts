@@ -1,10 +1,9 @@
 import 'dotenv/config';
 import { Secret, TOTP } from 'otpauth';
 import { once } from 'events';
-import { DemuxError, UbiServicesApi, UbisoftDemux, friends_service } from '../src';
+import { DemuxError, UbiServicesApi, UbisoftDemux, friends_service, store_service } from '../src';
 import { fileHashToPathChar } from '../src/util';
 
-jest.setTimeout(15000);
 describe('Demux package', () => {
   let ubiDemux: UbisoftDemux;
   let ubiDemux2: UbisoftDemux | undefined;
@@ -155,6 +154,47 @@ describe('Demux package', () => {
         },
       },
     });
+  });
+
+  it('should get store product data', async () => {
+    ubiDemux = new UbisoftDemux();
+    await ubiDemux.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket,
+        },
+      },
+    });
+
+    const connection = await ubiDemux.openConnection('store_service');
+
+    const initResp = await connection.request({
+      request: {
+        requestId: 1,
+        initializeReq: {
+          protoVersion: 7,
+          useStaging: false,
+        },
+      },
+    });
+
+    expect(initResp).toBeDefined();
+
+    const upsellResp = await connection.request({
+      request: {
+        requestId: 1,
+        getDataReq: {
+          storeDataType: store_service.StoreType.StoreType_Upsell,
+          productId: [635, 5595],
+        },
+      },
+    });
+
+    const products = upsellResp.response?.getDataRsp?.products as store_service.StoreProduct[];
+    expect(products).toBeDefined();
+    expect(products.length).toBeGreaterThanOrEqual(2);
   });
 
   it('should get download manifest for an old version', async () => {
@@ -322,6 +362,7 @@ describe('Demux package', () => {
       error = err;
     }
     expect(error).toBeInstanceOf(DemuxError);
+    expect(error?.stack?.includes('/test/demux.test.ts')).toBeTruthy();
     expect(error?.request).toEqual({
       request: {
         openConnectionReq: {

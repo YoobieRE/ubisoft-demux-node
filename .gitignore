@@ -121,3 +121,4 @@ dist
 .pnp.*
 
 test/sandbox.ts
+test/sandbox/

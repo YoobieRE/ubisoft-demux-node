@@ -7,11 +7,11 @@ on:
 name: Unit test and build
 
 jobs:
-  test:
+  test-local:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["14", "16"]
+        node: ["14", "16", "18"]
     name: Node ${{ matrix.node }} sample
     steps:
       - uses: actions/checkout@v2
@@ -22,15 +22,6 @@ jobs:
           node-version: ${{ matrix.node }}
       - run: npm ci
       - run: npm run test:ci
-        env:
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          EMAIL2: ${{ secrets.EMAIL2 }}
-          PASSWORD2: ${{ secrets.PASSWORD2 }}
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
   build:
     runs-on: ubuntu-latest
     name: Build package

@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/ubisoft-demux)](https://www.npmjs.com/package/ubisoft-demux)
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/claabs/ubisoft-demux-node/Unit%20test%20and%20build)
-[![Coverage Status](https://coveralls.io/repos/github/claabs/ubisoft-demux-node/badge.svg?branch=master)](https://coveralls.io/github/claabs/ubisoft-demux-node?branch=master)
 
 The Ubisoft Connect game launcher uses a bespoke socket-level protocol sending protocol buffer encoded messages to perform the majority of its core functionality.
 This package implements the Demux protocol and assists with communicating directly with the Demux API.
