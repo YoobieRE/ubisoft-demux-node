@@ -19,6 +19,49 @@ import type {
   demux,
 } from './generated';
 
+export interface ServiceConnections {
+  client_configuration_service: DemuxConnection<
+    client_configuration_service.Upstream,
+    client_configuration_service.Downstream & protobuf.Message
+  >;
+  cloudsave_service: DemuxConnection<
+    cloudsave_service.Upstream,
+    cloudsave_service.Downstream & protobuf.Message
+  >;
+  denuvo_service: DemuxConnection<
+    denuvo_service.Upstream,
+    denuvo_service.Downstream & protobuf.Message
+  >;
+  download_service: DemuxConnection<
+    download_service.Upstream,
+    download_service.Downstream & protobuf.Message
+  >;
+  friends_service: DemuxConnection<
+    friends_service.Upstream,
+    friends_service.Downstream & protobuf.Message
+  >;
+  ownership_service: DemuxConnection<
+    ownership_service.Upstream,
+    ownership_service.Downstream & protobuf.Message
+  >;
+  party_service: DemuxConnection<
+    party_service.Upstream,
+    party_service.Downstream & protobuf.Message
+  >;
+  playtime_service: DemuxConnection<
+    playtime_service.Upstream,
+    playtime_service.Downstream & protobuf.Message
+  >;
+  store_service: DemuxConnection<
+    store_service.Upstream,
+    store_service.Downstream & protobuf.Message
+  >;
+  utility_service: DemuxConnection<
+    utility_service.Upstream,
+    utility_service.Downstream & protobuf.Message
+  >;
+}
+
 export interface UbisoftDemuxProps {
   host?: string;
   startRequestId?: number;
@@ -55,62 +98,43 @@ export class UbisoftDemux {
 
   public async openConnection(
     serviceName: 'client_configuration_service'
-  ): Promise<
-    DemuxConnection<
-      client_configuration_service.Upstream,
-      client_configuration_service.Downstream & protobuf.Message
-    >
-  >;
+  ): Promise<ServiceConnections['client_configuration_service']>;
 
   public async openConnection(
     serviceName: 'cloudsave_service'
-  ): Promise<
-    DemuxConnection<cloudsave_service.Upstream, cloudsave_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['cloudsave_service']>;
 
   public async openConnection(
     serviceName: 'denuvo_service'
-  ): Promise<
-    DemuxConnection<denuvo_service.Upstream, denuvo_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['denuvo_service']>;
 
   public async openConnection(
     serviceName: 'download_service'
-  ): Promise<
-    DemuxConnection<download_service.Upstream, download_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['download_service']>;
 
   public async openConnection(
     serviceName: 'friends_service'
-  ): Promise<
-    DemuxConnection<friends_service.Upstream, friends_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['friends_service']>;
 
   public async openConnection(
     serviceName: 'ownership_service'
-  ): Promise<
-    DemuxConnection<ownership_service.Upstream, ownership_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['ownership_service']>;
 
   public async openConnection(
     serviceName: 'party_service'
-  ): Promise<DemuxConnection<party_service.Upstream, party_service.Downstream & protobuf.Message>>;
+  ): Promise<ServiceConnections['party_service']>;
 
   public async openConnection(
     serviceName: 'playtime_service'
-  ): Promise<
-    DemuxConnection<playtime_service.Upstream, playtime_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['playtime_service']>;
 
   public async openConnection(
     serviceName: 'store_service'
-  ): Promise<DemuxConnection<store_service.Upstream, store_service.Downstream & protobuf.Message>>;
+  ): Promise<ServiceConnections['store_service']>;
 
   public async openConnection(
     serviceName: 'utility_service'
-  ): Promise<
-    DemuxConnection<utility_service.Upstream, utility_service.Downstream & protobuf.Message>
-  >;
+  ): Promise<ServiceConnections['utility_service']>;
 
   public async openConnection<
     UpType extends Record<string, any>,
