@@ -39,6 +39,7 @@ message Download {
         LaunchProtocol = 2;
         InstallProtocol = 3;
         InstallProtocolRetail = 4;
+        BetaClient = 5;
     }
     
     optional string branded_installer_id = 9;

@@ -697,6 +697,14 @@ message StreamingErrorData {
     optional string side = 4;
 }
 
+message StreamingStatusData {
+    optional string status = 1;
+    optional string hostPeerId = 2;
+    optional string side = 3;
+    optional string streamingService = 4;
+    optional string spaceIdGame = 5;
+}
+
 message StreamingFeedBackData {
     optional bool audioIssue = 1 [default = false];
     optional bool inputLag = 2 [default = false];
@@ -829,6 +837,7 @@ message EventObjectData {
     optional StreamingHostLinkCreatedEvent streamingHostLinkCreated = 61;
     optional RemotePlayHostSessionStreamingStartData remotePlaySessionStart = 62;
     optional RemotePlayHostSessionStreamingStopData remotePlaySessionStop = 63;
+    optional StreamingStatusData streamingStatus = 64;
 }
 
 message Event {

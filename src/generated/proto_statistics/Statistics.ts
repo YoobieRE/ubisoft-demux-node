@@ -705,6 +705,14 @@ export interface StreamingErrorData {
   side: string;
 }
 
+export interface StreamingStatusData {
+  status: string;
+  hostPeerId: string;
+  side: string;
+  streamingService: string;
+  spaceIdGame: string;
+}
+
 export interface StreamingFeedBackData {
   audioIssue: boolean;
   inputLag: boolean;
@@ -837,6 +845,7 @@ export interface EventObjectData {
   streamingHostLinkCreated?: StreamingHostLinkCreatedEvent;
   remotePlaySessionStart?: RemotePlayHostSessionStreamingStartData;
   remotePlaySessionStop?: RemotePlayHostSessionStreamingStopData;
+  streamingStatus?: StreamingStatusData;
 }
 
 export interface Event {

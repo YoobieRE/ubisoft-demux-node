@@ -177,7 +177,7 @@ message StreamingHostStartPush {
     required string session_id = 1;
     required string ubi_ticket = 2;
     required string app_id = 3;
-    required bool is_uat = 4;
+    required string env = 4;
     required uint32 bitrate = 5;
     required uint32 resolution = 6;
     required uint32 fps = 7;

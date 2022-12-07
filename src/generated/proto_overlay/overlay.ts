@@ -169,7 +169,7 @@ export interface StreamingHostStartPush {
   sessionId: string;
   ubiTicket: string;
   appId: string;
-  isUat: boolean;
+  env: string;
   bitrate: number;
   resolution: number;
   fps: number;

@@ -42,6 +42,7 @@ export enum Download_DownloadInitiator {
   LaunchProtocol = 2,
   InstallProtocol = 3,
   InstallProtocolRetail = 4,
+  BetaClient = 5,
   UNRECOGNIZED = -1,
 }
 
