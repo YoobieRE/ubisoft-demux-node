@@ -156,6 +156,51 @@ describe('Demux package', () => {
     });
   });
 
+  it('should get config data', async () => {
+    ubiDemux = new UbisoftDemux();
+    await ubiDemux.basicRequest({
+      authenticateReq: {
+        clientId: 'uplay_pc',
+        sendKeepAlive: false,
+        token: {
+          ubiTicket: ticket,
+        },
+      },
+    });
+
+    const connection = await ubiDemux.openConnection('ownership_service');
+
+    await connection.request({
+      request: {
+        requestId: 1,
+        initializeReq: {
+          getAssociations: true,
+          protoVersion: 7,
+          useStaging: false,
+        },
+      },
+    });
+
+    const resp = await connection.request({
+      request: {
+        requestId: 1,
+        getProductConfigReq: {
+          deprecatedTestConfig: false,
+          productId: 5595,
+        },
+      },
+    });
+
+    expect(resp.toJSON()).toMatchObject({
+      response: {
+        requestId: 2,
+        getProductConfigRsp: {
+          configuration: expect.any(String),
+        },
+      },
+    });
+  });
+
   it('should get store product data', async () => {
     ubiDemux = new UbisoftDemux();
     await ubiDemux.basicRequest({
