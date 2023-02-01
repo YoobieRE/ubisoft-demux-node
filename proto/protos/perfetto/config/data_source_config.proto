@@ -26,6 +26,13 @@ message DataSourceConfig {
     optional uint32 trace_duration_ms = 3;
     optional uint32 stop_timeout_ms = 7;
     optional bool enable_extra_guardrails = 6;
+    
+    optional SessionInitiator session_initiator = 8;
+    enum SessionInitiator {
+        SESSION_INITIATOR_UNSPECIFIED = 0;
+        SESSION_INITIATOR_TRUSTED_SYSTEM = 1;
+    }
+    
     optional uint64 tracing_session_id = 4;
     optional FtraceConfig ftrace_config = 100 [lazy = true];
     optional InodeFileConfig inode_file_config = 102 [lazy = true];

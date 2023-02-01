@@ -16,4 +16,6 @@ message FtraceConfig {
     
     optional bool symbolize_ksyms = 13;
     optional bool initialize_ksyms_synchronously_for_testing = 14;
+    optional bool throttle_rss_stat = 15;
+    optional bool disable_generic_events = 16;
 }

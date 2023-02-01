@@ -313,6 +313,14 @@ message StreamingHostUpdateGuestRemainingTimeReq {
     required int32 error_code = 4;
 }
 
+message StreamingHostReadyReq {
+    
+}
+
+message StreamingHostSignalErrorReq {
+    required uint32 error_code = 1;
+}
+
 message ScreenshotReadyReq {
     required bool isVulkanHDR = 1;
 }
@@ -388,6 +396,8 @@ message Req {
     optional StreamingHostDecodeTokenReq streaming_host_decode_token_req = 36;
     optional StreamingHostFocusReq streaming_host_focus_req = 37;
     optional StreamingHostUpdateGuestRemainingTimeReq streaming_host_update_guest_remaining_time_req = 38;
+    optional StreamingHostReadyReq streaming_host_ready_req = 39;
+    optional StreamingHostSignalErrorReq streaming_host_signal_error_req = 40;
 }
 
 message Rsp {

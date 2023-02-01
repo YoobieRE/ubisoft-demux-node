@@ -8,7 +8,9 @@ message HeapprofdConfig {
     optional uint64 adaptive_sampling_max_sampling_interval_bytes = 25;
     repeated string process_cmdline = 2;
     repeated uint64 pid = 4;
+    repeated string target_installed_by = 26;
     repeated string heaps = 20;
+    repeated string exclude_heaps = 27;
     optional bool stream_allocations = 23;
     repeated uint64 heap_sampling_intervals = 22;
     optional bool all_heaps = 21;

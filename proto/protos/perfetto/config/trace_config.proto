@@ -2,8 +2,8 @@ syntax = "proto2";
 
 package perfetto.protos;
 
-import "protos/perfetto/config/data_source_config.proto";
 import "protos/perfetto/common/builtin_clock.proto";
+import "protos/perfetto/config/data_source_config.proto";
 
 message TraceConfig {
     repeated BufferConfig buffers = 1;
@@ -35,6 +35,7 @@ message TraceConfig {
         optional bool disable_service_events = 4;
         optional BuiltinClock primary_trace_clock = 5;
         optional uint32 snapshot_interval_ms = 6;
+        optional bool prefer_suspend_clock_for_snapshot = 7;
     }
     
     optional uint32 duration_ms = 3;
@@ -135,5 +136,24 @@ message TraceConfig {
     optional int64 trace_uuid_msb = 27;
     optional int64 trace_uuid_lsb = 28;
     
-    reserved 15, 26;
+    optional TraceFilter trace_filter = 33;
+    message TraceFilter {
+        optional bytes bytecode = 1;
+    }
+    
+    optional AndroidReportConfig android_report_config = 34;
+    message AndroidReportConfig {
+        optional string reporter_service_package = 1;
+        optional string reporter_service_class = 2;
+        optional bool skip_report = 3;
+        optional bool use_pipe_in_framework_for_testing = 4;
+    }
+    
+    optional CmdTraceStartDelay cmd_trace_start_delay = 35;
+    message CmdTraceStartDelay {
+        optional uint32 min_delay_ms = 1;
+        optional uint32 max_delay_ms = 2;
+    }
+    
+    reserved 15, 26, 32;
 }

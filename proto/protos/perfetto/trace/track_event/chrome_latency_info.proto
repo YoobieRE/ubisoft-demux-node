@@ -31,6 +31,7 @@ message ChromeLatencyInfo {
     
     optional bool is_coalesced = 5;
     optional int64 gesture_scroll_id = 6;
+    optional int64 touch_id = 7;
     
     enum LatencyComponentType {
         COMPONENT_UNSPECIFIED = 0;

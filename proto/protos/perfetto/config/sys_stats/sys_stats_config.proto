@@ -19,4 +19,7 @@ message SysStatsConfig {
         STAT_SOFTIRQ_COUNTS = 3;
         STAT_FORK_COUNT = 4;
     }
+    
+    optional uint32 devfreq_period_ms = 7;
+    optional uint32 cpufreq_period_ms = 8;
 }

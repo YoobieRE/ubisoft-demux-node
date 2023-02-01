@@ -69,4 +69,5 @@ message DownloadInstallState {
     optional uint32 uplay_id = 28;
     optional bool invalidate_game_token_required = 29;
     optional bool epic_run_installation = 30 [default = false];
+    optional bool force_check_licenses_on_next_launch = 31 [default = false];
 }

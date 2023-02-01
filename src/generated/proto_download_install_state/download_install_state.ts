@@ -69,4 +69,5 @@ export interface DownloadInstallState {
   uplayId: number;
   invalidateGameTokenRequired: boolean;
   epicRunInstallation: boolean;
+  forceCheckLicensesOnNextLaunch: boolean;
 }

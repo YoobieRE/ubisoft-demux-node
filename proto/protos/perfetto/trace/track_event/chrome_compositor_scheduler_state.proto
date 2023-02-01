@@ -10,7 +10,6 @@ message ChromeCompositorSchedulerState {
     optional bool begin_impl_frame_deadline_task = 3;
     optional bool pending_begin_frame_task = 4;
     optional bool skipped_last_frame_missed_exceeded_deadline = 5;
-    optional bool skipped_last_frame_to_reduce_latency = 6;
     optional ChromeCompositorSchedulerAction inside_action = 7;
     
     optional BeginImplFrameDeadlineMode deadline_mode = 8;
@@ -32,6 +31,8 @@ message ChromeCompositorSchedulerState {
     optional BeginFrameObserverState begin_frame_observer_state = 15;
     optional BeginFrameSourceState begin_frame_source_state = 16;
     optional CompositorTimingHistory compositor_timing_history = 17;
+    
+    reserved 6;
 }
 
 message ChromeCompositorStateMachine {
@@ -125,7 +126,6 @@ message ChromeCompositorStateMachine {
         
         optional bool critical_begin_main_frame_to_activate_is_fast = 33;
         optional bool main_thread_missed_last_deadline = 34;
-        optional bool skip_next_begin_main_frame_to_reduce_latency = 35;
         optional bool video_needs_begin_frames = 36;
         optional bool defer_begin_main_frame = 37;
         optional bool last_commit_had_no_updates = 38;
@@ -137,6 +137,8 @@ message ChromeCompositorStateMachine {
         optional bool processing_animation_worklets_for_active_tree = 44;
         optional bool processing_animation_worklets_for_pending_tree = 45;
         optional bool processing_paint_worklets_for_pending_tree = 46;
+        
+        reserved 35;
     }
 }
 
@@ -156,6 +158,7 @@ message BeginFrameArgs {
     optional int64 interval_delta_us = 6;
     optional bool on_critical_path = 7;
     optional bool animate_only = 8;
+    optional int64 frames_throttled_since_last = 12;
     
     oneof created_from {
         uint64 source_location_iid = 9;
