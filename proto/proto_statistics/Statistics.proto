@@ -28,6 +28,12 @@ message ContextStopTypeData {
     optional uint32 contextId = 4;
 }
 
+message PlayerNewsImpressionTypeData {
+    required string newsId = 1;
+    required string placement = 2;
+    required int32 duration = 3;
+}
+
 message GameEndObjectData {
     optional uint32 gameLength = 1;
     optional uint32 nbScreenshots = 2;
@@ -757,6 +763,7 @@ message EventTypeData {
     optional GameLocalizationTypeData gameLocalization = 2;
     optional ContextStartTypeData contextStart = 3;
     optional ContextStopTypeData contextStop = 4;
+    optional PlayerNewsImpressionTypeData playerNewsImpression = 5;
 }
 
 message RemotePlayHostSessionStreamingStartData {

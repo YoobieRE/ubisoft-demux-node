@@ -28,6 +28,12 @@ export interface ContextStopTypeData {
   contextId: number;
 }
 
+export interface PlayerNewsImpressionTypeData {
+  newsId: string;
+  placement: string;
+  duration: number;
+}
+
 export interface GameEndObjectData {
   gameLength: number;
   nbScreenshots: number;
@@ -765,6 +771,7 @@ export interface EventTypeData {
   gameLocalization?: GameLocalizationTypeData;
   contextStart?: ContextStartTypeData;
   contextStop?: ContextStopTypeData;
+  playerNewsImpression?: PlayerNewsImpressionTypeData;
 }
 
 export interface RemotePlayHostSessionStreamingStartData {
