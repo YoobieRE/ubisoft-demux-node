@@ -311,6 +311,12 @@ export interface StreamingHostSignalErrorReq {
   errorCode: number;
 }
 
+export interface StreamingHostSDKEventReq {
+  severity: number;
+  message: string;
+  hostPeerId: string;
+}
+
 export interface ScreenshotReadyReq {
   isVulkanHDR: boolean;
 }
@@ -385,6 +391,7 @@ export interface Req {
   streamingHostUpdateGuestRemainingTimeReq?: StreamingHostUpdateGuestRemainingTimeReq;
   streamingHostReadyReq?: StreamingHostReadyReq;
   streamingHostSignalErrorReq?: StreamingHostSignalErrorReq;
+  streamingHostSdkEventReq?: StreamingHostSDKEventReq;
 }
 
 export interface Rsp {

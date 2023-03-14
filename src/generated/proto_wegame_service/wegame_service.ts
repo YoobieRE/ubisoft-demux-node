@@ -101,6 +101,7 @@ export interface GetIngameItemCheckoutUrlReq {
   wegameProductId: number;
   ingameItemPackageId: number;
   urlRedirect: string;
+  zoneId: string;
 }
 
 export interface GetIngameItemCheckoutUrlRsp {

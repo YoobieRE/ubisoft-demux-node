@@ -70,4 +70,5 @@ export interface DownloadInstallState {
   invalidateGameTokenRequired: boolean;
   epicRunInstallation: boolean;
   forceCheckLicensesOnNextLaunch: boolean;
+  installDate: number;
 }

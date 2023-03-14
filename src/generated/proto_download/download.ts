@@ -140,7 +140,6 @@ export interface File {
   isDir: boolean;
   slices: Buffer[];
   version: number;
-  paddedSize: number;
   sliceList: Slice[];
 }
 
@@ -165,7 +164,6 @@ export interface MetaDataChunk {
   uplayId: number;
   language: string;
   bytesOnDisk: number;
-  paddedBytesOnDisk: number;
   uplayIds: number[];
 }
 
@@ -212,8 +210,6 @@ export interface Manifest {
   installCompatibility: InstallCompatibility[];
   legacyInstaller: string;
   deprecatedLanguages: string[];
-  isEncryptedDeprecated: boolean;
-  paddedSliceSizeDeprecated: number;
   patchRequired: boolean;
   isCompressed: boolean;
   readmeFiles?: TextFileList;
@@ -237,6 +233,5 @@ export interface ManifestMetaData {
   chunksVersion: number;
   uplayIds: number[];
   chunks: MetaDataChunk[];
-  paddedBytesOnDisk: number;
   languages: Language[];
 }

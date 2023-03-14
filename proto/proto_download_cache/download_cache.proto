@@ -40,6 +40,7 @@ message Download {
         InstallProtocol = 3;
         InstallProtocolRetail = 4;
         BetaClient = 5;
+        XboxApp = 6;
     }
     
     optional string branded_installer_id = 9;

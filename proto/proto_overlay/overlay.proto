@@ -321,6 +321,12 @@ message StreamingHostSignalErrorReq {
     required uint32 error_code = 1;
 }
 
+message StreamingHostSDKEventReq {
+    required uint32 severity = 1;
+    required string message = 2;
+    required string host_peer_id = 3;
+}
+
 message ScreenshotReadyReq {
     required bool isVulkanHDR = 1;
 }
@@ -398,6 +404,7 @@ message Req {
     optional StreamingHostUpdateGuestRemainingTimeReq streaming_host_update_guest_remaining_time_req = 38;
     optional StreamingHostReadyReq streaming_host_ready_req = 39;
     optional StreamingHostSignalErrorReq streaming_host_signal_error_req = 40;
+    optional StreamingHostSDKEventReq streaming_host_sdk_event_req = 41;
 }
 
 message Rsp {

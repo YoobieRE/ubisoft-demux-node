@@ -1,0 +1,278 @@
+syntax = "proto3";
+
+package mg.protocol.game_catalog_extension;
+
+message AuthDetails {
+    TokenPlatform token_platform = 1;
+    enum TokenPlatform {
+        Ubisoft = 0;
+        XSTS = 1;
+    }
+    
+    string token = 2;
+}
+
+message InitializeReq {
+    AuthDetails auth_details = 1;
+    bool do_activation = 2;
+}
+
+message IdMappingElement {
+    uint32 ubi_product_id = 1;
+    string ms_product_id = 2;
+}
+
+message InitializeRsp {
+    Result result = 1;
+    enum Result {
+        Failure = 0;
+        Success = 1;
+        AuthenticationFailed = 2;
+        MissingOwnership = 3;
+    }
+    
+    repeated IdMappingElement id_mapping = 2;
+}
+
+message LinkAccountReq {
+    AuthDetails auth_details = 1;
+}
+
+message LinkAccountRsp {
+    bool is_linked = 1;
+}
+
+message LaunchGameReq {
+    uint32 product_id = 1;
+    uint32 executable_id = 2;
+}
+
+message LaunchGameRsp {
+    Result result = 1;
+    enum Result {
+        InternalError = 0;
+        Success = 1;
+    }
+    
+    string reason = 2;
+}
+
+message GameRuntimeReq {
+    oneof request {
+        LaunchGameReq launch_game = 1;
+    }
+}
+
+message GameRuntimeRsp {
+    oneof response {
+        LaunchGameRsp launch_game = 1;
+    }
+}
+
+message GetProductActionsReq {
+    uint32 product_id = 1;
+}
+
+message ProductActions {
+    uint32 product_id = 1;
+    repeated ProductAction actions = 2;
+}
+
+message GetProductActionsRsp {
+    ProductActions product_actions = 1;
+}
+
+message GetLocalProductDetailsReq {
+    uint32 product_id = 1;
+}
+
+message LocalProductDetails {
+    uint32 product_id = 1;
+    uint64 current_bytes_on_disc = 2;
+    string install_path = 3;
+    
+    PatchState patch_state = 4;
+    enum PatchState {
+        Undefined = 0;
+        FullyPatched = 1;
+        PatchRequired = 2;
+    }
+    
+    uint64 installed_date_since_epoch = 5;
+    uint64 last_played_date_since_epoch = 6;
+}
+
+message GetLocalProductDetailsRsp {
+    Result result = 1;
+    enum Result {
+        Undefined = 0;
+        Success = 1;
+        NoDataAvailable = 2;
+    }
+    
+    LocalProductDetails product_details = 2;
+}
+
+message StartGameDownloadReq {
+    uint32 product_id = 1;
+    string installation_path = 2;
+    repeated uint32 addons = 3;
+    repeated string locales = 4;
+    string main_locale = 5;
+    repeated uint32 accepted_licenses_ids = 6;
+}
+
+message StartGameDownloadRsp {
+    Result result = 1;
+    enum Result {
+        Undefined = 0;
+        Success = 1;
+        Aborted = 2;
+        FailedGenericError = 10;
+        FailedDownloadNotPermitted = 11;
+        FailedDownloadPermissionsNotAvailable = 12;
+        FailedOwnershipTokenNotAvailable = 13;
+    }
+    
+    string reason = 2;
+}
+
+message UninstallProductReq {
+    uint32 product_id = 1;
+}
+
+message UninstallProductRsp {
+    Result result = 1;
+    enum Result {
+        InternalError = 0;
+        Success = 1;
+    }
+}
+
+message PauseProductReq {
+    uint32 product_id = 1;
+}
+
+message PauseProductRsp {
+    Result result = 1;
+    enum Result {
+        InternalError = 0;
+        Success = 1;
+    }
+}
+
+message ProductManagementReq {
+    oneof request {
+        GetProductActionsReq get_product_actions = 1;
+        GetLocalProductDetailsReq get_local_product_details = 2;
+        StartGameDownloadReq start_game_download = 3;
+        UninstallProductReq uninstall_product = 4;
+        PauseProductReq pause_product = 5;
+    }
+}
+
+message ProductManagementRsp {
+    oneof response {
+        GetProductActionsRsp get_product_actions = 1;
+        GetLocalProductDetailsRsp get_local_product_details = 2;
+        StartGameDownloadRsp start_game_download = 3;
+        UninstallProductRsp uninstall_product = 4;
+        PauseProductRsp pause_product = 5;
+    }
+}
+
+message ProductActionsUpdated {
+    uint32 product_id = 1;
+    repeated ProductAction actions = 2;
+}
+
+message ProductDownloadStarted {
+    uint32 product_id = 1;
+}
+
+message ProductDownloadUpdated {
+    uint32 product_id = 1;
+    uint64 downloaded_bytes = 2;
+    uint64 total_bytes = 10;
+    uint64 required_bytes = 11;
+    uint64 bytes_per_second = 12;
+}
+
+message ProductDownloadCompleted {
+    uint32 product_id = 1;
+    
+    Result result = 2;
+    enum Result {
+        Undefined = 0;
+        Completed = 1;
+        Paused = 2;
+        Cancelled = 3;
+        Failed = 4;
+    }
+}
+
+message ProductUninstallStarted {
+    uint32 product_id = 1;
+}
+
+message ProductUninstallCompleted {
+    uint32 product_id = 1;
+    
+    Result result = 2;
+    enum Result {
+        Undefined = 0;
+        Completed = 1;
+        Failed = 2;
+    }
+}
+
+message Req {
+    uint32 request_id = 1;
+    
+    oneof request {
+        InitializeReq initialize = 2;
+        GameRuntimeReq game_run_time = 3;
+        ProductManagementReq product_management = 4;
+        LinkAccountReq link_account = 536870910;
+    }
+}
+
+message Rsp {
+    uint32 request_id = 1;
+    
+    oneof response {
+        InitializeRsp initialize = 2;
+        GameRuntimeRsp game_run_time = 3;
+        ProductManagementRsp product_management = 4;
+        LinkAccountRsp link_account = 536870910;
+    }
+}
+
+message Push {
+    oneof push {
+        ProductActionsUpdated product_actions_updated = 201;
+        ProductDownloadStarted product_download_started = 211;
+        ProductDownloadUpdated product_download_updated = 212;
+        ProductDownloadCompleted product_download_completed = 213;
+        ProductUninstallStarted product_uninstall_started = 221;
+        ProductUninstallCompleted product_uninstall_completed = 222;
+    }
+}
+
+message Upstream {
+    Req req = 1;
+}
+
+message Downstream {
+    oneof message {
+        Rsp rsp = 1;
+        Push push = 2;
+    }
+}
+
+enum ProductAction {
+    NonAction = 0;
+    Download = 1;
+    Launch = 2;
+    Uninstall = 3;
+}

@@ -97,8 +97,9 @@ message File {
     required bool isDir = 3;
     repeated bytes slices = 4;
     optional uint32 version = 5;
-    optional uint64 paddedSize = 6;
     repeated Slice sliceList = 7;
+    
+    reserved 6;
 }
 
 message Chunk {
@@ -122,8 +123,9 @@ message MetaDataChunk {
     optional uint32 uplayId = 1;
     optional string language = 2;
     required uint64 bytesOnDisk = 3;
-    optional uint64 paddedBytesOnDisk = 4;
     repeated uint32 uplayIds = 5;
+    
+    reserved 4;
 }
 
 message TextFileEntry {
@@ -168,8 +170,6 @@ message Manifest {
     repeated InstallCompatibility installCompatibility = 11;
     optional string legacyInstaller = 12;
     repeated string deprecatedLanguages = 13;
-    optional bool isEncryptedDeprecated = 14;
-    optional uint32 paddedSliceSizeDeprecated = 15;
     optional bool patchRequired = 16;
     optional bool isCompressed = 17;
     optional TextFileList readmeFiles = 18;
@@ -179,6 +179,8 @@ message Manifest {
     optional uint32 version = 22;
     repeated Language languages = 23;
     optional SlicerConfig slicerConfig = 24;
+    
+    reserved 14, 15;
 }
 
 message ManifestLicenses {
@@ -193,8 +195,9 @@ message ManifestMetaData {
     optional uint32 chunksVersion = 6;
     repeated uint32 uplayIds = 7;
     repeated MetaDataChunk chunks = 8;
-    optional uint64 paddedBytesOnDisk = 9;
     repeated Language languages = 10;
+    
+    reserved 9;
 }
 
 enum LicenseFormat {

@@ -43,6 +43,7 @@ export enum Download_DownloadInitiator {
   InstallProtocol = 3,
   InstallProtocolRetail = 4,
   BetaClient = 5,
+  XboxApp = 6,
   UNRECOGNIZED = -1,
 }
 

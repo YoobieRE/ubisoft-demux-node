@@ -85,11 +85,10 @@ describe('UbisoftFileParser', () => {
       bytesOnDisk: '2325238421',
       bytesToDownload: '1953149568',
       chunks: [
-        { language: '', bytesOnDisk: '244440828', paddedBytesOnDisk: '244552956' },
-        { language: '', bytesOnDisk: '168166654', paddedBytesOnDisk: '168243454' },
-        { language: '', bytesOnDisk: '1912630939', paddedBytesOnDisk: '1913561755' },
+        { language: '', bytesOnDisk: '244440828' },
+        { language: '', bytesOnDisk: '168166654' },
+        { language: '', bytesOnDisk: '1912630939' },
       ],
-      paddedBytesOnDisk: '2326358165',
       languages: [
         { code: 'cs-CZ' },
         { code: 'de-DE' },
@@ -160,8 +159,6 @@ describe('UbisoftFileParser', () => {
         },
       ],
       legacyInstaller: '',
-      isEncryptedDeprecated: false,
-      paddedSliceSizeDeprecated: 3147264,
       patchRequired: false,
       isCompressed: true,
       compressionMethod: 'CompressionMethod_Zstd',

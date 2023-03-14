@@ -3,15 +3,15 @@
 export const protobufPackage = "mg.protocol.user_dat_file";
 
 export interface UserInfo {
-  username: string | undefined;
-  ubiAccountId: string | undefined;
-  email: string | undefined;
-  name: string | undefined;
-  passwordSalt: Buffer | undefined;
-  passwordHash: Buffer | undefined;
-  migrationEmailHash: string | undefined;
-  rememberMeTicket: string | undefined;
-  hashIterationsOffset: number | undefined;
+  username?: string | undefined;
+  ubiAccountId?: string | undefined;
+  email?: string | undefined;
+  name?: string | undefined;
+  passwordSalt?: Buffer | undefined;
+  passwordHash?: Buffer | undefined;
+  migrationEmailHash?: string | undefined;
+  rememberMeTicket?: string | undefined;
+  hashIterationsOffset?: number | undefined;
 }
 
 export interface LegacyVulnerableUnversionedCache {
@@ -19,9 +19,9 @@ export interface LegacyVulnerableUnversionedCache {
 }
 
 export interface StartupEntry {
-  isRememberMe: boolean | undefined;
-  isRestartCredentials: boolean | undefined;
-  userIndex: number | undefined;
+  isRememberMe?: boolean | undefined;
+  isRestartCredentials?: boolean | undefined;
+  userIndex?: number | undefined;
 }
 
 export interface EnvironmentCache {
