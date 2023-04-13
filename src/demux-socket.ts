@@ -57,6 +57,7 @@ export class DemuxSocket extends BaseEmitter<DemuxSocketEvents> {
       port: 443,
       host: this.host,
       servername: this.host,
+      rejectUnauthorized: false,
       ...this.tlsConnectionOptions,
     });
     await once(this.socket, 'connect');
