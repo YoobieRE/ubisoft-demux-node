@@ -226,6 +226,14 @@ message ProductUninstallCompleted {
     }
 }
 
+message GameLaunched {
+    uint32 product_id = 1;
+}
+
+message GameEnded {
+    uint32 product_id = 1;
+}
+
 message Req {
     uint32 request_id = 1;
     
@@ -250,6 +258,8 @@ message Rsp {
 
 message Push {
     oneof push {
+        GameLaunched game_launched = 102;
+        GameEnded game_ended = 103;
         ProductActionsUpdated product_actions_updated = 201;
         ProductDownloadStarted product_download_started = 211;
         ProductDownloadUpdated product_download_updated = 212;

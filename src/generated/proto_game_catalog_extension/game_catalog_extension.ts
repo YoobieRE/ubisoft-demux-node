@@ -237,6 +237,14 @@ export enum ProductUninstallCompleted_Result {
   UNRECOGNIZED = -1,
 }
 
+export interface GameLaunched {
+  productId: number;
+}
+
+export interface GameEnded {
+  productId: number;
+}
+
 export interface Req {
   requestId: number;
   initialize?: InitializeReq | undefined;
@@ -254,6 +262,8 @@ export interface Rsp {
 }
 
 export interface Push {
+  gameLaunched?: GameLaunched | undefined;
+  gameEnded?: GameEnded | undefined;
   productActionsUpdated?: ProductActionsUpdated | undefined;
   productDownloadStarted?: ProductDownloadStarted | undefined;
   productDownloadUpdated?: ProductDownloadUpdated | undefined;
