@@ -611,8 +611,8 @@ export interface Req {
   registerOwnershipFromWegameReq?: RegisterOwnershipFromWeGameReq;
   ownershipTokenReq?: OwnershipTokenReq;
   registerTemporaryOwnershipReq?: RegisterTemporaryOwnershipReq;
-  ubiTicket: string;
-  ubiSessionId: string;
+  ubiTicket?: string;
+  ubiSessionId?: string;
 }
 
 export interface Rsp {

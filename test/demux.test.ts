@@ -288,6 +288,7 @@ describe('Demux package', () => {
         requestId: 0,
         initializeReq: {
           ownershipToken,
+          networkId: '',
         },
       },
     });
