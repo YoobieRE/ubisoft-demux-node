@@ -267,6 +267,9 @@ message RegisterOwnershipRsp {
         Result_NoLongerAvailable = 9;
         Result_NotAvailableInRegion = 10;
         Result_UsedCdKeyThisAccount = 11;
+        Result_BadUbiTicket = 12;
+        Result_AgeGateRestricted = 13;
+        Result_BadRequest = 14;
     }
     
     optional OwnedGamesContainer owned_games_container = 4;
@@ -575,6 +578,8 @@ message Req {
     optional RegisterOwnershipFromWeGameReq register_ownership_from_wegame_req = 27;
     optional OwnershipTokenReq ownership_token_req = 28;
     optional RegisterTemporaryOwnershipReq register_temporary_ownership_req = 29;
+    optional string ubi_ticket = 30;
+    optional string ubi_session_id = 31;
     
     reserved 11, 13;
 }

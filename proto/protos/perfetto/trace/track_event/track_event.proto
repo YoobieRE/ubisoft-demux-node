@@ -5,6 +5,7 @@ package perfetto.protos;
 import "protos/perfetto/trace/track_event/debug_annotation.proto";
 import "protos/perfetto/trace/track_event/log_message.proto";
 import "protos/perfetto/trace/track_event/task_execution.proto";
+import "protos/perfetto/trace/track_event/chrome_active_processes.proto";
 import "protos/perfetto/trace/track_event/chrome_application_state_info.proto";
 import "protos/perfetto/trace/track_event/chrome_compositor_scheduler_state.proto";
 import "protos/perfetto/trace/track_event/chrome_content_settings_event_info.proto";
@@ -38,8 +39,10 @@ message TrackEvent {
     repeated int64 extra_counter_values = 12;
     repeated uint64 extra_double_counter_track_uuids = 45;
     repeated double extra_double_counter_values = 46;
-    repeated uint64 flow_ids = 36;
-    repeated uint64 terminating_flow_ids = 42;
+    repeated uint64 flow_ids_old = 36 [deprecated = true];
+    repeated fixed64 flow_ids = 47;
+    repeated uint64 terminating_flow_ids_old = 42 [deprecated = true];
+    repeated fixed64 terminating_flow_ids = 48;
     repeated DebugAnnotation debug_annotations = 4;
     optional TaskExecution task_execution = 5;
     optional LogMessage log_message = 21;
@@ -54,6 +57,7 @@ message TrackEvent {
     optional ChromeRendererSchedulerState chrome_renderer_scheduler_state = 40;
     optional ChromeWindowHandleEventInfo chrome_window_handle_event_info = 41;
     optional ChromeContentSettingsEventInfo chrome_content_settings_event_info = 43;
+    optional ChromeActiveProcesses chrome_active_processes = 49;
     optional ChromeMessagePump chrome_message_pump = 35;
     optional ChromeMojoEventInfo chrome_mojo_event_info = 38;
     

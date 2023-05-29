@@ -259,6 +259,7 @@ export interface StreamingVGPEventReq {
   source: number;
   profileId: string;
   streamingGamepadId: number;
+  vidPid: number;
 }
 
 export interface StreamingHostCreateTokenPush {
@@ -302,6 +303,11 @@ export interface StreamingHostUpdateGuestRemainingTimeReq {
   hostPeerId: string;
   errorMsg: string;
   errorCode: number;
+}
+
+export interface StreamingHostUpdateCredentialsPush {
+  ubiTicket: string;
+  sessionId: string;
 }
 
 export interface StreamingHostReadyReq {
@@ -425,6 +431,7 @@ export interface Push {
   streamingHostCreateToken?: StreamingHostCreateTokenPush;
   streamingHostDecodeToken?: StreamingHostDecodeTokenPush;
   streamingHostUpdateGuestRemainingTime?: StreamingHostUpdateGuestRemainingTimePush;
+  streamingHostUpdateCredentials?: StreamingHostUpdateCredentialsPush;
 }
 
 export interface Upstream {

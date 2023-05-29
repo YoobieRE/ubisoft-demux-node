@@ -37,6 +37,7 @@ export interface InitializeReq {
   expiration?: number;
   signature?: string;
   ownershipToken: string;
+  networkId: string;
 }
 
 export interface InitializeRsp {

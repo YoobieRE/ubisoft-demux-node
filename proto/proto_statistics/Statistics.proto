@@ -109,7 +109,13 @@ message GameLaunchObjectData {
 }
 
 message AppQuitObjectData {
-    optional QuitReason quitReason = 1;
+    optional uint32 secondsSinceStart = 2;
+    optional uint32 demuxConnectionFailureCount = 3;
+    optional uint32 discardedEventsCount = 5;
+    optional bool generatedFromCache = 6 [default = false];
+    optional bool shopVisible = 7 [default = false];
+    optional string quitReason = 8;
+    
     enum QuitReason {
         USER = 1;
         LOGOUT = 2;
@@ -123,12 +129,6 @@ message AppQuitObjectData {
         CLIENTOUTDATED = 10;
         UNKNOWN = 11;
     }
-    
-    optional uint32 secondsSinceStart = 2;
-    optional uint32 demuxConnectionFailureCount = 3;
-    optional uint32 discardedEventsCount = 5;
-    optional bool generatedFromCache = 6 [default = false];
-    optional bool shopVisible = 7 [default = false];
 }
 
 message GameCloudSaveSyncObjectData {
@@ -260,6 +260,7 @@ message DownloadObjectData {
     optional uint32 brand = 22;
     optional string initiatedFrom = 24;
     optional string installerId = 25;
+    optional string networkId = 26;
 }
 
 message HardwareScoreData {
@@ -617,6 +618,21 @@ message TrustedDeviceActionData {
     optional bool defaultFriendlyName = 3;
 }
 
+message GameStarterStartRequestObjectData {
+    optional string steamId = 1;
+    optional string steamTicket = 2;
+}
+
+message MercuryCheckoutRequestObjectData {
+    optional string steamId = 1;
+    optional string partnerPlatformType = 2;
+}
+
+message MercuryWebshopGetObjectData {
+    optional string partnerPlatformType = 1;
+    optional string misconfiguredProductSteamIds = 2;
+}
+
 message SharePlayHostSessionStreamingStartData {
     optional string hostPeerId = 1;
     optional string side = 2;
@@ -750,6 +766,8 @@ message StreamingVGPEvent {
     optional string side = 6;
     optional string spaceIdGame = 7;
     optional string state = 8;
+    optional string vid = 9;
+    optional string pid = 10;
 }
 
 message StreamingHostLinkCreatedEvent {
@@ -845,6 +863,9 @@ message EventObjectData {
     optional RemotePlayHostSessionStreamingStartData remotePlaySessionStart = 62;
     optional RemotePlayHostSessionStreamingStopData remotePlaySessionStop = 63;
     optional StreamingStatusData streamingStatus = 64;
+    optional GameStarterStartRequestObjectData gameStarterStartRequest = 65;
+    optional MercuryCheckoutRequestObjectData mercuryCheckoutRequest = 66;
+    optional MercuryWebshopGetObjectData mercuryWebshopGet = 67;
 }
 
 message Event {

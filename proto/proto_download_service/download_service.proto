@@ -35,6 +35,7 @@ message InitializeReq {
     uint64 expiration = 3;
     string signature = 4;
     string ownership_token = 5;
+    string network_id = 6;
 }
 
 message InitializeRsp {

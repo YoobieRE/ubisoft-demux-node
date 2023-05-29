@@ -36,4 +36,13 @@ message ChromeFrameReporter {
     optional bool has_smooth_input_main = 9;
     optional bool has_missing_content = 10;
     optional uint64 layer_tree_host_id = 11;
+    optional bool has_high_latency = 12;
+    
+    optional FrameType frame_type = 13;
+    enum FrameType {
+        FORKED = 0;
+        BACKFILL = 1;
+    }
+    
+    repeated string high_latency_contribution_stage = 14;
 }

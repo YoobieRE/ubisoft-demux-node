@@ -2,6 +2,12 @@ syntax = "proto2";
 
 package perfetto.protos;
 
+message UnsymbolizedSourceLocation {
+    optional uint64 iid = 1;
+    optional uint64 mapping_id = 2;
+    optional uint64 rel_pc = 3;
+}
+
 message SourceLocation {
     optional uint64 iid = 1;
     optional string file_name = 2;

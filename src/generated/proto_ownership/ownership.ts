@@ -287,6 +287,9 @@ export enum RegisterOwnershipRsp_Result {
   Result_NoLongerAvailable = 9,
   Result_NotAvailableInRegion = 10,
   Result_UsedCdKeyThisAccount = 11,
+  Result_BadUbiTicket = 12,
+  Result_AgeGateRestricted = 13,
+  Result_BadRequest = 14,
   UNRECOGNIZED = -1,
 }
 
@@ -608,6 +611,8 @@ export interface Req {
   registerOwnershipFromWegameReq?: RegisterOwnershipFromWeGameReq;
   ownershipTokenReq?: OwnershipTokenReq;
   registerTemporaryOwnershipReq?: RegisterTemporaryOwnershipReq;
+  ubiTicket: string;
+  ubiSessionId: string;
 }
 
 export interface Rsp {
