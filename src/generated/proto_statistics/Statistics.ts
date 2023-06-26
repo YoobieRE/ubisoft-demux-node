@@ -228,6 +228,7 @@ export interface AppStartObjectData {
   trustedDevice: boolean;
   verifiedPhone: boolean;
   clientLanguage: string;
+  betaPopulation: boolean;
 }
 
 export enum AppStartObjectData_AuthType {

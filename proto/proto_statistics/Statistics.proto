@@ -223,6 +223,7 @@ message AppStartObjectData {
     optional bool trustedDevice = 14;
     optional bool verifiedPhone = 15;
     optional string clientLanguage = 16;
+    optional bool betaPopulation = 17;
     
     enum AuthType {
         NORMAL = 0;
