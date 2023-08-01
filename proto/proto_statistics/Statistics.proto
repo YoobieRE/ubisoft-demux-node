@@ -619,6 +619,21 @@ message TrustedDeviceActionData {
     optional bool defaultFriendlyName = 3;
 }
 
+message GameStarterStartRequestObjectData {
+    optional string steamId = 1;
+    optional string steamTicket = 2;
+}
+
+message MercuryCheckoutRequestObjectData {
+    optional string steamId = 1;
+    optional string partnerPlatformType = 2;
+}
+
+message MercuryWebshopGetObjectData {
+    optional string partnerPlatformType = 1;
+    optional string misconfiguredProductSteamIds = 2;
+}
+
 message SharePlayHostSessionStreamingStartData {
     optional string hostPeerId = 1;
     optional string side = 2;
@@ -849,8 +864,9 @@ message EventObjectData {
     optional RemotePlayHostSessionStreamingStartData remotePlaySessionStart = 62;
     optional RemotePlayHostSessionStreamingStopData remotePlaySessionStop = 63;
     optional StreamingStatusData streamingStatus = 64;
-    
-    reserved 65, 66, 67;
+    optional GameStarterStartRequestObjectData gameStarterStartRequest = 65;
+    optional MercuryCheckoutRequestObjectData mercuryCheckoutRequest = 66;
+    optional MercuryWebshopGetObjectData mercuryWebshopGet = 67;
 }
 
 message Event {

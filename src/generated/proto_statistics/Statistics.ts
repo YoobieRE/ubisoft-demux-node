@@ -627,6 +627,21 @@ export interface TrustedDeviceActionData {
   defaultFriendlyName: boolean;
 }
 
+export interface GameStarterStartRequestObjectData {
+  steamId: string;
+  steamTicket: string;
+}
+
+export interface MercuryCheckoutRequestObjectData {
+  steamId: string;
+  partnerPlatformType: string;
+}
+
+export interface MercuryWebshopGetObjectData {
+  partnerPlatformType: string;
+  misconfiguredProductSteamIds: string;
+}
+
 export interface SharePlayHostSessionStreamingStartData {
   hostPeerId: string;
   side: string;
@@ -857,6 +872,9 @@ export interface EventObjectData {
   remotePlaySessionStart?: RemotePlayHostSessionStreamingStartData;
   remotePlaySessionStop?: RemotePlayHostSessionStreamingStopData;
   streamingStatus?: StreamingStatusData;
+  gameStarterStartRequest?: GameStarterStartRequestObjectData;
+  mercuryCheckoutRequest?: MercuryCheckoutRequestObjectData;
+  mercuryWebshopGet?: MercuryWebshopGetObjectData;
 }
 
 export interface Event {
