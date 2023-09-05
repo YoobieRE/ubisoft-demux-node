@@ -9,7 +9,7 @@ export interface OptionalArgs {
 
 export interface Item {
   itemName: string;
-  optionalArgs?: OptionalArgs;
+  optionalArgs?: OptionalArgs | undefined;
 }
 
 export interface CloudsaveUrlReq {
@@ -145,22 +145,22 @@ export interface CloudsaveRspV2_HttpReq {
 
 export interface Req {
   requestId: number;
-  cloudsaveUrlReq?: CloudsaveUrlReq;
-  cloudsaveReq?: CloudsaveReq;
-  cloudsaveReqV2?: CloudsaveReqV2;
+  cloudsaveUrlReq?: CloudsaveUrlReq | undefined;
+  cloudsaveReq?: CloudsaveReq | undefined;
+  cloudsaveReqV2?: CloudsaveReqV2 | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  cloudsaveUrlRsp?: CloudsaveUrlRsp;
-  cloudsaveRsp?: CloudsaveRsp;
-  cloudsaveRspV2?: CloudsaveRspV2;
+  cloudsaveUrlRsp?: CloudsaveUrlRsp | undefined;
+  cloudsaveRsp?: CloudsaveRsp | undefined;
+  cloudsaveRspV2?: CloudsaveRspV2 | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

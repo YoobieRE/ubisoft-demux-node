@@ -47,7 +47,7 @@ export interface ChannelMetadata {
 export interface Channel {
   id: string;
   parentId: string;
-  metadata?: ChannelMetadata;
+  metadata?: ChannelMetadata | undefined;
   creatorId: string;
   spaceId: string;
   type: ChannelType;
@@ -88,14 +88,14 @@ export interface GetChannelRequest {
 
 export interface CreateChannelRequest {
   spaceId: string;
-  channel?: Channel;
+  channel?: Channel | undefined;
   members: string[];
 }
 
 export interface UpdateChannelMetadataRequest {
   spaceId: string;
   channelId: string;
-  channelMetadata?: ChannelMetadata;
+  channelMetadata?: ChannelMetadata | undefined;
 }
 
 export interface ListChannelsRequest {
@@ -128,7 +128,7 @@ export interface DeleteMembershipRequest {
 export interface UpdateMembershipRequest {
   spaceId: string;
   channelId: string;
-  membership?: Membership;
+  membership?: Membership | undefined;
 }
 
 export interface GetMessageRequest {
@@ -140,7 +140,7 @@ export interface GetMessageRequest {
 export interface CreateMessageRequest {
   spaceId: string;
   channelId: string;
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface DeleteMessageRequest {
@@ -153,7 +153,7 @@ export interface UpdateMessageRequest {
   spaceId: string;
   channelId: string;
   messageId: string;
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface ListMessagesRequest {
@@ -194,15 +194,15 @@ export interface PlayerNotificationContent {
   channelId: string;
   profileId: string;
   messageId: string;
-  metadata?: ChannelMetadata;
-  channel?: Channel;
-  membership?: Membership;
+  metadata?: ChannelMetadata | undefined;
+  channel?: Channel | undefined;
+  membership?: Membership | undefined;
   memberships: Membership[];
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface PlayerNotification {
-  content?: PlayerNotificationContent;
+  content?: PlayerNotificationContent | undefined;
   notificationType: PlayerNotificationType;
   profileId: string;
   spaceId: string;

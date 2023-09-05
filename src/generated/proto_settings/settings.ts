@@ -43,25 +43,25 @@ export interface Notifications {
 }
 
 export interface SettingsModel {
-  user?: User;
-  overlay?: Overlay;
-  language?: Language;
-  misc?: Misc;
-  position?: Position;
-  notifications?: Notifications;
-  masters?: Masters;
-  hotkeysOverlayToggle?: Hotkey;
-  hotkeysOverlayHide?: Hotkey;
-  hotkeysCaptureScreenshot?: Hotkey;
-  downloads?: Downloads;
-  betas?: Betas;
-  autoPatching?: AutoPatching;
-  spotlight?: Spotlight;
-  modelessPositions?: ModelessPositions;
-  conversations?: Conversations;
-  epic?: Epic;
-  brandedInstaller?: BrandedInstaller;
-  sharePlay?: SharePlay;
-  connectView?: ConnectView;
-  remotePlay?: RemotePlay;
+  user?: User | undefined;
+  overlay?: Overlay | undefined;
+  language?: Language | undefined;
+  misc?: Misc | undefined;
+  position?: Position | undefined;
+  notifications?: Notifications | undefined;
+  masters?: Masters | undefined;
+  hotkeysOverlayToggle?: Hotkey | undefined;
+  hotkeysOverlayHide?: Hotkey | undefined;
+  hotkeysCaptureScreenshot?: Hotkey | undefined;
+  downloads?: Downloads | undefined;
+  betas?: Betas | undefined;
+  autoPatching?: AutoPatching | undefined;
+  spotlight?: Spotlight | undefined;
+  modelessPositions?: ModelessPositions | undefined;
+  conversations?: Conversations | undefined;
+  epic?: Epic | undefined;
+  brandedInstaller?: BrandedInstaller | undefined;
+  sharePlay?: SharePlay | undefined;
+  connectView?: ConnectView | undefined;
+  remotePlay?: RemotePlay | undefined;
 }

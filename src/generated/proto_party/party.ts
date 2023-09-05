@@ -16,7 +16,7 @@ export interface Party {
 
 export interface ReconnectInfo {
   reconnectOk: boolean;
-  party?: Party;
+  party?: Party | undefined;
 }
 
 export interface StartSessionReq {
@@ -25,7 +25,7 @@ export interface StartSessionReq {
 
 export interface StartSessionRsp {
   cookie: number;
-  reconnectInfo?: ReconnectInfo;
+  reconnectInfo?: ReconnectInfo | undefined;
 }
 
 export interface User {
@@ -56,15 +56,15 @@ export interface GameSession {
 }
 
 export interface PartyMember {
-  user?: User;
+  user?: User | undefined;
   status: PartyMember_Status;
-  gameSession?: GameSession;
-  gameSessionRemoved?: GameSessionRemoved;
-  guest?: Guest;
-  guestRemoved?: GuestRemoved;
+  gameSession?: GameSession | undefined;
+  gameSessionRemoved?: GameSessionRemoved | undefined;
+  guest?: Guest | undefined;
+  guestRemoved?: GuestRemoved | undefined;
   partyOwner: boolean;
   userData: Buffer;
-  userDataRemoved?: UserDataRemoved;
+  userDataRemoved?: UserDataRemoved | undefined;
 }
 
 export enum PartyMember_Status {
@@ -86,14 +86,14 @@ export interface PartyInviteReq {
   productName: string;
   chatChannelId: number;
   maxPartySize: number;
-  guest?: Guest;
+  guest?: Guest | undefined;
   userData: Buffer;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface PartyInviteRsp {
   ok: boolean;
-  party?: Party;
+  party?: Party | undefined;
 }
 
 export interface LeaveReq {
@@ -106,9 +106,9 @@ export interface LeaveRsp {
 export interface PartyInviteResponseReq {
   partyId: number;
   response: PartyInviteResponseReq_Response;
-  guest?: Guest;
+  guest?: Guest | undefined;
   userData: Buffer;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export enum PartyInviteResponseReq_Response {
@@ -119,11 +119,11 @@ export enum PartyInviteResponseReq_Response {
 
 export interface PartyInviteResponseRsp {
   result: PartyReqResult;
-  party?: Party;
+  party?: Party | undefined;
 }
 
 export interface PromoteToLeaderReq {
-  user?: User;
+  user?: User | undefined;
 }
 
 export interface PromoteToLeaderRsp {
@@ -146,7 +146,7 @@ export interface GameSessionInviteRsp {
 }
 
 export interface SetInGameSessionReq {
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface SetInGameSessionRsp {
@@ -154,7 +154,7 @@ export interface SetInGameSessionRsp {
 }
 
 export interface SetGuestReq {
-  guest?: Guest;
+  guest?: Guest | undefined;
 }
 
 export interface SetGuestRsp {
@@ -166,7 +166,7 @@ export interface ChatMessage {
 }
 
 export interface ChatMessageReq {
-  chatMessage?: ChatMessage;
+  chatMessage?: ChatMessage | undefined;
 }
 
 export interface ChatMessageRsp {
@@ -175,38 +175,38 @@ export interface ChatMessageRsp {
 
 export interface Req {
   requestId: number;
-  partyInviteReq?: PartyInviteReq;
-  partyInviteResponseReq?: PartyInviteResponseReq;
-  leaveReq?: LeaveReq;
-  gameSessionInviteReq?: GameSessionInviteReq;
-  setInGameSessionReq?: SetInGameSessionReq;
-  setUserDataReq?: SetUserDataReq;
-  promoteLeaderReq?: PromoteToLeaderReq;
-  setGuestReq?: SetGuestReq;
-  startSessionReq?: StartSessionReq;
-  chatMessageReq?: ChatMessageReq;
+  partyInviteReq?: PartyInviteReq | undefined;
+  partyInviteResponseReq?: PartyInviteResponseReq | undefined;
+  leaveReq?: LeaveReq | undefined;
+  gameSessionInviteReq?: GameSessionInviteReq | undefined;
+  setInGameSessionReq?: SetInGameSessionReq | undefined;
+  setUserDataReq?: SetUserDataReq | undefined;
+  promoteLeaderReq?: PromoteToLeaderReq | undefined;
+  setGuestReq?: SetGuestReq | undefined;
+  startSessionReq?: StartSessionReq | undefined;
+  chatMessageReq?: ChatMessageReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  partyInviteRsp?: PartyInviteRsp;
-  partyInviteResponseRsp?: PartyInviteResponseRsp;
-  leaveRsp?: LeaveRsp;
-  gameSessionInviteRsp?: GameSessionInviteRsp;
-  setInGameSessionRsp?: SetInGameSessionRsp;
-  setUserDataRsp?: SetUserDataRsp;
-  promoteLeaderRsp?: PromoteToLeaderRsp;
-  setGuestRsp?: SetGuestRsp;
-  startSessionRsp?: StartSessionRsp;
-  chatMessageRsp?: ChatMessageRsp;
+  partyInviteRsp?: PartyInviteRsp | undefined;
+  partyInviteResponseRsp?: PartyInviteResponseRsp | undefined;
+  leaveRsp?: LeaveRsp | undefined;
+  gameSessionInviteRsp?: GameSessionInviteRsp | undefined;
+  setInGameSessionRsp?: SetInGameSessionRsp | undefined;
+  setUserDataRsp?: SetUserDataRsp | undefined;
+  promoteLeaderRsp?: PromoteToLeaderRsp | undefined;
+  setGuestRsp?: SetGuestRsp | undefined;
+  startSessionRsp?: StartSessionRsp | undefined;
+  chatMessageRsp?: ChatMessageRsp | undefined;
 }
 
 export interface PartyChangedPush {
-  partyUpdate?: PartyUpdate;
+  partyUpdate?: PartyUpdate | undefined;
 }
 
 export interface PartyInvitationPush {
-  party?: Party;
+  party?: Party | undefined;
   uplayId: string;
   productName: string;
   fromAccountId: string;
@@ -214,26 +214,26 @@ export interface PartyInvitationPush {
 }
 
 export interface GameInvitePush {
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface ChatMessagePush {
-  sender?: User;
-  chatMessage?: ChatMessage;
+  sender?: User | undefined;
+  chatMessage?: ChatMessage | undefined;
 }
 
 export interface Push {
-  partyChangedPush?: PartyChangedPush;
-  partyInvitationPush?: PartyInvitationPush;
-  gameInvitePush?: GameInvitePush;
-  chatMessagePush?: ChatMessagePush;
+  partyChangedPush?: PartyChangedPush | undefined;
+  partyInvitationPush?: PartyInvitationPush | undefined;
+  gameInvitePush?: GameInvitePush | undefined;
+  chatMessagePush?: ChatMessagePush | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
-  push?: Push;
+  response?: Rsp | undefined;
+  push?: Push | undefined;
 }

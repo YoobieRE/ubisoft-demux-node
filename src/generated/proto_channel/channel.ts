@@ -72,7 +72,7 @@ export interface Invite {
   channelId: string;
   senderId: string;
   receiverId: string;
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface CreateChannelReq {
@@ -85,7 +85,7 @@ export interface CreateChannelReq {
 
 export interface CreateChannelRsp {
   responseCode: ResponseCode;
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface CreatePrivateChannelReq {
@@ -94,7 +94,7 @@ export interface CreatePrivateChannelReq {
 
 export interface CreatePrivateChannelRsp {
   responseCode: ResponseCode;
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface GetChannelByIdReq {
@@ -103,7 +103,7 @@ export interface GetChannelByIdReq {
 
 export interface GetChannelByIdRsp {
   responseCode: ResponseCode;
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface LeaveChannelReq {
@@ -123,7 +123,7 @@ export interface DeleteChannelRsp {
 }
 
 export interface UpdateChannelReq {
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface UpdateChannelRsp {
@@ -183,12 +183,12 @@ export interface DeleteInviteRsp {
 }
 
 export interface SendMessageReq {
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface SendMessageRsp {
   responseCode: ResponseCode;
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface GetMessageReq {
@@ -210,7 +210,7 @@ export interface EditMessageReq {
 
 export interface EditMessageRsp {
   responseCode: ResponseCode;
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface DeleteMessageReq {
@@ -251,11 +251,11 @@ export interface GetUnreadMessagesRsp_MostRecentMessageInChannelEntry {
 }
 
 export interface PrivateChannelCreatedEvent {
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface ChannelUpdatedEvent {
-  channel?: Channel;
+  channel?: Channel | undefined;
 }
 
 export interface ChannelDeletedEvent {
@@ -263,7 +263,7 @@ export interface ChannelDeletedEvent {
 }
 
 export interface InviteCreatedEvent {
-  invite?: Invite;
+  invite?: Invite | undefined;
 }
 
 export interface InviteRevokedEvent {
@@ -271,13 +271,13 @@ export interface InviteRevokedEvent {
 }
 
 export interface MessageCreatedEvent {
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface MessageUpdatedEvent {
   channelId: string;
   channelType: ChannelType;
-  message?: Message;
+  message?: Message | undefined;
 }
 
 export interface MessageDeletedEvent {
@@ -288,67 +288,67 @@ export interface MessageDeletedEvent {
 
 export interface Req {
   requestId: number;
-  createChannelReq?: CreateChannelReq;
-  getChannelByIdReq?: GetChannelByIdReq;
-  leaveChannelReq?: LeaveChannelReq;
-  deleteChannelReq?: DeleteChannelReq;
-  updateChannelReq?: UpdateChannelReq;
-  getChannelsByUserIdReq?: GetChannelsByUserIdReq;
-  createInviteReq?: CreateInviteReq;
-  getInvitesSentReq?: GetInvitesSentReq;
-  getInvitesReceivedReq?: GetInvitesReceivedReq;
-  acceptInviteReq?: AcceptInviteReq;
-  deleteInviteReq?: DeleteInviteReq;
-  sendMessageReq?: SendMessageReq;
-  getMessageReq?: GetMessageReq;
-  editMessageReq?: EditMessageReq;
-  deleteMessageReq?: DeleteMessageReq;
-  ackMessageReq?: AckMessageReq;
-  createPrivateChannelReq?: CreatePrivateChannelReq;
-  getUnreadMessagesReq?: GetUnreadMessagesReq;
+  createChannelReq?: CreateChannelReq | undefined;
+  getChannelByIdReq?: GetChannelByIdReq | undefined;
+  leaveChannelReq?: LeaveChannelReq | undefined;
+  deleteChannelReq?: DeleteChannelReq | undefined;
+  updateChannelReq?: UpdateChannelReq | undefined;
+  getChannelsByUserIdReq?: GetChannelsByUserIdReq | undefined;
+  createInviteReq?: CreateInviteReq | undefined;
+  getInvitesSentReq?: GetInvitesSentReq | undefined;
+  getInvitesReceivedReq?: GetInvitesReceivedReq | undefined;
+  acceptInviteReq?: AcceptInviteReq | undefined;
+  deleteInviteReq?: DeleteInviteReq | undefined;
+  sendMessageReq?: SendMessageReq | undefined;
+  getMessageReq?: GetMessageReq | undefined;
+  editMessageReq?: EditMessageReq | undefined;
+  deleteMessageReq?: DeleteMessageReq | undefined;
+  ackMessageReq?: AckMessageReq | undefined;
+  createPrivateChannelReq?: CreatePrivateChannelReq | undefined;
+  getUnreadMessagesReq?: GetUnreadMessagesReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  createChannelRsp?: CreateChannelRsp;
-  getChannelByIdRsp?: GetChannelByIdRsp;
-  leaveChannelRsp?: LeaveChannelRsp;
-  deleteChannelRsp?: DeleteChannelRsp;
-  updateChannelRsp?: UpdateChannelRsp;
-  getChannelsByUserIdRsp?: GetChannelsByUserIdRsp;
-  createInviteRsp?: CreateInviteRsp;
-  getInvitesSentRsp?: GetInvitesSentRsp;
-  getInvitesReceivedRsp?: GetInvitesReceivedRsp;
-  acceptInviteRsp?: AcceptInviteRsp;
-  deleteInviteRsp?: DeleteInviteRsp;
-  sendMessageRsp?: SendMessageRsp;
-  getMessageRsp?: GetMessageRsp;
-  editMessageRsp?: EditMessageRsp;
-  deleteMessageRsp?: DeleteMessageRsp;
-  ackMessageRsp?: AckMessageRsp;
-  createPrivateChannelRsp?: CreatePrivateChannelRsp;
-  getUnreadMessagesRsp?: GetUnreadMessagesRsp;
+  createChannelRsp?: CreateChannelRsp | undefined;
+  getChannelByIdRsp?: GetChannelByIdRsp | undefined;
+  leaveChannelRsp?: LeaveChannelRsp | undefined;
+  deleteChannelRsp?: DeleteChannelRsp | undefined;
+  updateChannelRsp?: UpdateChannelRsp | undefined;
+  getChannelsByUserIdRsp?: GetChannelsByUserIdRsp | undefined;
+  createInviteRsp?: CreateInviteRsp | undefined;
+  getInvitesSentRsp?: GetInvitesSentRsp | undefined;
+  getInvitesReceivedRsp?: GetInvitesReceivedRsp | undefined;
+  acceptInviteRsp?: AcceptInviteRsp | undefined;
+  deleteInviteRsp?: DeleteInviteRsp | undefined;
+  sendMessageRsp?: SendMessageRsp | undefined;
+  getMessageRsp?: GetMessageRsp | undefined;
+  editMessageRsp?: EditMessageRsp | undefined;
+  deleteMessageRsp?: DeleteMessageRsp | undefined;
+  ackMessageRsp?: AckMessageRsp | undefined;
+  createPrivateChannelRsp?: CreatePrivateChannelRsp | undefined;
+  getUnreadMessagesRsp?: GetUnreadMessagesRsp | undefined;
 }
 
 export interface Event {
   sequenceNumber: number;
-  channelUpdatedEvent?: ChannelUpdatedEvent;
-  channelDeletedEvent?: ChannelDeletedEvent;
-  messageCreatedEvent?: MessageCreatedEvent;
-  messageUpdatedEvent?: MessageUpdatedEvent;
-  messageDeletedEvent?: MessageDeletedEvent;
-  inviteCreatedEvent?: InviteCreatedEvent;
-  inviteRevokedEvent?: InviteRevokedEvent;
-  privateChannelCreatedEvent?: PrivateChannelCreatedEvent;
+  channelUpdatedEvent?: ChannelUpdatedEvent | undefined;
+  channelDeletedEvent?: ChannelDeletedEvent | undefined;
+  messageCreatedEvent?: MessageCreatedEvent | undefined;
+  messageUpdatedEvent?: MessageUpdatedEvent | undefined;
+  messageDeletedEvent?: MessageDeletedEvent | undefined;
+  inviteCreatedEvent?: InviteCreatedEvent | undefined;
+  inviteRevokedEvent?: InviteRevokedEvent | undefined;
+  privateChannelCreatedEvent?: PrivateChannelCreatedEvent | undefined;
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {
-  rsp?: Rsp;
-  event?: Event;
+  rsp?: Rsp | undefined;
+  event?: Event | undefined;
 }
 
 export interface ChannelService {

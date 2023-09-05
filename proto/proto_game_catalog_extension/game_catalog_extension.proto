@@ -42,6 +42,14 @@ message LinkAccountRsp {
     bool is_linked = 1;
 }
 
+message CheckUserReq {
+    AuthDetails auth_details = 1;
+}
+
+message CheckUserRsp {
+    bool is_loged_in = 1;
+}
+
 message LaunchGameReq {
     uint32 product_id = 1;
     uint32 executable_id = 2;
@@ -182,8 +190,11 @@ message ProductManagementRsp {
 }
 
 message ProductActionsUpdated {
-    uint32 product_id = 1;
-    repeated ProductAction actions = 2;
+    ProductActions actions = 1;
+}
+
+message LocalProductDetailsUpdated {
+    LocalProductDetails product_details = 1;
 }
 
 message ProductDownloadStarted {
@@ -241,6 +252,7 @@ message Req {
         InitializeReq initialize = 2;
         GameRuntimeReq game_run_time = 3;
         ProductManagementReq product_management = 4;
+        CheckUserReq check_user = 536870909;
         LinkAccountReq link_account = 536870910;
     }
 }
@@ -252,6 +264,7 @@ message Rsp {
         InitializeRsp initialize = 2;
         GameRuntimeRsp game_run_time = 3;
         ProductManagementRsp product_management = 4;
+        CheckUserRsp check_user = 536870909;
         LinkAccountRsp link_account = 536870910;
     }
 }
@@ -261,6 +274,7 @@ message Push {
         GameLaunched game_launched = 102;
         GameEnded game_ended = 103;
         ProductActionsUpdated product_actions_updated = 201;
+        LocalProductDetailsUpdated local_product_details_updated = 202;
         ProductDownloadStarted product_download_started = 211;
         ProductDownloadUpdated product_download_updated = 212;
         ProductDownloadCompleted product_download_completed = 213;

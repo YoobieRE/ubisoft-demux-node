@@ -28,8 +28,8 @@ export interface StartFailureRsp {
 }
 
 export interface StartRsp {
-  successRsp?: StartSuccessRsp;
-  failureRsp?: StartFailureRsp;
+  successRsp?: StartSuccessRsp | undefined;
+  failureRsp?: StartFailureRsp | undefined;
 }
 
 export interface ResizeReq {
@@ -46,8 +46,8 @@ export interface ResizeFailureRsp {
 }
 
 export interface ResizeRsp {
-  successRsp?: ResizeSuccessRsp;
-  failureRsp?: ResizeFailureRsp;
+  successRsp?: ResizeSuccessRsp | undefined;
+  failureRsp?: ResizeFailureRsp | undefined;
 }
 
 export interface Rectangle {
@@ -181,7 +181,7 @@ export interface StreamingHostStartPush {
 export interface StreamingHostStartResponse {
   result: boolean;
   hostPeerId: string;
-  startConfig?: StreamingStartConfig;
+  startConfig?: StreamingStartConfig | undefined;
   errorMsg: string;
   errorCode: number;
 }
@@ -194,13 +194,13 @@ export interface StreamingHostGuestPermissions {
 }
 
 export interface StreamingHostGuestSettingsResponse {
-  permissions?: StreamingHostGuestPermissions;
+  permissions?: StreamingHostGuestPermissions | undefined;
 }
 
 export interface StreamingHostGuestConnectedReq {
   guestId: number;
   profileId: string;
-  settings?: StreamingHostGuestSettingsResponse;
+  settings?: StreamingHostGuestSettingsResponse | undefined;
   connectedTs: number;
 }
 
@@ -360,52 +360,52 @@ export interface IMEUpdateCandidatesReq {
 }
 
 export interface Req {
-  startReq?: StartReq;
-  resizeReq?: ResizeReq;
-  win32KeyMessageReq?: Win32KeyMessageReq;
-  appleKeyEventReq?: AppleKeyEventReq;
-  mouseButtonPressedReq?: MouseButtonPressedReq;
-  mouseButtonReleasedReq?: MouseButtonReleasedReq;
-  mouseMovedReq?: MouseMovedReq;
-  mouseWheelMovedReq?: MouseWheelMovedReq;
-  closeUiReq?: CloseUiReq;
-  refreshUiReq?: RefreshUiReq;
-  getConfigurationReq?: GetConfigurationReq;
-  mouseDoubleClickReq?: MouseDoubleClickReq;
-  bufferReadyReq?: BufferReadyReq;
-  videoFrameReadyReq?: VideoFrameReadyReq;
-  screenshotReadyReq?: ScreenshotReadyReq;
-  screenshotCaptureFailureReq?: ScreenshotCaptureFailureReq;
-  videoCaptureFailureReq?: VideoCaptureFailureReq;
-  langChangeReq?: LangChangeReq;
-  updateFpsReq?: UpdateFpsReq;
-  focusEventReq?: FocusEventReq;
-  imeCommitTextReq?: IMECommitText;
-  imeSetCompositionReq?: IMESetCompositionReq;
-  imeCancelCompositionReq?: IMECancelCompositionReq;
-  imeUpdateCandidatesReq?: IMEUpdateCandidatesReq;
-  streamingSettingsReq?: StreamingSettingsReq;
-  streamingHostStartResponse?: StreamingHostStartResponse;
-  streamingHostGuestConnectedReq?: StreamingHostGuestConnectedReq;
-  streamingHostGuestDisconnectedReq?: StreamingHostGuestDisconnectedReq;
-  streamingHostStopReq?: StreamingHostStopReq;
+  startReq?: StartReq | undefined;
+  resizeReq?: ResizeReq | undefined;
+  win32KeyMessageReq?: Win32KeyMessageReq | undefined;
+  appleKeyEventReq?: AppleKeyEventReq | undefined;
+  mouseButtonPressedReq?: MouseButtonPressedReq | undefined;
+  mouseButtonReleasedReq?: MouseButtonReleasedReq | undefined;
+  mouseMovedReq?: MouseMovedReq | undefined;
+  mouseWheelMovedReq?: MouseWheelMovedReq | undefined;
+  closeUiReq?: CloseUiReq | undefined;
+  refreshUiReq?: RefreshUiReq | undefined;
+  getConfigurationReq?: GetConfigurationReq | undefined;
+  mouseDoubleClickReq?: MouseDoubleClickReq | undefined;
+  bufferReadyReq?: BufferReadyReq | undefined;
+  videoFrameReadyReq?: VideoFrameReadyReq | undefined;
+  screenshotReadyReq?: ScreenshotReadyReq | undefined;
+  screenshotCaptureFailureReq?: ScreenshotCaptureFailureReq | undefined;
+  videoCaptureFailureReq?: VideoCaptureFailureReq | undefined;
+  langChangeReq?: LangChangeReq | undefined;
+  updateFpsReq?: UpdateFpsReq | undefined;
+  focusEventReq?: FocusEventReq | undefined;
+  imeCommitTextReq?: IMECommitText | undefined;
+  imeSetCompositionReq?: IMESetCompositionReq | undefined;
+  imeCancelCompositionReq?: IMECancelCompositionReq | undefined;
+  imeUpdateCandidatesReq?: IMEUpdateCandidatesReq | undefined;
+  streamingSettingsReq?: StreamingSettingsReq | undefined;
+  streamingHostStartResponse?: StreamingHostStartResponse | undefined;
+  streamingHostGuestConnectedReq?: StreamingHostGuestConnectedReq | undefined;
+  streamingHostGuestDisconnectedReq?: StreamingHostGuestDisconnectedReq | undefined;
+  streamingHostStopReq?: StreamingHostStopReq | undefined;
   streamingHostMetricsReq: StreamingHostMetricsReq[];
-  streamingVgpEventReq?: StreamingVGPEventReq;
-  streamingHostCreateTokenReq?: StreamingHostCreateTokenReq;
-  streamingHostDecodeTokenReq?: StreamingHostDecodeTokenReq;
-  streamingHostFocusReq?: StreamingHostFocusReq;
-  streamingHostUpdateGuestRemainingTimeReq?: StreamingHostUpdateGuestRemainingTimeReq;
-  streamingHostReadyReq?: StreamingHostReadyReq;
-  streamingHostSignalErrorReq?: StreamingHostSignalErrorReq;
-  streamingHostSdkEventReq?: StreamingHostSDKEventReq;
+  streamingVgpEventReq?: StreamingVGPEventReq | undefined;
+  streamingHostCreateTokenReq?: StreamingHostCreateTokenReq | undefined;
+  streamingHostDecodeTokenReq?: StreamingHostDecodeTokenReq | undefined;
+  streamingHostFocusReq?: StreamingHostFocusReq | undefined;
+  streamingHostUpdateGuestRemainingTimeReq?: StreamingHostUpdateGuestRemainingTimeReq | undefined;
+  streamingHostReadyReq?: StreamingHostReadyReq | undefined;
+  streamingHostSignalErrorReq?: StreamingHostSignalErrorReq | undefined;
+  streamingHostSdkEventReq?: StreamingHostSDKEventReq | undefined;
 }
 
 export interface Rsp {
-  startRsp?: StartRsp;
-  resizeRsp?: ResizeRsp;
-  viewUpdatedRsp?: ViewUpdatedRsp;
-  getConfigurationRsp?: GetConfigurationRsp;
-  videoFrameReleasedRsp?: VideoFrameReleasedRsp;
+  startRsp?: StartRsp | undefined;
+  resizeRsp?: ResizeRsp | undefined;
+  viewUpdatedRsp?: ViewUpdatedRsp | undefined;
+  getConfigurationRsp?: GetConfigurationRsp | undefined;
+  videoFrameReleasedRsp?: VideoFrameReleasedRsp | undefined;
 }
 
 export interface MultipleLogin {
@@ -415,32 +415,32 @@ export interface UserBannedPush {
 }
 
 export interface Push {
-  multipleLogin?: MultipleLogin;
-  captureScreenshot?: CaptureScreenshotPush;
-  cursorChange?: CursorChangePush;
-  userBanned?: UserBannedPush;
-  uiOpened?: UiOpenedPush;
-  uiClosed?: UiClosedPush;
-  imeClearComposition?: IMEClearCompositionPush;
-  imeSelectCandidate?: IMESelectCandidatePush;
-  streamingSettings?: StreamingSettingsPush;
-  streamingHostStart?: StreamingHostStartPush;
-  streamingHostStop?: StreamingHostStopPush;
-  streamingHostKick?: StreamingHostKickPush;
-  streamingHostPermissions?: StreamingHostPermissionsPush;
-  streamingHostCreateToken?: StreamingHostCreateTokenPush;
-  streamingHostDecodeToken?: StreamingHostDecodeTokenPush;
-  streamingHostUpdateGuestRemainingTime?: StreamingHostUpdateGuestRemainingTimePush;
-  streamingHostUpdateCredentials?: StreamingHostUpdateCredentialsPush;
+  multipleLogin?: MultipleLogin | undefined;
+  captureScreenshot?: CaptureScreenshotPush | undefined;
+  cursorChange?: CursorChangePush | undefined;
+  userBanned?: UserBannedPush | undefined;
+  uiOpened?: UiOpenedPush | undefined;
+  uiClosed?: UiClosedPush | undefined;
+  imeClearComposition?: IMEClearCompositionPush | undefined;
+  imeSelectCandidate?: IMESelectCandidatePush | undefined;
+  streamingSettings?: StreamingSettingsPush | undefined;
+  streamingHostStart?: StreamingHostStartPush | undefined;
+  streamingHostStop?: StreamingHostStopPush | undefined;
+  streamingHostKick?: StreamingHostKickPush | undefined;
+  streamingHostPermissions?: StreamingHostPermissionsPush | undefined;
+  streamingHostCreateToken?: StreamingHostCreateTokenPush | undefined;
+  streamingHostDecodeToken?: StreamingHostDecodeTokenPush | undefined;
+  streamingHostUpdateGuestRemainingTime?: StreamingHostUpdateGuestRemainingTimePush | undefined;
+  streamingHostUpdateCredentials?: StreamingHostUpdateCredentialsPush | undefined;
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {
-  push?: Push;
-  rsp?: Rsp;
+  push?: Push | undefined;
+  rsp?: Rsp | undefined;
 }
 
 export interface UpdateFpsReq {

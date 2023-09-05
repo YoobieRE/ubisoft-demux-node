@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package mg.protocol.connect_secure_storage;
+
+message Entry {
+    bool isPrivate = 1;
+    uint64 expirationTime = 2;
+    bytes value = 3;
+}
+
+message SpaceIdBucket {
+    map<string, Entry> elements = 1;
+}
+
+message SecureStorage {
+    map<string, SpaceIdBucket> data = 1;
+}
+
+message Cache {
+    oneof _prod {
+        SecureStorage prod = 1;
+    }
+    
+    oneof _uat {
+        SecureStorage uat = 2;
+    }
+    
+    oneof _dev {
+        SecureStorage dev = 3;
+    }
+}

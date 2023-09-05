@@ -49,11 +49,11 @@ export interface StartReq {
   steamFreePackageId: number;
   steamRequiredProductId: number;
   steamProofOfPurchase: SteamProofOfPurchase[];
-  oculusInfo?: OculusInfo;
+  oculusInfo?: OculusInfo | undefined;
   platform: StartReq_Platform;
   steamOwnerId: string;
-  nvidiaInfo?: NvidiaInfo;
-  weGameInfo?: WeGameInfo;
+  nvidiaInfo?: NvidiaInfo | undefined;
+  weGameInfo?: WeGameInfo | undefined;
 }
 
 export enum StartReq_Platform {
@@ -92,7 +92,7 @@ export interface StartGrantedRsp {
   additionalArguments: string;
   uplayArguments: string;
   overlayInjectionMethod: StartGrantedRsp_OverlayInjectionMethod;
-  hotkeys?: Hotkeys;
+  hotkeys?: Hotkeys | undefined;
 }
 
 export enum StartGrantedRsp_OverlayInjectionMethod {
@@ -118,8 +118,8 @@ export interface ConfirmationRsp {
 }
 
 export interface Req {
-  startReq?: StartReq;
-  hotkeyStateChangedReq?: HotkeyStateChangedReq;
+  startReq?: StartReq | undefined;
+  hotkeyStateChangedReq?: HotkeyStateChangedReq | undefined;
 }
 
 export interface ReconnectPush {
@@ -134,27 +134,27 @@ export interface SteamOverlayShowPush {
 }
 
 export interface UpdateHotKeysPush {
-  hotkeys?: Hotkeys;
+  hotkeys?: Hotkeys | undefined;
 }
 
 export interface Push {
-  reconnectPush?: ReconnectPush;
-  userInteractionRequiredPush?: UserInteractionRequiredPush;
-  steamOverlayShowPush?: SteamOverlayShowPush;
-  updateHotKeysPush?: UpdateHotKeysPush;
+  reconnectPush?: ReconnectPush | undefined;
+  userInteractionRequiredPush?: UserInteractionRequiredPush | undefined;
+  steamOverlayShowPush?: SteamOverlayShowPush | undefined;
+  updateHotKeysPush?: UpdateHotKeysPush | undefined;
 }
 
 export interface Rsp {
-  startGrantedRsp?: StartGrantedRsp;
-  startDeniedRsp?: StartDeniedRsp;
-  discordRichPresence?: DiscordRichPresence;
+  startGrantedRsp?: StartGrantedRsp | undefined;
+  startDeniedRsp?: StartDeniedRsp | undefined;
+  discordRichPresence?: DiscordRichPresence | undefined;
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {
-  push?: Push;
-  rsp?: Rsp;
+  push?: Push | undefined;
+  rsp?: Rsp | undefined;
 }

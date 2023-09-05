@@ -40,7 +40,7 @@ export interface GetPlayerProfileReq {
 }
 
 export interface GetPlayerProfileRsp {
-  playerProfile?: PlayerProfile;
+  playerProfile?: PlayerProfile | undefined;
 }
 
 export interface GetPlayerProfilesReq {
@@ -54,7 +54,7 @@ export interface GetPlayerProfilesRsp {
 export interface GetPlayerProfilesRsp_PlayerProfileEntry {
   commonId: string;
   success: boolean;
-  playerProfile?: PlayerProfile;
+  playerProfile?: PlayerProfile | undefined;
 }
 
 export interface GetFriendProfilesReq {
@@ -110,29 +110,29 @@ export interface GetIngameItemCheckoutUrlRsp {
 
 export interface Req {
   requestId: number;
-  getUserRailIdReq?: GetUserRailIdReq;
-  getPlayerProfileReq?: GetPlayerProfileReq;
-  getFriendProfilesReq?: GetFriendProfilesReq;
-  getIngameItemInfoReq?: GetIngameItemInfoReq;
-  getIngameItemCheckoutUrlReq?: GetIngameItemCheckoutUrlReq;
-  getPlayerProfilesReq?: GetPlayerProfilesReq;
+  getUserRailIdReq?: GetUserRailIdReq | undefined;
+  getPlayerProfileReq?: GetPlayerProfileReq | undefined;
+  getFriendProfilesReq?: GetFriendProfilesReq | undefined;
+  getIngameItemInfoReq?: GetIngameItemInfoReq | undefined;
+  getIngameItemCheckoutUrlReq?: GetIngameItemCheckoutUrlReq | undefined;
+  getPlayerProfilesReq?: GetPlayerProfilesReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
   status: Status;
-  getUserRailIdRsp?: GetUserRailIdRsp;
-  getPlayerProfileRsp?: GetPlayerProfileRsp;
-  getFriendProfilesRsp?: GetFriendProfilesRsp;
-  getIngameItemInfoRsp?: GetIngameItemInfoRsp;
-  getIngameItemCheckoutUrlRsp?: GetIngameItemCheckoutUrlRsp;
-  getPlayerProfilesRsp?: GetPlayerProfilesRsp;
+  getUserRailIdRsp?: GetUserRailIdRsp | undefined;
+  getPlayerProfileRsp?: GetPlayerProfileRsp | undefined;
+  getFriendProfilesRsp?: GetFriendProfilesRsp | undefined;
+  getIngameItemInfoRsp?: GetIngameItemInfoRsp | undefined;
+  getIngameItemCheckoutUrlRsp?: GetIngameItemCheckoutUrlRsp | undefined;
+  getPlayerProfilesRsp?: GetPlayerProfilesRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

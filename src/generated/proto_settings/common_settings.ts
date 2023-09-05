@@ -56,8 +56,8 @@ export interface Position {
 }
 
 export interface ModelessPositions {
-  friendsWindow?: Position;
-  conversationsWindow?: Position;
+  friendsWindow?: Position | undefined;
+  conversationsWindow?: Position | undefined;
 }
 
 export interface Masters {

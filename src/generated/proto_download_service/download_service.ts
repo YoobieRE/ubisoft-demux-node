@@ -46,21 +46,21 @@ export interface InitializeRsp {
 
 export interface Req {
   requestId: number;
-  initializeReq?: InitializeReq;
-  urlReq?: UrlReq;
-  urlReqCovid?: UrlReq;
+  initializeReq?: InitializeReq | undefined;
+  urlReq?: UrlReq | undefined;
+  urlReqCovid?: UrlReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  initializeRsp?: InitializeRsp;
-  urlRsp?: UrlRsp;
+  initializeRsp?: InitializeRsp | undefined;
+  urlRsp?: UrlRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

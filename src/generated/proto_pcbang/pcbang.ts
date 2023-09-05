@@ -51,9 +51,9 @@ export interface Rsp {
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

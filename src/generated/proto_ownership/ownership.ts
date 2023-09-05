@@ -50,16 +50,16 @@ export interface OwnedGame {
   pendingKeystorageOwnership: boolean;
   ubiservicesSpaceId: string;
   ubiservicesAppId: string;
-  storeData?: StoreData;
+  storeData?: StoreData | undefined;
   packageOwnershipState: OwnedGame_PackageOwnershipState;
   suspensionType: OwnedGame_SuspensionType;
-  ingameStoreData?: StoreData;
+  ingameStoreData?: StoreData | undefined;
   activationType: OwnedGame_ActivationType;
   lockedBySubscription: boolean;
   targetPartner: OwnedGame_TargetPartner;
   denuvoActivationOverwrite: OwnedGame_DenuvoActivationOverwrite;
   subscriptionTypes: number[];
-  ubiservicesDynamicConfig?: UbiServicesDynamicConfig;
+  ubiservicesDynamicConfig?: UbiServicesDynamicConfig | undefined;
 }
 
 export enum OwnedGame_PackageOwnershipState {
@@ -155,12 +155,12 @@ export interface InitializeReq_ProductBranchData {
 
 export interface InitializeRsp {
   success: boolean;
-  ownedGames?: OwnedGames;
-  ownedGamesContainer?: OwnedGamesContainer;
+  ownedGames?: OwnedGames | undefined;
+  ownedGamesContainer?: OwnedGamesContainer | undefined;
   keySpamBanSeconds: number;
   subscriptionState: SubscriptionState;
   subscriptionType: number;
-  claimedGames?: OwnedGames;
+  claimedGames?: OwnedGames | undefined;
 }
 
 export interface DeprecatedGetProductFromCdKeyReq {
@@ -170,7 +170,7 @@ export interface DeprecatedGetProductFromCdKeyReq {
 
 export interface DeprecatedGetProductFromCdKeyRsp {
   result: DeprecatedGetProductFromCdKeyRsp_Result;
-  product?: OwnedGame;
+  product?: OwnedGame | undefined;
   productAssociations: OwnedGame[];
 }
 
@@ -229,8 +229,8 @@ export interface RegisterOwnershipFromOculusReq {
 export interface RegisterOwnershipFromOculusRsp {
   result: RegisterOwnershipFromOculusRsp_Result;
   claimedAccountId: string;
-  ownedGames?: OwnedGames;
-  ownedGamesContainer?: OwnedGamesContainer;
+  ownedGames?: OwnedGames | undefined;
+  ownedGamesContainer?: OwnedGamesContainer | undefined;
 }
 
 export enum RegisterOwnershipFromOculusRsp_Result {
@@ -253,8 +253,8 @@ export interface RegisterOwnershipFromWeGameReq {
 
 export interface RegisterOwnershipFromWeGameRsp {
   result: RegisterOwnershipFromWeGameRsp_Result;
-  ownedGames?: OwnedGames;
-  ownedGamesContainer?: OwnedGamesContainer;
+  ownedGames?: OwnedGames | undefined;
+  ownedGamesContainer?: OwnedGamesContainer | undefined;
 }
 
 export enum RegisterOwnershipFromWeGameRsp_Result {
@@ -269,8 +269,8 @@ export enum RegisterOwnershipFromWeGameRsp_Result {
 
 export interface RegisterOwnershipRsp {
   result: RegisterOwnershipRsp_Result;
-  ownedGamesContainer?: OwnedGamesContainer;
-  ownedGames?: OwnedGames;
+  ownedGamesContainer?: OwnedGamesContainer | undefined;
+  ownedGames?: OwnedGames | undefined;
   bannedTime: number;
   cdkeyClaimedDate: string;
 }
@@ -392,8 +392,8 @@ export enum GetProductConfigRsp_Result {
 }
 
 export interface SwitchProductBranchReq {
-  specifiedBranch?: SwitchProductBranchReq_SpecifiedProductBranch;
-  defaultBranch?: SwitchProductBranchReq_DefaultProductBranch;
+  specifiedBranch?: SwitchProductBranchReq_SpecifiedProductBranch | undefined;
+  defaultBranch?: SwitchProductBranchReq_DefaultProductBranch | undefined;
 }
 
 export interface SwitchProductBranchReq_SpecifiedProductBranch {
@@ -408,7 +408,7 @@ export interface SwitchProductBranchReq_DefaultProductBranch {
 
 export interface SwitchProductBranchRsp {
   result: SwitchProductBranchRsp_Result;
-  products?: OwnedGames;
+  products?: OwnedGames | undefined;
 }
 
 export enum SwitchProductBranchRsp_Result {
@@ -418,7 +418,7 @@ export enum SwitchProductBranchRsp_Result {
 }
 
 export interface UnlockProductBranchReq {
-  branch?: UnlockProductBranchReq_ProductBranch;
+  branch?: UnlockProductBranchReq_ProductBranch | undefined;
 }
 
 export interface UnlockProductBranchReq_ProductBranch {
@@ -617,32 +617,32 @@ export interface Req {
 
 export interface Rsp {
   requestId: number;
-  initializeRsp?: InitializeRsp;
-  registerOwnershipRsp?: RegisterOwnershipRsp;
-  deprecatedGetProductFromCdKeyRsp?: DeprecatedGetProductFromCdKeyRsp;
-  getProductConfigRsp?: GetProductConfigRsp;
-  deprecatedGetLatestManifestsRsp?: DeprecatedGetLatestManifestsRsp;
-  getBatchDownloadUrlsRsp?: GetBatchDownloadUrlsRsp;
-  getUplayPcTicketRsp?: GetUplayPCTicketRsp;
-  consumeOwnershipRsp?: ConsumeOwnershipRsp;
-  switchProductBranchRsp?: SwitchProductBranchRsp;
-  unlockProductBranchRsp?: UnlockProductBranchRsp;
-  registerOwnershipSteamPopRsp?: RegisterOwnershipSteamPopRsp;
-  registerOwnershipFromOculusRsp?: RegisterOwnershipFromOculusRsp;
-  getGameTokenRsp?: GetGameTokenRsp;
-  claimKeystorageKeyRsp?: ClaimKeystorageKeyRsp;
-  getGameTimeTicketRsp?: GetGameTimeTicketRsp;
-  getGameWithdrawalRightsRsp?: GetGameWithdrawalRightsRsp;
-  waiveGameWithdrawalRightsRsp?: WaiveGameWithdrawalRightsRsp;
-  signOwnershipRsp?: SignOwnershipRsp;
-  registerOwnershipFromWegameRsp?: RegisterOwnershipFromWeGameRsp;
-  ownershipTokenRsp?: OwnershipTokenRsp;
-  registerTemporaryOwnershipRsp?: RegisterTemporaryOwnershipRsp;
+  initializeRsp?: InitializeRsp | undefined;
+  registerOwnershipRsp?: RegisterOwnershipRsp | undefined;
+  deprecatedGetProductFromCdKeyRsp?: DeprecatedGetProductFromCdKeyRsp | undefined;
+  getProductConfigRsp?: GetProductConfigRsp | undefined;
+  deprecatedGetLatestManifestsRsp?: DeprecatedGetLatestManifestsRsp | undefined;
+  getBatchDownloadUrlsRsp?: GetBatchDownloadUrlsRsp | undefined;
+  getUplayPcTicketRsp?: GetUplayPCTicketRsp | undefined;
+  consumeOwnershipRsp?: ConsumeOwnershipRsp | undefined;
+  switchProductBranchRsp?: SwitchProductBranchRsp | undefined;
+  unlockProductBranchRsp?: UnlockProductBranchRsp | undefined;
+  registerOwnershipSteamPopRsp?: RegisterOwnershipSteamPopRsp | undefined;
+  registerOwnershipFromOculusRsp?: RegisterOwnershipFromOculusRsp | undefined;
+  getGameTokenRsp?: GetGameTokenRsp | undefined;
+  claimKeystorageKeyRsp?: ClaimKeystorageKeyRsp | undefined;
+  getGameTimeTicketRsp?: GetGameTimeTicketRsp | undefined;
+  getGameWithdrawalRightsRsp?: GetGameWithdrawalRightsRsp | undefined;
+  waiveGameWithdrawalRightsRsp?: WaiveGameWithdrawalRightsRsp | undefined;
+  signOwnershipRsp?: SignOwnershipRsp | undefined;
+  registerOwnershipFromWegameRsp?: RegisterOwnershipFromWeGameRsp | undefined;
+  ownershipTokenRsp?: OwnershipTokenRsp | undefined;
+  registerTemporaryOwnershipRsp?: RegisterTemporaryOwnershipRsp | undefined;
 }
 
 export interface OwnedGamePush {
-  ownedGamesContainer?: OwnedGamesContainer;
-  ownedGames?: OwnedGames;
+  ownedGamesContainer?: OwnedGamesContainer | undefined;
+  ownedGames?: OwnedGames | undefined;
   removedProducts: number[];
 }
 
@@ -652,16 +652,16 @@ export interface SubscriptionPush {
 }
 
 export interface Push {
-  ownedGamePush?: OwnedGamePush;
-  uplayCoreGameInitializedPush?: UplayCoreGameInitializedPush;
-  subscriptionPush?: SubscriptionPush;
+  ownedGamePush?: OwnedGamePush | undefined;
+  uplayCoreGameInitializedPush?: UplayCoreGameInitializedPush | undefined;
+  subscriptionPush?: SubscriptionPush | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
-  push?: Push;
+  response?: Rsp | undefined;
+  push?: Push | undefined;
 }

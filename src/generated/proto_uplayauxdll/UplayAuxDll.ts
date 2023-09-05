@@ -33,7 +33,7 @@ export interface DevArgs {
 
 export interface InitReq {
   uplayId: number;
-  devArgs?: DevArgs;
+  devArgs?: DevArgs | undefined;
 }
 
 export interface InitRsp {
@@ -66,24 +66,24 @@ export interface GetBurnTicketRsp {
 }
 
 export interface ActivateReq {
-  invalidateCachedTokenReq?: InvalidateCachedTokenReq;
-  getCachedOrFreshTokenReq?: GetCachedOrFreshTokenReq;
-  getBurnTicketReq?: GetBurnTicketReq;
+  invalidateCachedTokenReq?: InvalidateCachedTokenReq | undefined;
+  getCachedOrFreshTokenReq?: GetCachedOrFreshTokenReq | undefined;
+  getBurnTicketReq?: GetBurnTicketReq | undefined;
 }
 
 export interface ActivateRsp {
-  getCachedOrFreshTokenRsp?: GetCachedOrFreshTokenRsp;
-  getBurnTicketRsp?: GetBurnTicketRsp;
+  getCachedOrFreshTokenRsp?: GetCachedOrFreshTokenRsp | undefined;
+  getBurnTicketRsp?: GetBurnTicketRsp | undefined;
 }
 
 export interface Req {
   requestId: number;
-  initReq?: InitReq;
-  activateReq?: ActivateReq;
+  initReq?: InitReq | undefined;
+  activateReq?: ActivateReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  initRsp?: InitRsp;
-  activateRsp?: ActivateRsp;
+  initRsp?: InitRsp | undefined;
+  activateRsp?: ActivateRsp | undefined;
 }

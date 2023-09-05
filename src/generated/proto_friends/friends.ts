@@ -9,7 +9,7 @@ export interface ReconnectInfo {
 export interface DeprecatedInitializeReq {
   ubiToken: Buffer;
   deprecatedCookie: number;
-  game?: Game;
+  game?: Game | undefined;
   richPresenceDeprecated: Buffer;
   activityStatus: Status_ActivityStatus;
   ubiTicket: string;
@@ -21,13 +21,13 @@ export interface DeprecatedInitializeReq {
 export interface DeprecatedInitializeRsp {
   success: boolean;
   deprecatedCookie: number;
-  deprecatedReconnectInfo?: ReconnectInfo;
+  deprecatedReconnectInfo?: ReconnectInfo | undefined;
   relationship: Relationship[];
 }
 
 export interface InitializeReq {
   protoVersion: number;
-  game?: Game;
+  game?: Game | undefined;
   activityStatus: Status_ActivityStatus;
   ubiTicket: string;
   localization: string;
@@ -48,13 +48,13 @@ export interface Friend {
 }
 
 export interface DeprecatedFriendsNick {
-  user?: Friend;
+  user?: Friend | undefined;
   nick: string;
 }
 
 export interface Relationship {
   blacklisted: boolean;
-  friend?: Friend;
+  friend?: Friend | undefined;
   relation: Relationship_Relation;
   deprecatedChangeId: number;
   changeDate: string;
@@ -71,7 +71,7 @@ export enum Relationship_Relation {
 export interface Game {
   uplayId: number;
   productName: string;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface GameSession {
@@ -84,7 +84,7 @@ export interface GameSession {
 }
 
 export interface SetGameReq {
-  game?: Game;
+  game?: Game | undefined;
 }
 
 export interface SetGameRsp {
@@ -111,7 +111,7 @@ export interface SetRichPresenceRspDeprecated {
 }
 
 export interface SetRichPresenceReq {
-  presenceState?: RichPresenceState;
+  presenceState?: RichPresenceState | undefined;
 }
 
 export interface SetRichPresenceRsp {
@@ -128,9 +128,9 @@ export interface SetActivityStatusRsp {
 }
 
 export interface Status {
-  user?: Friend;
+  user?: Friend | undefined;
   onlineStatus: Status_OnlineStatus;
-  game?: Game;
+  game?: Game | undefined;
   richPresenceDeprecated: Buffer;
   voipStatus: Status_VoipStatus;
   activityStatus: Status_ActivityStatus;
@@ -196,7 +196,7 @@ export interface DeprecatedGetNickRsp {
 }
 
 export interface AcceptFriendshipReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface AcceptFriendshipRsp {
@@ -213,7 +213,7 @@ export interface GetBlacklistRsp {
 }
 
 export interface AddToBlacklistReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface AddToBlacklistRsp {
@@ -221,7 +221,7 @@ export interface AddToBlacklistRsp {
 }
 
 export interface ClearRelationshipReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface ClearRelationshipRsp {
@@ -229,7 +229,7 @@ export interface ClearRelationshipRsp {
 }
 
 export interface DeclineFriendshipReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface DeclineFriendshipRsp {
@@ -237,7 +237,7 @@ export interface DeclineFriendshipRsp {
 }
 
 export interface RemoveFromBlacklistReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface RemoveFromBlacklistRsp {
@@ -245,7 +245,7 @@ export interface RemoveFromBlacklistRsp {
 }
 
 export interface RequestFriendshipReq {
-  user?: Friend;
+  user?: Friend | undefined;
 }
 
 export interface RequestFriendshipRsp {
@@ -262,13 +262,13 @@ export interface RequestFriendshipsRsp {
 
 export interface JoinGameInvite {
   accountIdFrom: string;
-  game?: Game;
+  game?: Game | undefined;
   deprecatedProductName: string;
 }
 
 export interface JoinGameInvitationReq {
   accountIdTo: string;
-  game?: Game;
+  game?: Game | undefined;
   deprecatedProductName: string;
 }
 
@@ -303,67 +303,67 @@ export interface SetNicknameRsp {
 
 export interface Req {
   requestId: number;
-  deprecatedInitializeReq?: DeprecatedInitializeReq;
-  deprecatedGetRelationshipsListReq?: GetRelationshipsListReq;
-  acceptFriendshipReq?: AcceptFriendshipReq;
-  addToBlacklistReq?: AddToBlacklistReq;
-  clearRelationshipReq?: ClearRelationshipReq;
-  declineFriendshipReq?: DeclineFriendshipReq;
-  removeFromBlacklistReq?: RemoveFromBlacklistReq;
-  deprecatedRequestFriendshipReq?: RequestFriendshipReq;
-  findFriendReq?: FindFriendReq;
-  deprecatedGetStatusReq?: GetStatusReq;
-  getNickReq?: DeprecatedGetNickReq;
-  setGameReq?: SetGameReq;
-  joinGameInvitationReq?: JoinGameInvitationReq;
-  setRichPresenceReqDeprecated?: SetRichPresenceReqDeprecated;
-  requestFriendshipsReq?: RequestFriendshipsReq;
-  setActivityStatusReq?: SetActivityStatusReq;
-  setRichPresenceReq?: SetRichPresenceReq;
-  declineGameInviteReq?: DeclineGameInviteReq;
-  ubiTicketRefreshReq?: UbiTicketRefreshReq;
-  initializeReq?: InitializeReq;
-  setNicknameReq?: SetNicknameReq;
-  getBlacklistReq?: GetBlacklistReq;
+  deprecatedInitializeReq?: DeprecatedInitializeReq | undefined;
+  deprecatedGetRelationshipsListReq?: GetRelationshipsListReq | undefined;
+  acceptFriendshipReq?: AcceptFriendshipReq | undefined;
+  addToBlacklistReq?: AddToBlacklistReq | undefined;
+  clearRelationshipReq?: ClearRelationshipReq | undefined;
+  declineFriendshipReq?: DeclineFriendshipReq | undefined;
+  removeFromBlacklistReq?: RemoveFromBlacklistReq | undefined;
+  deprecatedRequestFriendshipReq?: RequestFriendshipReq | undefined;
+  findFriendReq?: FindFriendReq | undefined;
+  deprecatedGetStatusReq?: GetStatusReq | undefined;
+  getNickReq?: DeprecatedGetNickReq | undefined;
+  setGameReq?: SetGameReq | undefined;
+  joinGameInvitationReq?: JoinGameInvitationReq | undefined;
+  setRichPresenceReqDeprecated?: SetRichPresenceReqDeprecated | undefined;
+  requestFriendshipsReq?: RequestFriendshipsReq | undefined;
+  setActivityStatusReq?: SetActivityStatusReq | undefined;
+  setRichPresenceReq?: SetRichPresenceReq | undefined;
+  declineGameInviteReq?: DeclineGameInviteReq | undefined;
+  ubiTicketRefreshReq?: UbiTicketRefreshReq | undefined;
+  initializeReq?: InitializeReq | undefined;
+  setNicknameReq?: SetNicknameReq | undefined;
+  getBlacklistReq?: GetBlacklistReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  deprecatedInitializeRsp?: DeprecatedInitializeRsp;
-  deprecatedGetRelationshipsListRsp?: GetRelationshipsListRsp;
-  acceptFriendshipRsp?: AcceptFriendshipRsp;
-  addToBlacklistRsp?: AddToBlacklistRsp;
-  clearRelationshipRsp?: ClearRelationshipRsp;
-  declineFriendshipRsp?: DeclineFriendshipRsp;
-  removeFromBlacklistRsp?: RemoveFromBlacklistRsp;
-  deprecatedRequestFriendshipRsp?: RequestFriendshipRsp;
-  findFriendRsp?: FindFriendRsp;
-  deprecatedGetStatusRsp?: GetStatusRsp;
-  getNickRsp?: DeprecatedGetNickRsp;
-  setGameRsp?: SetGameRsp;
-  joinGameInvitationRsp?: JoinGameInvitationRsp;
-  setRichPresenceRspDeprected?: SetRichPresenceRspDeprecated;
-  requestFriendshipsRsp?: RequestFriendshipsRsp;
-  setActivityStatusRsp?: SetActivityStatusRsp;
-  setRichPresenceRsp?: SetRichPresenceRsp;
-  declineGameInviteRsp?: DeclineGameInviteRsp;
-  ubiTicketRefreshRsp?: UbiTicketRefreshRsp;
-  initializeRsp?: InitializeRsp;
-  setNicknameRsp?: SetNicknameRsp;
-  getBlacklistRsp?: GetBlacklistRsp;
+  deprecatedInitializeRsp?: DeprecatedInitializeRsp | undefined;
+  deprecatedGetRelationshipsListRsp?: GetRelationshipsListRsp | undefined;
+  acceptFriendshipRsp?: AcceptFriendshipRsp | undefined;
+  addToBlacklistRsp?: AddToBlacklistRsp | undefined;
+  clearRelationshipRsp?: ClearRelationshipRsp | undefined;
+  declineFriendshipRsp?: DeclineFriendshipRsp | undefined;
+  removeFromBlacklistRsp?: RemoveFromBlacklistRsp | undefined;
+  deprecatedRequestFriendshipRsp?: RequestFriendshipRsp | undefined;
+  findFriendRsp?: FindFriendRsp | undefined;
+  deprecatedGetStatusRsp?: GetStatusRsp | undefined;
+  getNickRsp?: DeprecatedGetNickRsp | undefined;
+  setGameRsp?: SetGameRsp | undefined;
+  joinGameInvitationRsp?: JoinGameInvitationRsp | undefined;
+  setRichPresenceRspDeprected?: SetRichPresenceRspDeprecated | undefined;
+  requestFriendshipsRsp?: RequestFriendshipsRsp | undefined;
+  setActivityStatusRsp?: SetActivityStatusRsp | undefined;
+  setRichPresenceRsp?: SetRichPresenceRsp | undefined;
+  declineGameInviteRsp?: DeclineGameInviteRsp | undefined;
+  ubiTicketRefreshRsp?: UbiTicketRefreshRsp | undefined;
+  initializeRsp?: InitializeRsp | undefined;
+  setNicknameRsp?: SetNicknameRsp | undefined;
+  getBlacklistRsp?: GetBlacklistRsp | undefined;
 }
 
 export interface PushUpdatedRelationship {
-  relationship?: Relationship;
+  relationship?: Relationship | undefined;
 }
 
 export interface PushUpdatedStatus {
-  updatesStatus?: Status;
+  updatesStatus?: Status | undefined;
   isInitialStatus: boolean;
 }
 
 export interface PushJoinGameInvitation {
-  invite?: JoinGameInvite;
+  invite?: JoinGameInvite | undefined;
 }
 
 export interface PushRecentlyMetPlayers {
@@ -386,20 +386,20 @@ export interface PushIsFavoriteUpdate {
 }
 
 export interface Push {
-  pushUpdatedRelationship?: PushUpdatedRelationship;
-  pushUpdatedStatus?: PushUpdatedStatus;
-  pushJoinGameInvitation?: PushJoinGameInvitation;
-  pushRecentlyMetPlayers?: PushRecentlyMetPlayers;
-  pushGameInviteDeclined?: PushGameInviteDeclined;
-  pushNicknameUpdate?: PushNicknameUpdate;
-  pushIsFavoriteUpdate?: PushIsFavoriteUpdate;
+  pushUpdatedRelationship?: PushUpdatedRelationship | undefined;
+  pushUpdatedStatus?: PushUpdatedStatus | undefined;
+  pushJoinGameInvitation?: PushJoinGameInvitation | undefined;
+  pushRecentlyMetPlayers?: PushRecentlyMetPlayers | undefined;
+  pushGameInviteDeclined?: PushGameInviteDeclined | undefined;
+  pushNicknameUpdate?: PushNicknameUpdate | undefined;
+  pushIsFavoriteUpdate?: PushIsFavoriteUpdate | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
-  push?: Push;
+  response?: Rsp | undefined;
+  push?: Push | undefined;
 }

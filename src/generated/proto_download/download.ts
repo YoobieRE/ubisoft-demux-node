@@ -212,13 +212,13 @@ export interface Manifest {
   deprecatedLanguages: string[];
   patchRequired: boolean;
   isCompressed: boolean;
-  readmeFiles?: TextFileList;
-  manualFiles?: TextFileList;
+  readmeFiles?: TextFileList | undefined;
+  manualFiles?: TextFileList | undefined;
   gameVersion: string;
   compressionMethod: CompressionMethod;
   version: number;
   languages: Language[];
-  slicerConfig?: SlicerConfig;
+  slicerConfig?: SlicerConfig | undefined;
 }
 
 export interface ManifestLicenses {

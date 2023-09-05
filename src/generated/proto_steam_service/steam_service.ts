@@ -31,24 +31,24 @@ export interface GetSteamUserInfoReq {
 }
 
 export interface GetSteamUserInfoRsp {
-  steamUserInfo?: SteamUserInfo;
+  steamUserInfo?: SteamUserInfo | undefined;
   success: boolean;
 }
 
 export interface Req {
-  getSteamFriendsReq?: GetSteamFriendsReq;
-  getSteamUserInfoReq?: GetSteamUserInfoReq;
+  getSteamFriendsReq?: GetSteamFriendsReq | undefined;
+  getSteamUserInfoReq?: GetSteamUserInfoReq | undefined;
 }
 
 export interface Rsp {
-  getSteamFriendsRsp?: GetSteamFriendsRsp;
-  getSteamUserInfoRsp?: GetSteamUserInfoRsp;
+  getSteamFriendsRsp?: GetSteamFriendsRsp | undefined;
+  getSteamUserInfoRsp?: GetSteamUserInfoRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

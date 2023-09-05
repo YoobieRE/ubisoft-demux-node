@@ -27,11 +27,11 @@ export interface GearResult {
 }
 
 export interface Req {
-  startInstall?: StartInstall;
-  installingDependency?: InstallingDependency;
-  dependencyInstalled?: DependencyInstalled;
-  installCompleted?: InstallCompleted;
-  gearResult?: GearResult;
+  startInstall?: StartInstall | undefined;
+  installingDependency?: InstallingDependency | undefined;
+  dependencyInstalled?: DependencyInstalled | undefined;
+  installCompleted?: InstallCompleted | undefined;
+  gearResult?: GearResult | undefined;
 }
 
 export interface DependencyRestartRsp {
@@ -39,21 +39,21 @@ export interface DependencyRestartRsp {
 }
 
 export interface Rsp {
-  restart?: DependencyRestartRsp;
+  restart?: DependencyRestartRsp | undefined;
 }
 
 export interface CancelInstallPush {
 }
 
 export interface Push {
-  cancelInstall?: CancelInstallPush;
+  cancelInstall?: CancelInstallPush | undefined;
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {
-  rsp?: Rsp;
-  push?: Push;
+  rsp?: Rsp | undefined;
+  push?: Push | undefined;
 }

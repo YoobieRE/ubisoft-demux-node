@@ -124,26 +124,26 @@ export interface SpotlightShownTimestamps {
 }
 
 export interface UserSettings {
-  favouriteGames?: FavouriteGames;
-  hiddenGames?: HiddenGames;
-  lastPlayedGames?: PlayedGames;
-  productBranches?: ProductBranches;
-  knownBranches?: KnownBranches;
+  favouriteGames?: FavouriteGames | undefined;
+  hiddenGames?: HiddenGames | undefined;
+  lastPlayedGames?: PlayedGames | undefined;
+  productBranches?: ProductBranches | undefined;
+  knownBranches?: KnownBranches | undefined;
   dontUploadCrashReports: boolean;
-  autoPatching?: AutoPatching;
+  autoPatching?: AutoPatching | undefined;
   activityStatus: string;
   remindMeOfSteamLinking: boolean;
-  gameLibrary?: GameLibrary;
-  gamesStartArguments?: GamesStartArguments;
+  gameLibrary?: GameLibrary | undefined;
+  gamesStartArguments?: GamesStartArguments | undefined;
   expiredSecurityPromptTimestamp: number;
   lastDismissedPromoBubbleId: string;
-  news?: News;
+  news?: News | undefined;
   lastSecurityPromptState: SecurityPromptState;
   lastEmailVerificPromptTimestamp: number;
   lastdissmisseduplayplusbubbleid: string;
   isexpirationbannerdisabled: boolean;
-  seenPromoTabs?: SeenPromoTabs;
+  seenPromoTabs?: SeenPromoTabs | undefined;
   isunavailablebannerdisabled: boolean;
-  spotlightShownTimestamps?: SpotlightShownTimestamps;
+  spotlightShownTimestamps?: SpotlightShownTimestamps | undefined;
   connectBetaPromoDismissed: boolean;
 }

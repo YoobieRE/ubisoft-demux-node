@@ -22,7 +22,7 @@ export enum AuthDetails_TokenPlatform {
 }
 
 export interface InitializeReq {
-  authDetails?: AuthDetails;
+  authDetails?: AuthDetails | undefined;
   doActivation: boolean;
 }
 
@@ -45,11 +45,19 @@ export enum InitializeRsp_Result {
 }
 
 export interface LinkAccountReq {
-  authDetails?: AuthDetails;
+  authDetails?: AuthDetails | undefined;
 }
 
 export interface LinkAccountRsp {
   isLinked: boolean;
+}
+
+export interface CheckUserReq {
+  authDetails?: AuthDetails | undefined;
+}
+
+export interface CheckUserRsp {
+  isLogedIn: boolean;
 }
 
 export interface LaunchGameReq {
@@ -86,7 +94,7 @@ export interface ProductActions {
 }
 
 export interface GetProductActionsRsp {
-  productActions?: ProductActions;
+  productActions?: ProductActions | undefined;
 }
 
 export interface GetLocalProductDetailsReq {
@@ -111,7 +119,7 @@ export enum LocalProductDetails_PatchState {
 
 export interface GetLocalProductDetailsRsp {
   result: GetLocalProductDetailsRsp_Result;
-  productDetails?: LocalProductDetails;
+  productDetails?: LocalProductDetails | undefined;
 }
 
 export enum GetLocalProductDetailsRsp_Result {
@@ -191,8 +199,11 @@ export interface ProductManagementRsp {
 }
 
 export interface ProductActionsUpdated {
-  productId: number;
-  actions: ProductAction[];
+  actions?: ProductActions | undefined;
+}
+
+export interface LocalProductDetailsUpdated {
+  productDetails?: LocalProductDetails | undefined;
 }
 
 export interface ProductDownloadStarted {
@@ -250,6 +261,7 @@ export interface Req {
   initialize?: InitializeReq | undefined;
   gameRunTime?: GameRuntimeReq | undefined;
   productManagement?: ProductManagementReq | undefined;
+  checkUser?: CheckUserReq | undefined;
   linkAccount?: LinkAccountReq | undefined;
 }
 
@@ -258,6 +270,7 @@ export interface Rsp {
   initialize?: InitializeRsp | undefined;
   gameRunTime?: GameRuntimeRsp | undefined;
   productManagement?: ProductManagementRsp | undefined;
+  checkUser?: CheckUserRsp | undefined;
   linkAccount?: LinkAccountRsp | undefined;
 }
 
@@ -265,6 +278,7 @@ export interface Push {
   gameLaunched?: GameLaunched | undefined;
   gameEnded?: GameEnded | undefined;
   productActionsUpdated?: ProductActionsUpdated | undefined;
+  localProductDetailsUpdated?: LocalProductDetailsUpdated | undefined;
   productDownloadStarted?: ProductDownloadStarted | undefined;
   productDownloadUpdated?: ProductDownloadUpdated | undefined;
   productDownloadCompleted?: ProductDownloadCompleted | undefined;
@@ -273,7 +287,7 @@ export interface Push {
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {

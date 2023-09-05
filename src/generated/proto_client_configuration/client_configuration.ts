@@ -32,22 +32,22 @@ export interface GetPatchInfoRsp {
 
 export interface Req {
   requestId: number;
-  getPatchInfoReq?: GetPatchInfoReq1;
-  getStatisticsStatusReq?: GetStatisticsStatusReq;
-  getPatchInfoReqV2?: GetPatchInfoReq;
+  getPatchInfoReq?: GetPatchInfoReq1 | undefined;
+  getStatisticsStatusReq?: GetStatisticsStatusReq | undefined;
+  getPatchInfoReqV2?: GetPatchInfoReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  getPatchInfoRsp?: GetPatchInfoRsp2;
-  getStatisticsStatusRsp?: GetStatisticsStatusRsp;
-  getPatchInfoRspV2?: GetPatchInfoRsp;
+  getPatchInfoRsp?: GetPatchInfoRsp2 | undefined;
+  getStatisticsStatusRsp?: GetStatisticsStatusRsp | undefined;
+  getPatchInfoRspV2?: GetPatchInfoRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

@@ -11,17 +11,17 @@ export interface GeoIpRsp {
 }
 
 export interface Req {
-  geoipReq?: GeoIpReq;
+  geoipReq?: GeoIpReq | undefined;
 }
 
 export interface Rsp {
-  geoipRsp?: GeoIpRsp;
+  geoipRsp?: GeoIpRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

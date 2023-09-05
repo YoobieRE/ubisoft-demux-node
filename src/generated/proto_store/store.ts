@@ -72,7 +72,7 @@ export interface InitializeReq {
 
 export interface InitializeRsp {
   success: boolean;
-  storefront?: Storefront;
+  storefront?: Storefront | undefined;
 }
 
 export interface GetStoreReq {
@@ -135,41 +135,41 @@ export interface CheckoutRsp {
 }
 
 export interface IngameStoreCheckoutReq {
-  ingameStoreCredentials?: IngameStoreCredentials;
-  checkoutReq?: CheckoutReq;
+  ingameStoreCredentials?: IngameStoreCredentials | undefined;
+  checkoutReq?: CheckoutReq | undefined;
 }
 
 export interface IngameStoreCheckoutRsp {
   result: StoreResult;
-  checkoutRsp?: CheckoutRsp;
+  checkoutRsp?: CheckoutRsp | undefined;
 }
 
 export interface Push {
-  storeUpdate?: StoreUpdatedPush;
-  revisionsUpdatedPush?: RevisionsUpdatedPush;
+  storeUpdate?: StoreUpdatedPush | undefined;
+  revisionsUpdatedPush?: RevisionsUpdatedPush | undefined;
 }
 
 export interface Req {
   requestId: number;
-  initializeReq?: InitializeReq;
-  getStoreReq?: GetStoreReq;
-  getDataReq?: GetDataReq;
-  ingameStoreCheckoutReq?: IngameStoreCheckoutReq;
+  initializeReq?: InitializeReq | undefined;
+  getStoreReq?: GetStoreReq | undefined;
+  getDataReq?: GetDataReq | undefined;
+  ingameStoreCheckoutReq?: IngameStoreCheckoutReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  initializeRsp?: InitializeRsp;
-  getStoreRsp?: GetStoreRsp;
-  getDataRsp?: GetDataRsp;
-  ingameStoreCheckoutRsp?: IngameStoreCheckoutRsp;
+  initializeRsp?: InitializeRsp | undefined;
+  getStoreRsp?: GetStoreRsp | undefined;
+  getDataRsp?: GetDataRsp | undefined;
+  ingameStoreCheckoutRsp?: IngameStoreCheckoutRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
-  push?: Push;
+  response?: Rsp | undefined;
+  push?: Push | undefined;
 }

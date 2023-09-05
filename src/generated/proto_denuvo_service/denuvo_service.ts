@@ -23,15 +23,15 @@ export interface GetGameTimeTokenRsp {
 
 export interface Req {
   requestId: number;
-  getGameTokenReq?: GetGameTokenReq;
-  getGameTimeTokenReq?: GetGameTimeTokenReq;
+  getGameTokenReq?: GetGameTokenReq | undefined;
+  getGameTimeTokenReq?: GetGameTimeTokenReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
   result: Rsp_Result;
-  getGameTokenRsp?: GetGameTokenRsp;
-  getGameTimeTokenRsp?: GetGameTimeTokenRsp;
+  getGameTokenRsp?: GetGameTokenRsp | undefined;
+  getGameTimeTokenRsp?: GetGameTimeTokenRsp | undefined;
 }
 
 export enum Rsp_Result {
@@ -45,9 +45,9 @@ export enum Rsp_Result {
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }

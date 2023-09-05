@@ -11,7 +11,7 @@ export interface GameSession {
 export interface GameInvite {
   multiplayerId: number;
   productName: string;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
   inviterUsername: string;
 }
 
@@ -41,13 +41,13 @@ export interface GroupLeft {
 
 export interface GroupNotification {
   groupId: string;
-  groupInvitation?: GroupInvitation;
-  groupJoin?: GroupJoin;
-  groupLeft?: GroupLeft;
-  groupCancelInvite?: GroupCancelInvite;
+  groupInvitation?: GroupInvitation | undefined;
+  groupJoin?: GroupJoin | undefined;
+  groupLeft?: GroupLeft | undefined;
+  groupCancelInvite?: GroupCancelInvite | undefined;
 }
 
 export interface ChatMessageData {
-  gameInvite?: GameInvite;
-  groupNotification?: GroupNotification;
+  gameInvite?: GameInvite | undefined;
+  groupNotification?: GroupNotification | undefined;
 }

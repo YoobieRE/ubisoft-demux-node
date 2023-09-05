@@ -17,8 +17,8 @@ export interface Product {
 }
 
 export interface ProductAchievements {
-  product?: Product;
-  achievements?: Achievements;
+  product?: Product | undefined;
+  achievements?: Achievements | undefined;
 }
 
 export interface AchievementBlob {
@@ -34,7 +34,7 @@ export interface AuthenticateRsp {
 }
 
 export interface WriteAchievementsReq {
-  achievementBlob?: AchievementBlob;
+  achievementBlob?: AchievementBlob | undefined;
 }
 
 export interface WriteAchievementsRsp {
@@ -42,24 +42,24 @@ export interface WriteAchievementsRsp {
 
 export interface ReadAchievementsReq {
   userId: string;
-  product?: Product;
+  product?: Product | undefined;
 }
 
 export interface ReadAchievementsRsp {
   userId: string;
-  achievementBlob?: AchievementBlob;
+  achievementBlob?: AchievementBlob | undefined;
 }
 
 export interface Req {
   requestId: number;
-  authenticateReq?: AuthenticateReq;
-  readAchievementsReq?: ReadAchievementsReq;
-  writeAchievementsReq?: WriteAchievementsReq;
+  authenticateReq?: AuthenticateReq | undefined;
+  readAchievementsReq?: ReadAchievementsReq | undefined;
+  writeAchievementsReq?: WriteAchievementsReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  authenticateRsp?: AuthenticateRsp;
-  readAchievementsRsp?: ReadAchievementsRsp;
-  writeAchievementsRsp?: WriteAchievementsRsp;
+  authenticateRsp?: AuthenticateRsp | undefined;
+  readAchievementsRsp?: ReadAchievementsRsp | undefined;
+  writeAchievementsRsp?: WriteAchievementsRsp | undefined;
 }

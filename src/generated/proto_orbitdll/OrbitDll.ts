@@ -37,14 +37,14 @@ export interface InitRsp {
 
 export interface Req {
   requestId: number;
-  getLoginDetails?: GetLoginDetailsReq;
-  getOsi?: GetOsiReq;
-  init?: InitReq;
+  getLoginDetails?: GetLoginDetailsReq | undefined;
+  getOsi?: GetOsiReq | undefined;
+  init?: InitReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  getLoginDetails?: GetLoginDetailsRsp;
-  getOsi?: GetOsiRsp;
-  init?: InitRsp;
+  getLoginDetails?: GetLoginDetailsRsp | undefined;
+  getOsi?: GetOsiRsp | undefined;
+  init?: InitRsp | undefined;
 }

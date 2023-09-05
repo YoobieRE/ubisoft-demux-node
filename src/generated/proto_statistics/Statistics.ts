@@ -627,21 +627,6 @@ export interface TrustedDeviceActionData {
   defaultFriendlyName: boolean;
 }
 
-export interface GameStarterStartRequestObjectData {
-  steamId: string;
-  steamTicket: string;
-}
-
-export interface MercuryCheckoutRequestObjectData {
-  steamId: string;
-  partnerPlatformType: string;
-}
-
-export interface MercuryWebshopGetObjectData {
-  partnerPlatformType: string;
-  misconfiguredProductSteamIds: string;
-}
-
 export interface SharePlayHostSessionStreamingStartData {
   hostPeerId: string;
   side: string;
@@ -786,11 +771,11 @@ export interface StreamingHostLinkCreatedEvent {
 }
 
 export interface EventTypeData {
-  gameStart?: GameStartTypeData;
-  gameLocalization?: GameLocalizationTypeData;
-  contextStart?: ContextStartTypeData;
-  contextStop?: ContextStopTypeData;
-  playerNewsImpression?: PlayerNewsImpressionTypeData;
+  gameStart?: GameStartTypeData | undefined;
+  gameLocalization?: GameLocalizationTypeData | undefined;
+  contextStart?: ContextStartTypeData | undefined;
+  contextStop?: ContextStopTypeData | undefined;
+  playerNewsImpression?: PlayerNewsImpressionTypeData | undefined;
 }
 
 export interface RemotePlayHostSessionStreamingStartData {
@@ -808,73 +793,70 @@ export interface RemotePlayHostSessionStreamingStopData {
 }
 
 export interface EventObjectData {
-  gameLaunch?: GameLaunchObjectData;
-  uiNav?: UINavObjectData;
-  appStart?: AppStartObjectData;
-  download?: DownloadObjectData;
-  followLink?: FollowLinkObjectData;
-  gameCloudSaveSync?: GameCloudSaveSyncObjectData;
-  settingChanged?: SettingChangedObjectData;
-  machineConf?: MachineConfObjectData;
-  dlError?: DLErrorObjectData;
-  appQuit?: AppQuitObjectData;
-  decompressSliceError?: DecompressSliceErrorObjectData;
-  gameEnd?: GameEndObjectData;
-  httpServiceRequest?: HttpServiceRequestObjectData;
-  importSteamFriends?: ImportSteamFriendsObjectData;
-  activateProduct?: ActivateProductObjectData;
-  friendAction?: FriendActionObjectData;
-  redeemReward?: RedeemRewardObjectData;
-  accountCreation?: AccountCreationObjectData;
-  streamingSession?: StreamingSessionObjectData;
-  accountLinking?: AccountLinkingObjectData;
-  chatSession?: ChatSessionObjectData;
-  party?: PartyObjectData;
-  challengeAction?: ChallengeActionObjectData;
-  newsClick?: NewsClickObjectData;
-  newsImpression?: NewsImpressionObjectData;
-  newsInteraction?: NewsInteractionObjectData;
-  shopAddToCart?: ShopAddToCartObjectData;
-  ticketRenewalFailure?: TicketRenewalFailureObjectData;
-  groupAction?: GroupActionObjectData;
-  diagnostic?: DiagnosticObjectData;
-  ingameShopAction?: IngameShopActionObjectData;
-  IngameShopImpression?: IngameShopImpressionObjectData;
-  promoTabInteraction?: PromoTabInteractionObjectData;
-  emailVerification?: EmailVerificationObjectData;
-  twoFAActivation?: TwoFAActivationObjectData;
-  adImpression?: AdImpressionObjectData;
-  popUpDisplayEvent?: PopUpDisplayEventObjectData;
-  newsOpen?: NewsOpenObjectData;
-  battlePassAction?: BattlePassActionObjectData;
-  trustedDeviceAction?: TrustedDeviceActionData;
-  friendSuggestionAction?: FriendSuggestionActionObjectData;
-  friendSuggestionImpression?: FriendSuggestionImpressionObjectData;
-  phoneSecurity?: PhoneSecurityObjectData;
-  SendSmsAction?: SendSmsTrackEventActionObjectData;
-  sharePlaySessionStart?: SharePlayHostSessionStreamingStartData;
-  sharePlaySessionStop?: SharePlayHostSessionStreamingStopData;
-  sharePlayHostPage?: SharePlayHostPageData;
-  sharePlayGuestInvitation?: SharePlayGuestInvitationData;
-  sharePlayHostInvitation?: SharePlayHostInvitationData;
-  sharePlayHostError?: SharePlayHostErrorData;
-  sharePlayHostSettings?: SharePlayHostSettingsData;
-  sharePlayOnboarding?: SharePlayOnboardingData;
-  streamingHostOutOfFocusStart?: StreamingHostOutOfFocusStartData;
-  streamingHostOutOfFocusStop?: StreamingHostOutOfFocusStopData;
-  streamingFeedBack?: StreamingFeedBackData;
-  streamingHostStartSession?: StreamingHostStartSessionData;
-  streamingHostStopSession?: StreamingHostStopSessionData;
-  streamingError?: StreamingErrorData;
-  streamingHostSessionSettings?: StreamingHostSessionSettingsChanged;
-  streamingVGPEvent?: StreamingVGPEvent;
-  streamingHostLinkCreated?: StreamingHostLinkCreatedEvent;
-  remotePlaySessionStart?: RemotePlayHostSessionStreamingStartData;
-  remotePlaySessionStop?: RemotePlayHostSessionStreamingStopData;
-  streamingStatus?: StreamingStatusData;
-  gameStarterStartRequest?: GameStarterStartRequestObjectData;
-  mercuryCheckoutRequest?: MercuryCheckoutRequestObjectData;
-  mercuryWebshopGet?: MercuryWebshopGetObjectData;
+  gameLaunch?: GameLaunchObjectData | undefined;
+  uiNav?: UINavObjectData | undefined;
+  appStart?: AppStartObjectData | undefined;
+  download?: DownloadObjectData | undefined;
+  followLink?: FollowLinkObjectData | undefined;
+  gameCloudSaveSync?: GameCloudSaveSyncObjectData | undefined;
+  settingChanged?: SettingChangedObjectData | undefined;
+  machineConf?: MachineConfObjectData | undefined;
+  dlError?: DLErrorObjectData | undefined;
+  appQuit?: AppQuitObjectData | undefined;
+  decompressSliceError?: DecompressSliceErrorObjectData | undefined;
+  gameEnd?: GameEndObjectData | undefined;
+  httpServiceRequest?: HttpServiceRequestObjectData | undefined;
+  importSteamFriends?: ImportSteamFriendsObjectData | undefined;
+  activateProduct?: ActivateProductObjectData | undefined;
+  friendAction?: FriendActionObjectData | undefined;
+  redeemReward?: RedeemRewardObjectData | undefined;
+  accountCreation?: AccountCreationObjectData | undefined;
+  streamingSession?: StreamingSessionObjectData | undefined;
+  accountLinking?: AccountLinkingObjectData | undefined;
+  chatSession?: ChatSessionObjectData | undefined;
+  party?: PartyObjectData | undefined;
+  challengeAction?: ChallengeActionObjectData | undefined;
+  newsClick?: NewsClickObjectData | undefined;
+  newsImpression?: NewsImpressionObjectData | undefined;
+  newsInteraction?: NewsInteractionObjectData | undefined;
+  shopAddToCart?: ShopAddToCartObjectData | undefined;
+  ticketRenewalFailure?: TicketRenewalFailureObjectData | undefined;
+  groupAction?: GroupActionObjectData | undefined;
+  diagnostic?: DiagnosticObjectData | undefined;
+  ingameShopAction?: IngameShopActionObjectData | undefined;
+  IngameShopImpression?: IngameShopImpressionObjectData | undefined;
+  promoTabInteraction?: PromoTabInteractionObjectData | undefined;
+  emailVerification?: EmailVerificationObjectData | undefined;
+  twoFAActivation?: TwoFAActivationObjectData | undefined;
+  adImpression?: AdImpressionObjectData | undefined;
+  popUpDisplayEvent?: PopUpDisplayEventObjectData | undefined;
+  newsOpen?: NewsOpenObjectData | undefined;
+  battlePassAction?: BattlePassActionObjectData | undefined;
+  trustedDeviceAction?: TrustedDeviceActionData | undefined;
+  friendSuggestionAction?: FriendSuggestionActionObjectData | undefined;
+  friendSuggestionImpression?: FriendSuggestionImpressionObjectData | undefined;
+  phoneSecurity?: PhoneSecurityObjectData | undefined;
+  SendSmsAction?: SendSmsTrackEventActionObjectData | undefined;
+  sharePlaySessionStart?: SharePlayHostSessionStreamingStartData | undefined;
+  sharePlaySessionStop?: SharePlayHostSessionStreamingStopData | undefined;
+  sharePlayHostPage?: SharePlayHostPageData | undefined;
+  sharePlayGuestInvitation?: SharePlayGuestInvitationData | undefined;
+  sharePlayHostInvitation?: SharePlayHostInvitationData | undefined;
+  sharePlayHostError?: SharePlayHostErrorData | undefined;
+  sharePlayHostSettings?: SharePlayHostSettingsData | undefined;
+  sharePlayOnboarding?: SharePlayOnboardingData | undefined;
+  streamingHostOutOfFocusStart?: StreamingHostOutOfFocusStartData | undefined;
+  streamingHostOutOfFocusStop?: StreamingHostOutOfFocusStopData | undefined;
+  streamingFeedBack?: StreamingFeedBackData | undefined;
+  streamingHostStartSession?: StreamingHostStartSessionData | undefined;
+  streamingHostStopSession?: StreamingHostStopSessionData | undefined;
+  streamingError?: StreamingErrorData | undefined;
+  streamingHostSessionSettings?: StreamingHostSessionSettingsChanged | undefined;
+  streamingVGPEvent?: StreamingVGPEvent | undefined;
+  streamingHostLinkCreated?: StreamingHostLinkCreatedEvent | undefined;
+  remotePlaySessionStart?: RemotePlayHostSessionStreamingStartData | undefined;
+  remotePlaySessionStop?: RemotePlayHostSessionStreamingStopData | undefined;
+  streamingStatus?: StreamingStatusData | undefined;
 }
 
 export interface Event {
@@ -882,8 +864,8 @@ export interface Event {
   seqId: number;
   createdDate: string;
   contexts: number[];
-  obj?: EventObjectData;
-  typeData?: EventTypeData;
+  obj?: EventObjectData | undefined;
+  typeData?: EventTypeData | undefined;
   buildNumber: number;
   clientVersion: string;
   ownedGames: number;
@@ -892,7 +874,7 @@ export interface Event {
 }
 
 export interface TrackingSession {
-  endEvent?: Event;
+  endEvent?: Event | undefined;
   runtimeSeconds: number;
   secondsSinceStart: number;
 }

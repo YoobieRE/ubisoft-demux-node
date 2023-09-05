@@ -61,8 +61,8 @@ export interface DownloadInstallState {
   bytesDownloadedOnPatchStart: number;
   requiredBytesDownloadedOnPatchStart: number;
   gameName: string;
-  readmeFiles?: TextFileList;
-  manualFiles?: TextFileList;
+  readmeFiles?: TextFileList | undefined;
+  manualFiles?: TextFileList | undefined;
   gameVersion: string;
   installedLanguages: string[];
   installedAddons: number[];

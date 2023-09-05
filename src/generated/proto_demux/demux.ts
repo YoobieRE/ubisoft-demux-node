@@ -9,7 +9,7 @@ export interface Token {
 }
 
 export interface AuthenticateReq {
-  token?: Token;
+  token?: Token | undefined;
   sendKeepAlive: boolean;
   clientId: string;
   logoutPushGroupId?: string;
@@ -101,28 +101,28 @@ export interface Req {
 
 export interface Rsp {
   requestId: number;
-  authenticateRsp?: AuthenticateRsp;
-  openConnectionRsp?: OpenConnectionRsp;
-  getPatchInfoRsp?: GetPatchInfoRsp;
-  serviceRsp?: ServiceRsp;
+  authenticateRsp?: AuthenticateRsp | undefined;
+  openConnectionRsp?: OpenConnectionRsp | undefined;
+  getPatchInfoRsp?: GetPatchInfoRsp | undefined;
+  serviceRsp?: ServiceRsp | undefined;
 }
 
 export interface Push {
-  data?: DataMessage;
-  connectionClosed?: ConnectionClosedPush;
-  keepAlive?: KeepAlivePush;
-  clientVersion?: ClientVersionPush;
-  clientOutdated?: ClientOutdatedPush;
-  productStarted?: ProductStartedPush;
-  productEnded?: ProductEndedPush;
+  data?: DataMessage | undefined;
+  connectionClosed?: ConnectionClosedPush | undefined;
+  keepAlive?: KeepAlivePush | undefined;
+  clientVersion?: ClientVersionPush | undefined;
+  clientOutdated?: ClientOutdatedPush | undefined;
+  productStarted?: ProductStartedPush | undefined;
+  productEnded?: ProductEndedPush | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
-  push?: Push;
+  request?: Req | undefined;
+  push?: Push | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
-  push?: Push;
+  response?: Rsp | undefined;
+  push?: Push | undefined;
 }

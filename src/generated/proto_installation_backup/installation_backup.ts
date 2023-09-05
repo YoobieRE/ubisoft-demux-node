@@ -58,7 +58,7 @@ export interface InstallationBackup {
   licenses: License[];
   manifestSha1: string;
   environment: string;
-  autorun?: Autorun;
+  autorun?: Autorun | undefined;
   languages: string[];
   sha1: Buffer;
   productPackUplayIds: number[];

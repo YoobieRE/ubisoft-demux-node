@@ -16,8 +16,8 @@ export interface FileDescriptorProto {
   enumType: EnumDescriptorProto[];
   service: ServiceDescriptorProto[];
   extension: FieldDescriptorProto[];
-  options?: FileOptions;
-  sourceCodeInfo?: SourceCodeInfo;
+  options?: FileOptions | undefined;
+  sourceCodeInfo?: SourceCodeInfo | undefined;
   syntax: string;
 }
 
@@ -29,7 +29,7 @@ export interface DescriptorProto {
   enumType: EnumDescriptorProto[];
   extensionRange: DescriptorProto_ExtensionRange[];
   oneofDecl: OneofDescriptorProto[];
-  options?: MessageOptions;
+  options?: MessageOptions | undefined;
   reservedRange: DescriptorProto_ReservedRange[];
   reservedName: string[];
 }
@@ -37,7 +37,7 @@ export interface DescriptorProto {
 export interface DescriptorProto_ExtensionRange {
   start: number;
   end: number;
-  options?: ExtensionRangeOptions;
+  options?: ExtensionRangeOptions | undefined;
 }
 
 export interface DescriptorProto_ReservedRange {
@@ -59,7 +59,7 @@ export interface FieldDescriptorProto {
   defaultValue: string;
   oneofIndex: number;
   jsonName: string;
-  options?: FieldOptions;
+  options?: FieldOptions | undefined;
   proto3Optional: boolean;
 }
 
@@ -94,13 +94,13 @@ export enum FieldDescriptorProto_Type {
 
 export interface OneofDescriptorProto {
   name: string;
-  options?: OneofOptions;
+  options?: OneofOptions | undefined;
 }
 
 export interface EnumDescriptorProto {
   name: string;
   value: EnumValueDescriptorProto[];
-  options?: EnumOptions;
+  options?: EnumOptions | undefined;
   reservedRange: EnumDescriptorProto_EnumReservedRange[];
   reservedName: string[];
 }
@@ -113,20 +113,20 @@ export interface EnumDescriptorProto_EnumReservedRange {
 export interface EnumValueDescriptorProto {
   name: string;
   number: number;
-  options?: EnumValueOptions;
+  options?: EnumValueOptions | undefined;
 }
 
 export interface ServiceDescriptorProto {
   name: string;
   method: MethodDescriptorProto[];
-  options?: ServiceOptions;
+  options?: ServiceOptions | undefined;
 }
 
 export interface MethodDescriptorProto {
   name: string;
   inputType: string;
   outputType: string;
-  options?: MethodOptions;
+  options?: MethodOptions | undefined;
   clientStreaming: boolean;
   serverStreaming: boolean;
 }

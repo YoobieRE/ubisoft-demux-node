@@ -12,17 +12,17 @@ export interface UploadDumpRsp {
 }
 
 export interface Req {
-  uploadDump?: UploadDumpReq;
+  uploadDump?: UploadDumpReq | undefined;
 }
 
 export interface Rsp {
-  uploadDump?: UploadDumpRsp;
+  uploadDump?: UploadDumpRsp | undefined;
 }
 
 export interface Upstream {
-  req?: Req;
+  req?: Req | undefined;
 }
 
 export interface Downstream {
-  rsp?: Rsp;
+  rsp?: Rsp | undefined;
 }

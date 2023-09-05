@@ -216,11 +216,11 @@ export interface SDKMonitoringConfig {
 }
 
 export interface SDKMonitoringReq {
-  sdkMonitoringInfoPush?: SDKMonitoringInfoPush;
+  sdkMonitoringInfoPush?: SDKMonitoringInfoPush | undefined;
 }
 
 export interface SDKMonitoringRsp {
-  sdkMonitoringConfig?: SDKMonitoringConfig;
+  sdkMonitoringConfig?: SDKMonitoringConfig | undefined;
 }
 
 export interface Consumable {
@@ -250,7 +250,7 @@ export interface InitProcessReq {
   uplayId: number;
   processId: number;
   apiVersion: number;
-  devArgs?: DevArgs;
+  devArgs?: DevArgs | undefined;
   uplayEnvIsSet: boolean;
 }
 
@@ -269,7 +269,7 @@ export interface GameOptions {
 
 export interface GameInstall {
   success: boolean;
-  chunks?: Chunks;
+  chunks?: Chunks | undefined;
   language: string;
 }
 
@@ -302,7 +302,7 @@ export interface UbiServices {
 
 export interface InitRsp {
   result: InitResult;
-  account?: Account;
+  account?: Account | undefined;
   connected: boolean;
   gameUplayId: number;
   uplayIds: number[];
@@ -311,18 +311,18 @@ export interface InitRsp {
   upcTicket: string;
   consumables: Consumable[];
   uplayPID: number;
-  sdkMonitoringConfig?: SDKMonitoringConfig;
+  sdkMonitoringConfig?: SDKMonitoringConfig | undefined;
   devmode: boolean;
-  gameOptions?: GameOptions;
-  gameInstall?: GameInstall;
-  overlay?: Overlay;
-  hwBenchmark?: HardwareBenchmark;
-  storage?: Storage;
-  friendInit?: FriendInit;
-  storeInit?: StoreInit;
-  multiplayerInit?: MultiplayerInit;
-  userInit?: UserInit;
-  ubiServices?: UbiServices;
+  gameOptions?: GameOptions | undefined;
+  gameInstall?: GameInstall | undefined;
+  overlay?: Overlay | undefined;
+  hwBenchmark?: HardwareBenchmark | undefined;
+  storage?: Storage | undefined;
+  friendInit?: FriendInit | undefined;
+  storeInit?: StoreInit | undefined;
+  multiplayerInit?: MultiplayerInit | undefined;
+  userInit?: UserInit | undefined;
+  ubiServices?: UbiServices | undefined;
 }
 
 export interface InitProcessRsp {
@@ -330,7 +330,7 @@ export interface InitProcessRsp {
   uplayPID: number;
   overlayEnabled: boolean;
   overlayInjectionMethod: OverlayInjectionMethod;
-  sdkMonitoringConfig?: SDKMonitoringConfig;
+  sdkMonitoringConfig?: SDKMonitoringConfig | undefined;
   devmode: boolean;
 }
 
@@ -354,7 +354,7 @@ export interface SetRichPresenceRsp {
 }
 
 export interface RichPresenceReq {
-  setReq?: SetRichPresenceReq;
+  setReq?: SetRichPresenceReq | undefined;
 }
 
 export interface AchievementInBlob {
@@ -369,7 +369,7 @@ export interface AchievementsBlob {
 }
 
 export interface TakenAchievement {
-  achievement?: AchievementInBlob;
+  achievement?: AchievementInBlob | undefined;
   timestamp: number;
 }
 
@@ -378,7 +378,7 @@ export interface Spool {
 }
 
 export interface WriteAchievementsReq {
-  achievement?: AchievementInBlob;
+  achievement?: AchievementInBlob | undefined;
 }
 
 export interface WriteAchievementsRsp {
@@ -428,15 +428,15 @@ export interface EarnAchievementRsp {
 }
 
 export interface AchievementReq {
-  getReq?: GetAchievementsReq;
-  imageReq?: GetAchievementImageReq;
-  earnReq?: EarnAchievementReq;
+  getReq?: GetAchievementsReq | undefined;
+  imageReq?: GetAchievementImageReq | undefined;
+  earnReq?: EarnAchievementReq | undefined;
 }
 
 export interface AchievementRsp {
-  getRsp?: GetAchievementsRsp;
-  imageRsp?: GetAchievementImageRsp;
-  earnRsp?: EarnAchievementRsp;
+  getRsp?: GetAchievementsRsp | undefined;
+  imageRsp?: GetAchievementImageRsp | undefined;
+  earnRsp?: EarnAchievementRsp | undefined;
 }
 
 export interface GameSession {
@@ -458,7 +458,7 @@ export interface PartyMember {
   name: string;
   gameSessionId: number;
   gameSessionData: Buffer;
-  guest?: Guest;
+  guest?: Guest | undefined;
   userData: Buffer;
 }
 
@@ -492,7 +492,7 @@ export interface InvitePartyToGameRsp {
 
 export interface ShowGameInviteOverlayUIReq {
   inviteId: number;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface PartyListUpdatedPush {
@@ -520,7 +520,7 @@ export interface SetInPartyGameSessionReq {
 
 export interface GameInvitePush {
   inviteId: number;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
   fromAccountId: string;
 }
 
@@ -537,28 +537,28 @@ export interface PartyInvitePush {
 }
 
 export interface PartyReq {
-  initPartyReq?: InitPartyReq;
-  inviteToPartyReq?: InviteToPartyReq;
-  invitePartyToGameReq?: InvitePartyToGameReq;
-  setUserDataReq?: SetUserDataReq;
-  promoteToLeaderReq?: PromoteToLeaderReq;
-  gameInviteOverlayUIReq?: ShowGameInviteOverlayUIReq;
+  initPartyReq?: InitPartyReq | undefined;
+  inviteToPartyReq?: InviteToPartyReq | undefined;
+  invitePartyToGameReq?: InvitePartyToGameReq | undefined;
+  setUserDataReq?: SetUserDataReq | undefined;
+  promoteToLeaderReq?: PromoteToLeaderReq | undefined;
+  gameInviteOverlayUIReq?: ShowGameInviteOverlayUIReq | undefined;
 }
 
 export interface PartyRsp {
-  initPartyRsp?: InitPartyRsp;
-  listUpdatePush?: PartyListUpdatedPush;
-  gameInviteAcceptedPush?: GameInviteAcceptedPush;
-  gameInviteDeclinedPush?: GameInviteDeclinedPush;
-  invitePartyToGameRsp?: InvitePartyToGameRsp;
-  inviteToPartyRsp?: InviteToPartyRsp;
-  gameInvitePush?: GameInvitePush;
-  promoteToLeaderRsp?: PromoteToLeaderRsp;
-  partyInvitePush?: PartyInvitePush;
+  initPartyRsp?: InitPartyRsp | undefined;
+  listUpdatePush?: PartyListUpdatedPush | undefined;
+  gameInviteAcceptedPush?: GameInviteAcceptedPush | undefined;
+  gameInviteDeclinedPush?: GameInviteDeclinedPush | undefined;
+  invitePartyToGameRsp?: InvitePartyToGameRsp | undefined;
+  inviteToPartyRsp?: InviteToPartyRsp | undefined;
+  gameInvitePush?: GameInvitePush | undefined;
+  promoteToLeaderRsp?: PromoteToLeaderRsp | undefined;
+  partyInvitePush?: PartyInvitePush | undefined;
 }
 
 export interface SetGameSessionReq {
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface ClearGameSessionReq {
@@ -588,7 +588,7 @@ export interface ConnectionRestoredPush {
 export interface OwnershipAddedPush {
   uplayId: number;
   cdKey: string;
-  product?: Product;
+  product?: Product | undefined;
 }
 
 export interface OwnershipRemovedPush {
@@ -628,7 +628,7 @@ export enum ConsumeItemRsp_Result {
 }
 
 export interface ConsumableUpdatedPush {
-  consumable?: Consumable;
+  consumable?: Consumable | undefined;
 }
 
 export interface GetProfileReq {
@@ -643,22 +643,22 @@ export interface GetProfileRsp {
 }
 
 export interface UserReq {
-  getCredentialsReq?: GetCredentialsReq;
-  consumeItemReq?: ConsumeItemReq;
-  getProfileReq?: GetProfileReq;
+  getCredentialsReq?: GetCredentialsReq | undefined;
+  consumeItemReq?: ConsumeItemReq | undefined;
+  getProfileReq?: GetProfileReq | undefined;
 }
 
 export interface UserRsp {
-  getCredentialsRsp?: GetCredentialsRsp;
-  accountSharingPush?: AccountSharingPush;
-  ownershipAddedPush?: OwnershipAddedPush;
-  ticketPush?: TicketPush;
-  consumeItemRsp?: ConsumeItemRsp;
-  consumableUpdatedPush?: ConsumableUpdatedPush;
-  ownershipRemovedPush?: OwnershipRemovedPush;
-  getProfileRsp?: GetProfileRsp;
-  trialAboutToExpirePush?: TrialAboutToExpirePush;
-  trialExpiredPush?: TrialExpiredPush;
+  getCredentialsRsp?: GetCredentialsRsp | undefined;
+  accountSharingPush?: AccountSharingPush | undefined;
+  ownershipAddedPush?: OwnershipAddedPush | undefined;
+  ticketPush?: TicketPush | undefined;
+  consumeItemRsp?: ConsumeItemRsp | undefined;
+  consumableUpdatedPush?: ConsumableUpdatedPush | undefined;
+  ownershipRemovedPush?: OwnershipRemovedPush | undefined;
+  getProfileRsp?: GetProfileRsp | undefined;
+  trialAboutToExpirePush?: TrialAboutToExpirePush | undefined;
+  trialExpiredPush?: TrialExpiredPush | undefined;
 }
 
 export interface Friend {
@@ -669,7 +669,7 @@ export interface Friend {
   blackListed: boolean;
   presence: OnlineStatus;
   playingCurrentGame: boolean;
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface InitFriendsReq {
@@ -692,7 +692,7 @@ export interface FriendListUpdatedPushV2 {
 }
 
 export interface GameSessionUpdate {
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
 }
 
 export interface RequestFriendshipReq {
@@ -740,7 +740,7 @@ export interface FriendSelectionFilter {
 
 export interface ShowFriendSelectionUIReq {
   requestId: number;
-  filter?: FriendSelectionFilter;
+  filter?: FriendSelectionFilter | undefined;
 }
 
 export interface ShowFriendSelectionUISuccess {
@@ -755,9 +755,9 @@ export interface ShowFriendSelectionUIEmptyList {
 
 export interface ShowFriendSelectionUIRsp {
   requestId: number;
-  success?: ShowFriendSelectionUISuccess;
-  cancelled?: ShowFriendSelectionUICanceled;
-  emptyList?: ShowFriendSelectionUIEmptyList;
+  success?: ShowFriendSelectionUISuccess | undefined;
+  cancelled?: ShowFriendSelectionUICanceled | undefined;
+  emptyList?: ShowFriendSelectionUIEmptyList | undefined;
 }
 
 export interface FriendCustomMenuItemSelectedPush {
@@ -771,7 +771,7 @@ export interface FriendsGameInviteAcceptReq {
 }
 
 export interface FriendsGameInviteAcceptedPush {
-  gameSession?: GameSession;
+  gameSession?: GameSession | undefined;
   accountId: string;
 }
 
@@ -842,7 +842,7 @@ export interface User {
   id: string;
   name: string;
   relationship: Relationship;
-  presence?: Presence;
+  presence?: Presence | undefined;
 }
 
 export interface GetFriendListReq {
@@ -859,34 +859,34 @@ export interface GetFriendListRsp {
 }
 
 export interface FriendsReq {
-  initReq?: InitFriendsReq;
-  requestFriendshipReq?: RequestFriendshipReq;
-  addToBlackListReq?: AddToBlackListReq;
-  showFriendSelectionUIReq?: ShowFriendSelectionUIReq;
-  inviteFriendToGameReq?: InviteFriendToGameReq;
-  showInviteFriendsToGameUIReq?: ShowInviteFriendsToGameUIReq;
-  addPlayedWithReq?: AddPlayedWithReq;
-  removeFriendshipReq?: RemoveFriendshipReq;
-  removeFromBlackListReq?: RemoveFromBlackListReq;
-  getNameReq?: GetNameReq;
-  gameInviteAcceptReq?: FriendsGameInviteAcceptReq;
-  getFriendListReq?: GetFriendListReq;
+  initReq?: InitFriendsReq | undefined;
+  requestFriendshipReq?: RequestFriendshipReq | undefined;
+  addToBlackListReq?: AddToBlackListReq | undefined;
+  showFriendSelectionUIReq?: ShowFriendSelectionUIReq | undefined;
+  inviteFriendToGameReq?: InviteFriendToGameReq | undefined;
+  showInviteFriendsToGameUIReq?: ShowInviteFriendsToGameUIReq | undefined;
+  addPlayedWithReq?: AddPlayedWithReq | undefined;
+  removeFriendshipReq?: RemoveFriendshipReq | undefined;
+  removeFromBlackListReq?: RemoveFromBlackListReq | undefined;
+  getNameReq?: GetNameReq | undefined;
+  gameInviteAcceptReq?: FriendsGameInviteAcceptReq | undefined;
+  getFriendListReq?: GetFriendListReq | undefined;
 }
 
 export interface FriendsRsp {
-  friendListUpdatedPush?: FriendListUpdatedPush;
-  friendsGameInviteAcceptedPush?: FriendsGameInviteAcceptedPush;
-  requestFriendhipRsp?: RequestFriendshipRsp;
-  addToBlackListRsp?: AddToBlackListRsp;
-  sendGameInviteRsp?: SendGameInviteRsp;
-  showFriendSelectionUIRsp?: ShowFriendSelectionUIRsp;
-  inviteFriendToGameRsp?: InviteFriendToGameRsp;
-  removeFriendshipRsp?: RemoveFriendshipRsp;
-  removeFromBlackListRsp?: RemoveFromBlackListRsp;
-  getNameRsp?: GetNameRsp;
-  getFriendListRsp?: GetFriendListRsp;
-  gameInvitePush?: FriendsGameInvitePush;
-  friendListUpdatedPushV2?: FriendListUpdatedPushV2;
+  friendListUpdatedPush?: FriendListUpdatedPush | undefined;
+  friendsGameInviteAcceptedPush?: FriendsGameInviteAcceptedPush | undefined;
+  requestFriendhipRsp?: RequestFriendshipRsp | undefined;
+  addToBlackListRsp?: AddToBlackListRsp | undefined;
+  sendGameInviteRsp?: SendGameInviteRsp | undefined;
+  showFriendSelectionUIRsp?: ShowFriendSelectionUIRsp | undefined;
+  inviteFriendToGameRsp?: InviteFriendToGameRsp | undefined;
+  removeFriendshipRsp?: RemoveFriendshipRsp | undefined;
+  removeFromBlackListRsp?: RemoveFromBlackListRsp | undefined;
+  getNameRsp?: GetNameRsp | undefined;
+  getFriendListRsp?: GetFriendListRsp | undefined;
+  gameInvitePush?: FriendsGameInvitePush | undefined;
+  friendListUpdatedPushV2?: FriendListUpdatedPushV2 | undefined;
 }
 
 export interface GetAvatarReq {
@@ -902,11 +902,11 @@ export interface GetAvatarRsp {
 }
 
 export interface AvatarReq {
-  getAvatarReq?: GetAvatarReq;
+  getAvatarReq?: GetAvatarReq | undefined;
 }
 
 export interface AvatarRsp {
-  getAvatarRsp?: GetAvatarRsp;
+  getAvatarRsp?: GetAvatarRsp | undefined;
 }
 
 export interface Product {
@@ -945,7 +945,7 @@ export interface ProductConsumeRsp {
 }
 
 export interface ProductAddedPush {
-  product?: Product;
+  product?: Product | undefined;
 }
 
 export interface ProductUpdatedPush {
@@ -956,15 +956,15 @@ export interface ProductUpdatedPush {
 }
 
 export interface ProductReq {
-  getProductListReq?: GetProductListReq;
-  productConsumeReq?: ProductConsumeReq;
+  getProductListReq?: GetProductListReq | undefined;
+  productConsumeReq?: ProductConsumeReq | undefined;
 }
 
 export interface ProductRsp {
-  getProductListRsp?: GetProductListRsp;
-  productConsumeRsp?: ProductConsumeRsp;
-  productAddedPush?: ProductAddedPush;
-  productUpdatedPush?: ProductUpdatedPush;
+  getProductListRsp?: GetProductListRsp | undefined;
+  productConsumeRsp?: ProductConsumeRsp | undefined;
+  productAddedPush?: ProductAddedPush | undefined;
+  productUpdatedPush?: ProductUpdatedPush | undefined;
 }
 
 export interface StoreProduct {
@@ -1024,19 +1024,19 @@ export interface StoreStatusUpdatedPush {
 }
 
 export interface StoreReq {
-  getStoreProductsReq?: GetStoreProductsReq;
-  checkoutReq?: CheckoutReq;
-  showProductDetailsReq?: ShowProductDetailsReq;
-  showProductsReq?: ShowProductsReq;
-  setLanguageReq?: SetLanguageCountryCodeReq;
+  getStoreProductsReq?: GetStoreProductsReq | undefined;
+  checkoutReq?: CheckoutReq | undefined;
+  showProductDetailsReq?: ShowProductDetailsReq | undefined;
+  showProductsReq?: ShowProductsReq | undefined;
+  setLanguageReq?: SetLanguageCountryCodeReq | undefined;
 }
 
 export interface StoreRsp {
-  getStoreProductsRsp?: GetStoreProductsRsp;
-  productsListChangedPush?: ProductsListChangedPush;
-  storeCheckoutStartedPush?: StoreCheckoutStartedPush;
-  storeCheckoutFinishedPush?: StoreCheckoutFinishedPush;
-  storeStatusUpdatedPush?: StoreStatusUpdatedPush;
+  getStoreProductsRsp?: GetStoreProductsRsp | undefined;
+  productsListChangedPush?: ProductsListChangedPush | undefined;
+  storeCheckoutStartedPush?: StoreCheckoutStartedPush | undefined;
+  storeCheckoutFinishedPush?: StoreCheckoutFinishedPush | undefined;
+  storeStatusUpdatedPush?: StoreStatusUpdatedPush | undefined;
 }
 
 export interface MultiplayerSession {
@@ -1048,13 +1048,13 @@ export interface MultiplayerSession {
 }
 
 export interface MultiplayerInit {
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
   isAvailable: boolean;
 }
 
 export interface MultiplayerSessionSetReq {
   requestId: number;
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
 }
 
 export interface MultiplayerSessionSetRsp {
@@ -1089,12 +1089,12 @@ export interface MultiplayerInviteAnswerRsp {
 
 export interface MultiplayerInviteReceivedPush {
   senderId: string;
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
 }
 
 export interface MultiplayerInviteAcceptedPush {
   senderId: string;
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
 }
 
 export interface MultiplayerInviteDeclinedPush {
@@ -1102,29 +1102,29 @@ export interface MultiplayerInviteDeclinedPush {
 }
 
 export interface MultiplayerSessionUpdatedPush {
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
 }
 
 export interface MultiplayerJoiningRequestedPush {
-  session?: MultiplayerSession;
+  session?: MultiplayerSession | undefined;
 }
 
 export interface MultiplayerReq {
-  multiplayerSessionSetReq?: MultiplayerSessionSetReq;
-  multiplayerInviteReq?: MultiplayerInviteReq;
-  multiplayerInviteCancelReq?: MultiplayerInviteCancelReq;
-  multiplayerInviteAnswerReq?: MultiplayerInviteAnswerReq;
+  multiplayerSessionSetReq?: MultiplayerSessionSetReq | undefined;
+  multiplayerInviteReq?: MultiplayerInviteReq | undefined;
+  multiplayerInviteCancelReq?: MultiplayerInviteCancelReq | undefined;
+  multiplayerInviteAnswerReq?: MultiplayerInviteAnswerReq | undefined;
 }
 
 export interface MultiplayerRsp {
-  multiplayerSessionSetRsp?: MultiplayerSessionSetRsp;
-  multiplayerInviteRsp?: MultiplayerInviteRsp;
-  multiplayerInviteAnswerRsp?: MultiplayerInviteAnswerRsp;
-  multiplayerInviteReceivedPush?: MultiplayerInviteReceivedPush;
-  multiplayerInviteAcceptedPush?: MultiplayerInviteAcceptedPush;
-  multiplayerInviteDeclinedPush?: MultiplayerInviteDeclinedPush;
-  multiplayerSessionUpdatedPush?: MultiplayerSessionUpdatedPush;
-  multiplayerJoiningRequestedPush?: MultiplayerJoiningRequestedPush;
+  multiplayerSessionSetRsp?: MultiplayerSessionSetRsp | undefined;
+  multiplayerInviteRsp?: MultiplayerInviteRsp | undefined;
+  multiplayerInviteAnswerRsp?: MultiplayerInviteAnswerRsp | undefined;
+  multiplayerInviteReceivedPush?: MultiplayerInviteReceivedPush | undefined;
+  multiplayerInviteAcceptedPush?: MultiplayerInviteAcceptedPush | undefined;
+  multiplayerInviteDeclinedPush?: MultiplayerInviteDeclinedPush | undefined;
+  multiplayerSessionUpdatedPush?: MultiplayerSessionUpdatedPush | undefined;
+  multiplayerJoiningRequestedPush?: MultiplayerJoiningRequestedPush | undefined;
 }
 
 export interface OverlayShowReq {
@@ -1217,25 +1217,25 @@ export interface SetLanguageCountryCodeReq {
 }
 
 export interface OverlayReq {
-  overlayShowReq?: OverlayShowReq;
-  overlaySetShopUrlReq?: OverlaySetShopUrlReq;
-  overlayShowShopUrlReq?: OverlayShowShopUrlReq;
-  overlayShowBrowserUrlReq?: OverlayShowBrowserUrlReq;
-  overlayShowNotificationReq?: OverlayShowNotificationReq;
-  overlayShowFriendInvitationReq?: OverlayShowFriendInvitationReq;
-  overlayShowFriendSelectionReq?: OverlayShowFriendSelectionReq;
-  overlayShowMicroAppReq?: OverlayShowMicroAppReq;
+  overlayShowReq?: OverlayShowReq | undefined;
+  overlaySetShopUrlReq?: OverlaySetShopUrlReq | undefined;
+  overlayShowShopUrlReq?: OverlayShowShopUrlReq | undefined;
+  overlayShowBrowserUrlReq?: OverlayShowBrowserUrlReq | undefined;
+  overlayShowNotificationReq?: OverlayShowNotificationReq | undefined;
+  overlayShowFriendInvitationReq?: OverlayShowFriendInvitationReq | undefined;
+  overlayShowFriendSelectionReq?: OverlayShowFriendSelectionReq | undefined;
+  overlayShowMicroAppReq?: OverlayShowMicroAppReq | undefined;
 }
 
 export interface OverlayRsp {
-  overlayShowRsp?: OverlayShowRsp;
-  overlaySetShopUrlRsp?: OverlaySetShopUrlRsp;
-  overlayShowBrowserUrlRsp?: OverlayShowBrowserUrlRsp;
-  overlayShowNotificationRsp?: OverlayShowNotificationRsp;
-  overlayShowFriendInvitationRsp?: OverlayShowFriendInvitationRsp;
-  overlayShowFriendSelectionRsp?: OverlayShowFriendSelectionRsp;
-  overlayStateChangedPush?: OverlayStateChangedPush;
-  overlayShowMicroAppRsp?: OverlayShowMicroAppRsp;
+  overlayShowRsp?: OverlayShowRsp | undefined;
+  overlaySetShopUrlRsp?: OverlaySetShopUrlRsp | undefined;
+  overlayShowBrowserUrlRsp?: OverlayShowBrowserUrlRsp | undefined;
+  overlayShowNotificationRsp?: OverlayShowNotificationRsp | undefined;
+  overlayShowFriendInvitationRsp?: OverlayShowFriendInvitationRsp | undefined;
+  overlayShowFriendSelectionRsp?: OverlayShowFriendSelectionRsp | undefined;
+  overlayStateChangedPush?: OverlayStateChangedPush | undefined;
+  overlayShowMicroAppRsp?: OverlayShowMicroAppRsp | undefined;
 }
 
 export interface UserInit {
@@ -1270,23 +1270,23 @@ export interface UserGetReq {
 export interface UserGetRsp {
   requestId: number;
   result: OperationResult;
-  user?: User;
+  user?: User | undefined;
 }
 
 export interface UserReqV2 {
-  userGetReq?: UserGetReq;
-  userAddToBlacklistReq?: UserAddToBlacklistReq;
-  setRichPresenceReq?: SetRichPresenceReq;
-  addPlayedWithReq?: AddPlayedWithReq;
+  userGetReq?: UserGetReq | undefined;
+  userAddToBlacklistReq?: UserAddToBlacklistReq | undefined;
+  setRichPresenceReq?: SetRichPresenceReq | undefined;
+  addPlayedWithReq?: AddPlayedWithReq | undefined;
 }
 
 export interface UserRspV2 {
-  userGetRsp?: UserGetRsp;
-  userAddToBlacklistRsp?: UserAddToBlacklistRsp;
-  setRichPresenceRsp?: SetRichPresenceRsp;
-  addPlayedWithRsp?: AddPlayedWithRsp;
-  userBlacklistUpdatedPush?: UserBlacklistUpdatedPush;
-  userShutdownPush?: UserShutdownPush;
+  userGetRsp?: UserGetRsp | undefined;
+  userAddToBlacklistRsp?: UserAddToBlacklistRsp | undefined;
+  setRichPresenceRsp?: SetRichPresenceRsp | undefined;
+  addPlayedWithRsp?: AddPlayedWithRsp | undefined;
+  userBlacklistUpdatedPush?: UserBlacklistUpdatedPush | undefined;
+  userShutdownPush?: UserShutdownPush | undefined;
 }
 
 export interface Reward {
@@ -1313,7 +1313,7 @@ export interface GetRewardsRsp {
 }
 
 export interface RewardRedeemedPush {
-  reward?: Reward;
+  reward?: Reward | undefined;
 }
 
 export interface Action {
@@ -1366,20 +1366,20 @@ export interface UnitBalancePush {
 }
 
 export interface ClubReq {
-  getRewardsReq?: GetRewardsReq;
-  refreshActionsReq?: RefreshActionsReq;
-  setActionsCompletedReq?: SetActionsCompletedReq;
-  getActionsReq?: GetActionsReq;
-  getUnitBalanceReq?: GetUnitBalanceReq;
+  getRewardsReq?: GetRewardsReq | undefined;
+  refreshActionsReq?: RefreshActionsReq | undefined;
+  setActionsCompletedReq?: SetActionsCompletedReq | undefined;
+  getActionsReq?: GetActionsReq | undefined;
+  getUnitBalanceReq?: GetUnitBalanceReq | undefined;
 }
 
 export interface ClubRsp {
-  getRewardsRsp?: GetRewardsRsp;
-  rewardRedeemedPush?: RewardRedeemedPush;
-  setActionsCompletedRsp?: SetActionsCompletedRsp;
-  getActionsRsp?: GetActionsRsp;
-  getUnitBalanceRsp?: GetUnitBalanceRsp;
-  unitBalancePush?: UnitBalancePush;
+  getRewardsRsp?: GetRewardsRsp | undefined;
+  rewardRedeemedPush?: RewardRedeemedPush | undefined;
+  setActionsCompletedRsp?: SetActionsCompletedRsp | undefined;
+  getActionsRsp?: GetActionsRsp | undefined;
+  getUnitBalanceRsp?: GetUnitBalanceRsp | undefined;
+  unitBalancePush?: UnitBalancePush | undefined;
 }
 
 export interface ChunkInfo {
@@ -1394,7 +1394,7 @@ export interface Chunks {
 
 export interface UpdateInstallOrderReq {
   requestId: number;
-  chunks?: Chunks;
+  chunks?: Chunks | undefined;
 }
 
 export interface UpdateInstallOrderRsp {
@@ -1424,25 +1424,25 @@ export interface InitInstallerReq {
 
 export interface InitInstallerRsp {
   success: boolean;
-  chunks?: Chunks;
+  chunks?: Chunks | undefined;
   language: string;
 }
 
 export interface InstallerReq {
-  initInstallerReq?: InitInstallerReq;
-  updateInstallOrderReq?: UpdateInstallOrderReq;
+  initInstallerReq?: InitInstallerReq | undefined;
+  updateInstallOrderReq?: UpdateInstallOrderReq | undefined;
 }
 
 export interface UpdateAvailablePush {
 }
 
 export interface InstallerRsp {
-  initInstallerRsp?: InitInstallerRsp;
-  updateInstallOrderRsp?: UpdateInstallOrderRsp;
-  chunkInstalledPush?: ChunkInstalledPush;
-  chunkProgressPush?: ChunkProgressPush;
-  progressPush?: ProgressPush;
-  updateAvailablePush?: UpdateAvailablePush;
+  initInstallerRsp?: InitInstallerRsp | undefined;
+  updateInstallOrderRsp?: UpdateInstallOrderRsp | undefined;
+  chunkInstalledPush?: ChunkInstalledPush | undefined;
+  chunkProgressPush?: ChunkProgressPush | undefined;
+  progressPush?: ProgressPush | undefined;
+  updateAvailablePush?: UpdateAvailablePush | undefined;
 }
 
 export interface SingleEventTag {
@@ -1460,9 +1460,9 @@ export interface ClearContinuousTag {
 }
 
 export interface MetadataReq {
-  singleEventTag?: SingleEventTag;
-  continuousTag?: ContinuousTag;
-  clearContinuousTag?: ClearContinuousTag;
+  singleEventTag?: SingleEventTag | undefined;
+  continuousTag?: ContinuousTag | undefined;
+  clearContinuousTag?: ClearContinuousTag | undefined;
 }
 
 export interface SetGameOptionsInGameStateReq {
@@ -1470,7 +1470,7 @@ export interface SetGameOptionsInGameStateReq {
 }
 
 export interface GameOptionsReq {
-  setInGameStateReq?: SetGameOptionsInGameStateReq;
+  setInGameStateReq?: SetGameOptionsInGameStateReq | undefined;
 }
 
 export interface TerminateGamePush {
@@ -1549,7 +1549,7 @@ export interface Dimension2d {
 }
 
 export interface GetStreamingResolutionRsp {
-  streamingResolution?: Dimension2d;
+  streamingResolution?: Dimension2d | undefined;
 }
 
 export interface StreamingReq {
@@ -1580,50 +1580,50 @@ export interface StreamingRsp {
 }
 
 export interface Req {
-  initReq?: InitReq;
-  initProcessReq?: InitProcessReq;
-  writeAchievementsReq?: WriteAchievementsReq;
-  partyReq?: PartyReq;
-  setGameSessionReq?: SetGameSessionReq;
-  clearGameSessionReq?: ClearGameSessionReq;
-  friendsReq?: FriendsReq;
-  achievementReq?: AchievementReq;
-  overlayReq?: OverlayReq;
-  avatarReq?: AvatarReq;
-  userReq?: UserReq;
-  clubReq?: ClubReq;
-  installerReq?: InstallerReq;
-  metadataReq?: MetadataReq;
-  sdkMonitoringReq?: SDKMonitoringReq;
-  richPresenceReq?: RichPresenceReq;
-  storeReq?: StoreReq;
-  gameOptionsReq?: GameOptionsReq;
-  setLanguageCountryCodeReq?: SetLanguageCountryCodeReq;
-  productReq?: ProductReq;
-  multiplayerReq?: MultiplayerReq;
-  userReqV2?: UserReqV2;
-  launchAppReq?: LaunchAppReq;
-  streamingReq?: StreamingReq;
+  initReq?: InitReq | undefined;
+  initProcessReq?: InitProcessReq | undefined;
+  writeAchievementsReq?: WriteAchievementsReq | undefined;
+  partyReq?: PartyReq | undefined;
+  setGameSessionReq?: SetGameSessionReq | undefined;
+  clearGameSessionReq?: ClearGameSessionReq | undefined;
+  friendsReq?: FriendsReq | undefined;
+  achievementReq?: AchievementReq | undefined;
+  overlayReq?: OverlayReq | undefined;
+  avatarReq?: AvatarReq | undefined;
+  userReq?: UserReq | undefined;
+  clubReq?: ClubReq | undefined;
+  installerReq?: InstallerReq | undefined;
+  metadataReq?: MetadataReq | undefined;
+  sdkMonitoringReq?: SDKMonitoringReq | undefined;
+  richPresenceReq?: RichPresenceReq | undefined;
+  storeReq?: StoreReq | undefined;
+  gameOptionsReq?: GameOptionsReq | undefined;
+  setLanguageCountryCodeReq?: SetLanguageCountryCodeReq | undefined;
+  productReq?: ProductReq | undefined;
+  multiplayerReq?: MultiplayerReq | undefined;
+  userReqV2?: UserReqV2 | undefined;
+  launchAppReq?: LaunchAppReq | undefined;
+  streamingReq?: StreamingReq | undefined;
 }
 
 export interface Rsp {
-  initRsp?: InitRsp;
-  initProcessRsp?: InitProcessRsp;
-  writeAchievementsRsp?: WriteAchievementsRsp;
-  partyRsp?: PartyRsp;
-  friendsRsp?: FriendsRsp;
-  achievementRsp?: AchievementRsp;
-  overlayRsp?: OverlayRsp;
-  avatarRsp?: AvatarRsp;
-  userRsp?: UserRsp;
-  clubRsp?: ClubRsp;
-  installerRsp?: InstallerRsp;
-  sdkMonitoringRsp?: SDKMonitoringRsp;
-  storeRsp?: StoreRsp;
-  productRsp?: ProductRsp;
-  multiplayerRsp?: MultiplayerRsp;
-  userRspV2?: UserRspV2;
-  terminateGamePush?: TerminateGamePush;
-  launchAppRsp?: LaunchAppRsp;
-  streamingRsp?: StreamingRsp;
+  initRsp?: InitRsp | undefined;
+  initProcessRsp?: InitProcessRsp | undefined;
+  writeAchievementsRsp?: WriteAchievementsRsp | undefined;
+  partyRsp?: PartyRsp | undefined;
+  friendsRsp?: FriendsRsp | undefined;
+  achievementRsp?: AchievementRsp | undefined;
+  overlayRsp?: OverlayRsp | undefined;
+  avatarRsp?: AvatarRsp | undefined;
+  userRsp?: UserRsp | undefined;
+  clubRsp?: ClubRsp | undefined;
+  installerRsp?: InstallerRsp | undefined;
+  sdkMonitoringRsp?: SDKMonitoringRsp | undefined;
+  storeRsp?: StoreRsp | undefined;
+  productRsp?: ProductRsp | undefined;
+  multiplayerRsp?: MultiplayerRsp | undefined;
+  userRspV2?: UserRspV2 | undefined;
+  terminateGamePush?: TerminateGamePush | undefined;
+  launchAppRsp?: LaunchAppRsp | undefined;
+  streamingRsp?: StreamingRsp | undefined;
 }

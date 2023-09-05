@@ -45,22 +45,22 @@ export interface GetFriendsPlaytimeRsp {
 
 export interface Req {
   requestId: number;
-  updatePlaytimeReq?: UpdatePlaytimeReq;
-  getPlaytimeReq?: GetPlaytimeReq;
-  getFriendsPlaytimeReq?: GetFriendsPlaytimeReq;
+  updatePlaytimeReq?: UpdatePlaytimeReq | undefined;
+  getPlaytimeReq?: GetPlaytimeReq | undefined;
+  getFriendsPlaytimeReq?: GetFriendsPlaytimeReq | undefined;
 }
 
 export interface Rsp {
   requestId: number;
-  updatePlaytimeRsp?: UpdatePlaytimeRsp;
-  getPlaytimeRsp?: GetPlaytimeRsp;
-  getFriendsPlaytimeRsp?: GetFriendsPlaytimeRsp;
+  updatePlaytimeRsp?: UpdatePlaytimeRsp | undefined;
+  getPlaytimeRsp?: GetPlaytimeRsp | undefined;
+  getFriendsPlaytimeRsp?: GetFriendsPlaytimeRsp | undefined;
 }
 
 export interface Upstream {
-  request?: Req;
+  request?: Req | undefined;
 }
 
 export interface Downstream {
-  response?: Rsp;
+  response?: Rsp | undefined;
 }
