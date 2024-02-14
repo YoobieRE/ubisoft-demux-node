@@ -1,6 +1,6 @@
 {
   "name": "ubisoft-demux",
-  "version": "1.10931.0",
+  "version": "1.10931.1",
   "description": "A Node.js client to interact with Ubisoft Connect's protobuf demux API",
   "main": "dist/src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "DEBUG=ubisoft-demux* jest --coverage",
     "test:all": ". ~/.nvm/nvm.sh && nvm exec 14 jest && nvm exec 16 jest && nvm exec 18 jest",
     "test:ci": "jest test/file-parser.test.ts",
-    "build": "rimraf dist && tsc && copyfiles proto/**/* dist",
+    "build": "rimraf dist && tsc && copyfiles \"proto/**/*.proto\" dist",
     "lint": "tsc --noEmit && eslint .",
     "gen-proto": "protoc proto/*/*.proto --proto_path=proto --plugin=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=src/generated/. --ts_proto_opt=onlyTypes=true --ts_proto_opt=outputEncodeMethods=false --ts_proto_opt=outputJsonMethods=false --ts_proto_opt=esModuleInterop=true --ts_proto_opt=env=node --ts_proto_opt=useOptionals=messages"
   },
